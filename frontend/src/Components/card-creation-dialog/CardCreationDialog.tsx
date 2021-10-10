@@ -1,6 +1,9 @@
 import React, {useState} from 'react'
 import {Button, Card, CardContent} from "@mui/material";
 import TextField from '@mui/material/TextField';
+import {createCard} from "../../services/apiService";
+import {getApiData} from "../../Slicer/QuizSlice";
+import {useAppDispatch} from "../../app/hooks";
 
 //component imports
 
@@ -9,6 +12,7 @@ import TextField from '@mui/material/TextField';
 type Props = {};
 
 function CardCreationDialog(props: Props) {
+    const dispatch = useAppDispatch();
     const [question, setQuestion] = useState<string>("");
     const [choices, setChoices] = useState<string[]>([]);
     const [choiceText, setChoiceText] = useState<string>("");
@@ -29,6 +33,12 @@ function CardCreationDialog(props: Props) {
         setAnswerIndices([...answerIndices, answerIndex]);
         setAnswerIndex(0);
     }
+    const saveCard = () => {
+        console.log(JSON.stringify({question, choices, answerIndices}))
+        // console.log(JSON.stringify({question, choices, answerIndices}))
+        createCard({question, choices, answerIndices})
+            .then(() => dispatch(getApiData()));
+    }
     return (
         <Card>
             <CardContent>
@@ -44,8 +54,8 @@ function CardCreationDialog(props: Props) {
                     }}
                     inputProps={{min:0, max:choices.length -1}}
                     onChange={handleChange}
-                    // min={0} max={choices.length - 1}
-                /><Button onClick={saveIndex}>add answer</Button>
+                /><Button onClick={saveIndex}>save index of correct answer</Button>
+                <Button onClick={saveCard}>save card</Button>
 
             </CardContent>
         </Card>

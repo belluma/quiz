@@ -14,6 +14,7 @@ export const createCard = (card:any):Promise<AxiosResponse> =>{
         method:'post',
         url:`${BASE_URL}/new`,
         data: card,
+        headers:{"Content-Type": "application/json"}
     }).then(response => response)
         .catch(err => err)
 
