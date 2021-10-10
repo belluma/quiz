@@ -6,10 +6,10 @@ import React from 'react'
 
 type Props = {};
 
-function Quiz(props: Props){
+function AllCards(props: Props){
     return(
-       <div>fdsasfd</div>
+       <div>AllCards</div>
     )
 }
 
-export default Quiz;
+export default AllCards;
