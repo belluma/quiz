@@ -1,14 +1,25 @@
 import React from 'react'
 
-//component imports
 
+//component imports
+import {Grid} from "@mui/material";
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 //interface imports
 
 type Props = {};
 
 function StartView(props: Props){
     return(
-       <div>StartView</div>
+      <Grid container justifyContent="center" alignItems="center">
+          <Grid item>
+              <Box>
+              <Button variant="outlined">Start Quiz</Button>
+              <Button variant="outlined">Create New Card</Button>
+              </Box>
+          </Grid>
+      </Grid>
+
     )
 }
 
