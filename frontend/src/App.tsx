@@ -9,7 +9,7 @@ import {Route} from "react-router";
 import CardCreationDialog from './Components/card-creation-dialog/CardCreationDialog';
 import AllCards from './Components/all-cards/AllCards';
 import {useAppDispatch} from "./app/hooks";
-import {getApiData} from "./Components/quiz/QuizSlice";
+import {getApiData} from "./Slicer/QuizSlice";
 
 
 function App() {

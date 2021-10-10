@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getAllCards} from "../../services/apiService";
-import {IError, IQuestionCard, IQuizState} from "../../Interfaces/IQuestionCard";
-import {RootState} from "../../app/store";
+import {getAllCards} from "../services/apiService";
+import {IError, IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
+import {RootState} from "../app/store";
 
 
 const initialState: IQuizState = {
@@ -61,7 +61,7 @@ export const QuizSlice = createSlice({
     })
 })
 
-
+export const selectGetAllCards = (state: RootState) => state.quiz.allCards;
 export const selectErrorStatus = (state: RootState) => state.quiz.status;
 export const selectErrorMessage = (state: RootState) => state.quiz.message;
 export const selectError = (state: RootState) => state.quiz.error;

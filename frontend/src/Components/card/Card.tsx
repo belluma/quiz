@@ -10,7 +10,7 @@ import {IQuestionCard} from "../../Interfaces/IQuestionCard";
 
 type Props = {}
 
-function Quizcard({question, answers, correctAnswers}: IQuestionCard){
+function Quizcard({question, choices, answerIndices}: IQuestionCard){
     return(
         <Card sx={{ maxWidth: 345 }}>
             <CardHeader
@@ -19,15 +19,14 @@ function Quizcard({question, answers, correctAnswers}: IQuestionCard){
                         <HelpIcon />
                     </IconButton>
                 }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
+                title={question}
             />
             <CardContent>
-                <Choices />
+                <Choices choices={choices}/>
             </CardContent>
         </Card>
 
     )
 }
 
-export default Card;
+export default Quizcard;

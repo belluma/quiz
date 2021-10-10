@@ -1,14 +1,24 @@
 import React from 'react'
+import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 
 //component imports
 
 //interface imports
 
-type Props = {};
+type Props = {
+    choices: string[],
+};
 
 function Choices(props: Props){
+    const {choices} = props;
+    const value = 0;
+    const onChange = () => {
+    };
+
+    const radios = choices.map((choice, i) => <FormControlLabel control={<Radio />} label={i} value={choice} />)
+    const multipleChoice = <RadioGroup aria-label="Multiple Choice" name="multiple-choice-answers" value={value} onChange={onChange}>{radios}</RadioGroup>
     return(
-       <div>Choices</div>
+       <div>{multipleChoice}</div>
     )
 }
 
