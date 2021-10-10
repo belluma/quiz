@@ -29,8 +29,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         String errorMessage = ex.getMessage();
         if (errorMessage == null) errorMessage = ex.toString();
         CustomError message = new CustomError(new Date(), errorMessage);
-        System.out.println(ex);
-        if (errorMessage.equals("No content")) {
+        System.out.println(errorMessage.equals(("No quizcards created yet")));
+        if (errorMessage.equals("No quizcards created yet")) {
             return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NOT_FOUND);
