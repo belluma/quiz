@@ -8,7 +8,7 @@ type Props = {};
 
 function Quiz(props: Props){
     return(
-       <div>Quiz</div>
+       <div></div>
     )
 }
 
