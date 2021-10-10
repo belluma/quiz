@@ -16,6 +16,7 @@ function StartView(props: Props){
               <Box>
               <Button variant="outlined">Start Quiz</Button>
               <Button variant="outlined">Create New Card</Button>
+              <Button variant="outlined">Show All Cards</Button>
               </Box>
           </Grid>
       </Grid>
