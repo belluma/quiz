@@ -8,9 +8,14 @@ import Quiz from "./Components/quiz/Quiz";
 import {Route} from "react-router";
 import CardCreationDialog from './Components/card-creation-dialog/CardCreationDialog';
 import AllCards from './Components/all-cards/AllCards';
+import {useAppDispatch} from "./app/hooks";
+import {getApiData} from "./Components/quiz/QuizSlice";
 
 
 function App() {
+    const dispatch = useAppDispatch();
+    dispatch(getApiData());
+
     return (
         <div>
             <StartView></StartView>

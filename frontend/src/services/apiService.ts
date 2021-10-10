@@ -3,7 +3,8 @@ import axios, {AxiosResponse} from "axios";
 const BASE_URL = "/api/quiz"
 
 export const getAllCards = ():Promise<AxiosResponse> => {
-    return axios.get("BASE_URL")
+    console.log(BASE_URL);
+    return axios.get(BASE_URL)
         .then(result => result)
         .catch(err => err)
 
