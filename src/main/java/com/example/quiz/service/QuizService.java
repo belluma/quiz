@@ -2,6 +2,8 @@ package com.example.quiz.service;
 
 import com.example.quiz.model.Quizcard;
 import com.example.quiz.repository.QuizRepository;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Data
 public class QuizService {
 
     @Autowired

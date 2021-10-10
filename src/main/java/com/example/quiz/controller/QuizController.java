@@ -22,7 +22,7 @@ public class QuizController {
     public QuizController(QuizService quizService){
         this.service = quizService;
     }
-
+/**/
     @GetMapping
     public ResponseEntity<Quizcard> getAllCards(){
         return new ResponseEntity(HttpStatus.OK);
