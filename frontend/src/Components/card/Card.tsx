@@ -6,10 +6,11 @@ import {Avatar, Card, CardContent, CardHeader, IconButton} from "@mui/material";
 import HelpIcon from '@mui/icons-material/Help';
 import Choices from "../choices/Choices";
 //interface imports
+import {IQuestionCard} from "../../Interfaces/IQuestionCard";
 
-type Props = {};
+type Props = {}
 
-function Quizcard(props: Props){
+function Quizcard({question, answers, correctAnswers}: IQuestionCard){
     return(
         <Card sx={{ maxWidth: 345 }}>
             <CardHeader
