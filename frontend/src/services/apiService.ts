@@ -1,8 +1,20 @@
+import axios, {AxiosResponse} from "axios";
 
+const BASE_URL = "/api/quiz"
 
-export const getAllCards = () => {
+export const getAllCards = ():Promise<AxiosResponse> => {
+    return axios.get("BASE_URL")
+        .then(result => result)
+        .catch(err => err)
 
 }
-export const createCard = (card:any) =>{
+export const createCard = (card:any):Promise<AxiosResponse> =>{
+    return axios({
+        method:'post',
+        url:`${BASE_URL}/new`,
+        data: card,
+    }).then(response => response)
+        .catch(err => err)
+
 
 }
