@@ -95,7 +95,7 @@ public class QuizControllerUnitTest {
         } catch (JsonProcessingException e) {
             fail();
         }
-        this.mockMvc.perform(post("/api/quiz")
+        this.mockMvc.perform(post("/api/quiz/new")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
                         .characterEncoding("utf-8"))
@@ -104,7 +104,7 @@ public class QuizControllerUnitTest {
         verify(quizService).createQuizcard(quizcards.get(0));
     }
     @Test
-    void createNewCardReturnsErrorOnIllegalInput() throws Exception{
+    public void createNewCardReturnsErrorOnIllegalInput() throws Exception{
         when(quizService.createQuizcard(quizcards.get(0)))
                 .thenThrow(new IllegalArgumentException());
         ObjectMapper objectMapper = new ObjectMapper();
@@ -114,7 +114,7 @@ public class QuizControllerUnitTest {
         } catch (JsonProcessingException e) {
             fail();
         }
-        this.mockMvc.perform(post("/api/todo")
+        this.mockMvc.perform(post("/api/quiz/new")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
                         .characterEncoding("utf-8"))

@@ -7,30 +7,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/quiz")
 public class QuizController {
 
     @Autowired
-    private final QuizService service;
+    private final QuizService quizService;
 
-    public QuizController(QuizService quizService){
-        this.service = quizService;
+    public QuizController(QuizService quizService) {
+        this.quizService = quizService;
     }
 
     @GetMapping
-    public ResponseEntity<Quizcard> getAllCards(){
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<Quizcard> getAllCards() {
+        return new ResponseEntity(quizService.getAllCards(), HttpStatus.OK);
     }
 
     @PostMapping("new")
-    public ResponseEntity<Quizcard> createNewCard(){
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<Quizcard> createNewCard(@RequestBody Quizcard quizcard) {
+        return new ResponseEntity(quizService.createQuizcard(quizcard), HttpStatus.OK);
     }
 
 
