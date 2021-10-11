@@ -4,9 +4,11 @@ import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 //component imports
 
 //interface imports
+import {cardMode} from "../../Interfaces/IQuestionCard";
 
 type Props = {
     choices: string[],
+    mode: cardMode,
 };
 
 function Choices(props: Props){

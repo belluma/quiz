@@ -6,12 +6,13 @@ import Quizcard from "../card/Card";
 //component imports
 
 //interface imports
+import {cardMode} from "../../Interfaces/IQuestionCard";
 
 type Props = {};
 
 function AllCards(props: Props){
     const allCards = useAppSelector(selectGetAllCards);
-    const cards = allCards.map(card => <Quizcard card={card} mode="show all" />)
+    const cards = allCards.map(card => <Quizcard card={card} mode={cardMode.ALL} />)
     return(
        <div>{cards}</div>
     )

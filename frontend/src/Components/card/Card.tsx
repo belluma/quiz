@@ -6,11 +6,11 @@ import {Avatar, Button, Card, CardActions, CardContent, CardHeader, IconButton} 
 import HelpIcon from '@mui/icons-material/Help';
 import Choices from "../choices/Choices";
 //interface imports
-import {IQuestionCard} from "../../Interfaces/IQuestionCard";
+import {cardMode, IQuestionCard} from "../../Interfaces/IQuestionCard";
 
 type Props = {
     card: IQuestionCard,
-    mode: "show result" | "quiz" | "show all"
+    mode: cardMode
 }
 
 function Quizcard({card, mode}: Props){
@@ -29,9 +29,9 @@ function Quizcard({card, mode}: Props){
                 title={question}
             />
             <CardContent>
-                <Choices choices={choices}/>
+                <Choices choices={choices} mode={mode}/>
             </CardContent>
-            {mode === "quiz" && <CardActions>
+            {mode === cardMode.QUIZ && <CardActions>
                 <Button onClick={submitAnswer}>submit answer</Button>
             </CardActions>}
         </Card>

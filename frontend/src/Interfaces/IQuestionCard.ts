@@ -4,6 +4,12 @@ export interface IQuestionCard {
     answerIndices: number[],
 }
 
+export enum cardMode {
+    RESULT = "RESULT",
+    QUIZ = "QUIZ",
+    ALL = "ALL",
+}
+
 export interface IError {
     status: number,
     message: string,
