@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 
 //component imports
@@ -14,6 +14,10 @@ type Props = {
 }
 
 function Quizcard({card, mode}: Props){
+    const [selected, setSelected] = useState<number>();
+    const onSelectAnswer = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setSelected(+e.target.value)
+    };
     const {question, choices, answerIndices} = card;
     const submitAnswer = () => {
 
@@ -29,7 +33,7 @@ function Quizcard({card, mode}: Props){
                 title={question}
             />
             <CardContent>
-                <Choices choices={choices} mode={mode}/>
+                <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer}/>
             </CardContent>
             {mode === cardMode.QUIZ && <CardActions>
                 <Button onClick={submitAnswer}>submit answer</Button>
