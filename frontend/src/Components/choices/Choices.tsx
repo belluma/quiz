@@ -11,16 +11,17 @@ type Props = {
     mode: cardMode,
 };
 
-function Choices(props: Props){
-    const {choices} = props;
+function Choices({choices, mode}: Props){
     const value = 0;
     const onChange = () => {
     };
-
+    const choicesNoInteraction = choices.map((choice, i) => <h1 key={i}>{choice}</h1>)
     const radios = choices.map((choice, i) => <FormControlLabel control={<Radio />} label={choice} value={choice} />)
     const multipleChoice = <RadioGroup aria-label="Multiple Choice" name="multiple-choice-answers" value={value} onChange={onChange}>{radios}</RadioGroup>
     return(
-       <div>{multipleChoice}</div>
+        <div>
+        {mode === cardMode.ALL ? choicesNoInteraction : multipleChoice}
+        </div>
     )
 }
 
