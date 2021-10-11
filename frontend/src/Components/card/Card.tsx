@@ -2,15 +2,22 @@ import React from 'react';
 
 
 //component imports
-import {Avatar, Card, CardContent, CardHeader, IconButton} from "@mui/material";
+import {Avatar, Button, Card, CardActions, CardContent, CardHeader, IconButton} from "@mui/material";
 import HelpIcon from '@mui/icons-material/Help';
 import Choices from "../choices/Choices";
 //interface imports
 import {IQuestionCard} from "../../Interfaces/IQuestionCard";
 
-type Props = {}
+type Props = {
+    card: IQuestionCard,
+    mode: "show result" | "quiz" | "show all"
+}
 
-function Quizcard({question, choices, answerIndices}: IQuestionCard){
+function Quizcard({card, mode}: Props){
+    const {question, choices, answerIndices} = card;
+    const submitAnswer = () => {
+
+    };
     return(
         <Card sx={{ maxWidth: 345 }}>
             <CardHeader
@@ -24,6 +31,9 @@ function Quizcard({question, choices, answerIndices}: IQuestionCard){
             <CardContent>
                 <Choices choices={choices}/>
             </CardContent>
+            {mode === "quiz" && <CardActions>
+                <Button onClick={submitAnswer}>submit answer</Button>
+            </CardActions>}
         </Card>
 
     )

@@ -34,8 +34,6 @@ function CardCreationDialog(props: Props) {
         setAnswerIndex(0);
     }
     const saveCard = () => {
-        console.log(JSON.stringify({question, choices, answerIndices}))
-        // console.log(JSON.stringify({question, choices, answerIndices}))
         createCard({question, choices, answerIndices})
             .then(() => dispatch(getApiData()));
     }
