@@ -71,4 +71,5 @@ export const selectErrorStatus = (state: RootState) => state.quiz.status;
 export const selectErrorMessage = (state: RootState) => state.quiz.message;
 export const selectError = (state: RootState) => state.quiz.error;
 export const {closeError}= QuizSlice.actions;
+export const {answerCard}= QuizSlice.actions;
 export default QuizSlice.reducer;
