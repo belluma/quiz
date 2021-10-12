@@ -18,11 +18,9 @@ function Quiz(props: Props){
     const cardsToAnswer = allCards.filter(card => answeredCards.indexOf(card) === -1);
     const nextCard: IQuestionCard = cardsToAnswer[Math.floor(Math.random() * cardsToAnswer.length)]
     return(
-       <Grid container justifyContent="center" alignItems="center">
            <Grid item>
                {nextCard &&<Quizcard card={nextCard} mode={cardMode.QUIZ} />}
            </Grid>
-       </Grid>
     )
 }
 

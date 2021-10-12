@@ -19,7 +19,6 @@ function CardCreationDialog(props: Props) {
     const [question, setQuestion] = useState<string>("");
     const [choices, setChoices] = useState<string[]>([]);
     const [choiceText, setChoiceText] = useState<string>("");
-    const [answerIndex, setAnswerIndex] = useState<number>(0);
     const [answerIndices, setAnswerIndices] = useState<number[]>([]);
     const handleChange = ({target}: React.ChangeEvent<HTMLInputElement>) => {
         target.name === "question" && setQuestion(target.value)
@@ -35,24 +34,18 @@ function CardCreationDialog(props: Props) {
     }
     const saveCard = () => {
         createCard({question, choices, answerIndices})
-            .then(() => dispatch(getApiData()));
+            .then(() => {
+                dispatch(getApiData());
+                resetStates();
+            });
     }
     return (
-        // <Card sx={{maxWidth: 345}}>
-        //     <CardHeader
-        //         action={
-        //             <IconButton aria-label="settings">
-        //                 <HelpIcon/>
-        //             </IconButton>
-        //         }
-        //         title={`${question}?`}
-        //     />
             <CardContent>
                 <div>
-                    <TextField value={question} name="question" label="question" onChange={handleChange}/>
+                    <TextField value={question} name="question" label="write your question here" onChange={handleChange}/>
                 </div>
                 <div>
-                    <TextField value={choiceText} name="choiceText" label="choiceText"
+                    <TextField value={choiceText} name="choiceText" label="write possible answer here"
                                onChange={handleChange}/>
                     <Button disabled={!choiceText.length} onClick={saveCoice}>add answer</Button>
                 </div>
@@ -60,8 +53,13 @@ function CardCreationDialog(props: Props) {
                 <Button disabled={choices.length < 2 || !answerIndices.length || !question.length} onClick={saveCard}>save
                     card</Button>
             </CardContent>
-        // </Card>
     )
+    function resetStates(){
+        setQuestion("");
+        setChoices([]);
+        setChoiceText("");
+        setAnswerIndices([]);
+    }
 }
 
 export default CardCreationDialog;
