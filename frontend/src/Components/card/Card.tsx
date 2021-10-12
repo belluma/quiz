@@ -25,20 +25,19 @@ function Quizcard({card, mode}: Props) {
         setSelected([+e.target.value])
     };
     const {question, choices, answerIndices} = card;
-    const questionText:string = useAppSelector(selectQuestionText);
+    const questionText: string = useAppSelector(selectQuestionText);
     const submitAnswer = () => {
         console.log(checkAnswer() ? "correct" : "wrong");
         dispatch(answerCard(card))
     };
     return (
-        <Card sx={{maxWidth: 345}}>
+        <Card sx={{width: 345, height: 500}}>
             <CardHeader
-                action={
-                    <IconButton aria-label="settings">
-                        <HelpIcon/>
-                    </IconButton>
-                }
+                component='h1'
+                sx={{bgcolor: 'primary.main'}}
+                avatar={<HelpIcon/>}
                 title={mode === cardMode.NEW ? `${questionText}?` : `${question}?`}
+                titleTypographyProps={{fontSize:26}}
             />
             {mode === cardMode.NEW ? <CardCreationDialog questionText={questionText}/> :
                 <CardContent>

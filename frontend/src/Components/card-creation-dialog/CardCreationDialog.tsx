@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
-import {Button, Card, CardContent, CardHeader, IconButton, Typography} from "@mui/material";
 import TextField from '@mui/material/TextField';
+import {Button,  CardContent } from "@mui/material";
 import {createCard} from "../../services/apiService";
 import {getApiData} from "../../Slicer/QuizSlice";
 import {useAppDispatch} from "../../app/hooks";
-import HelpIcon from "@mui/icons-material/Help";
 import Choices from "../choices/Choices";
 import {cardMode} from "../../Interfaces/IQuestionCard";
 import {changeQuestionText} from "../../Slicer/NewCardSlice";
@@ -19,7 +18,6 @@ type Props = {
 
 function CardCreationDialog({questionText}:Props) {
     const dispatch = useAppDispatch();
-    const [question, setQuestion] = useState<string>("");
     const [choices, setChoices] = useState<string[]>([]);
     const [choiceText, setChoiceText] = useState<string>("");
     const [answerIndices, setAnswerIndices] = useState<number[]>([]);
@@ -36,7 +34,7 @@ function CardCreationDialog({questionText}:Props) {
         setAnswerIndices([+e.target.value]);
     }
     const saveCard = () => {
-        createCard({question, choices, answerIndices})
+        createCard({questionText, choices, answerIndices})
             .then(() => {
                 dispatch(getApiData());
                 resetStates();
