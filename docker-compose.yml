@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+  app:
+    container_name: quiz
+    image: app
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - dbpostgresql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbpostgresql:5432/quiz
+      - SPRING_DATASOURCE_USERNAME=quiz
+      - SPRING_DATASOURCE_PASSWORD=quiz
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+  dbpostgresql:
+    image: postgres
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_PASSWORD=quiz
+      - POSTGRES_USER=quiz
+      - POSTGRES_DB=quiz

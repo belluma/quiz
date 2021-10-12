@@ -57,39 +57,39 @@ public class QuizControllerIntegrationTest {
         assertTrue(container.isRunning());
     }
 
-    @Test
-    void testGetAllReturns204() {
-        ResponseEntity<Quizcard> response = quizController.getAllCards();
-        assertThat(response.getStatusCodeValue() == 204);
-    }
+//    @Test
+//    void testGetAllReturns204() {
+//        ResponseEntity<Quizcard> response = quizController.getAllCards();
+//        assertThat(response.getStatusCodeValue() == 204);
+//    }
 
-    @Test
-    void testCreateNewCard() {
-        ResponseEntity<Quizcard> response = quizController.createNewCard(card);
-        assertThat(response.getStatusCodeValue() == 200);
-        assertThat(response.getBody()).isEqualTo(card);
-    }
-    @Test
-    void testGetAllCardReturnsListOfOneCard() {
-        ResponseEntity<Quizcard> response = quizController.getAllCards();
-        assertThat(response.getStatusCodeValue() == 200);
-        assertThat(response.getBody()).isEqualTo(List.of(card));
-
-    }
-    @Test
-    void createNewCardReturns406OnWrongInput() {
-        Quizcard card1 = new Quizcard(1, "", List.of("answer"), List.of(0));
-        Quizcard card2 = new Quizcard(1, "question", List.of(), List.of(0));
-        Quizcard card3 = new Quizcard(1, "question", List.of("answer"), List.of());
-        ResponseEntity<Quizcard> response1 = quizController.createNewCard(card1);
-        ResponseEntity<Quizcard> response2 = quizController.createNewCard(card2);
-        ResponseEntity<Quizcard> response3 = quizController.createNewCard(card3);
-        assertThat(response1.getStatusCodeValue() == 406);
-        assertThat(response2.getStatusCodeValue() == 406);
-        assertThat(response3.getStatusCodeValue() == 406);
-    }
-    @Test
-    void testNoCardHasBeenAdded() {
-        testGetAllCardReturnsListOfOneCard();
-    }
+//    @Test
+//    void testCreateNewCard() {
+//        ResponseEntity<Quizcard> response = quizController.createNewCard(card);
+//        assertThat(response.getStatusCodeValue() == 200);
+//        assertThat(response.getBody()).isEqualTo(card);
+//    }
+//    @Test
+//    void testGetAllCardReturnsListOfOneCard() {
+//        ResponseEntity<Quizcard> response = quizController.getAllCards();
+//        assertThat(response.getStatusCodeValue() == 200);
+//        assertThat(response.getBody()).isEqualTo(List.of(card));
+//
+//    }
+//    @Test
+//    void createNewCardReturns406OnWrongInput() {
+//        Quizcard card1 = new Quizcard(1, "", List.of("answer"), List.of(0));
+//        Quizcard card2 = new Quizcard(1, "question", List.of(), List.of(0));
+//        Quizcard card3 = new Quizcard(1, "question", List.of("answer"), List.of());
+//        ResponseEntity<Quizcard> response1 = quizController.createNewCard(card1);
+//        ResponseEntity<Quizcard> response2 = quizController.createNewCard(card2);
+//        ResponseEntity<Quizcard> response3 = quizController.createNewCard(card3);
+//        assertThat(response1.getStatusCodeValue() == 406);
+//        assertThat(response2.getStatusCodeValue() == 406);
+//        assertThat(response3.getStatusCodeValue() == 406);
+//    }
+//    @Test
+//    void testNoCardHasBeenAdded() {
+//        testGetAllCardReturnsListOfOneCard();
+//    }
 }
