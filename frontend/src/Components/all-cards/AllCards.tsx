@@ -12,7 +12,7 @@ type Props = {};
 
 function AllCards(props: Props){
     const allCards = useAppSelector(selectGetAllCards);
-    const cards = allCards.map(card => <Quizcard card={card} mode={cardMode.ALL} />)
+    const cards = allCards.map(card => <Quizcard card={card} mode={cardMode.ALL} key={card.id}/>)
     return(
        <div>{cards}</div>
     )

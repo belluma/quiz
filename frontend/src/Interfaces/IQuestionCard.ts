@@ -1,4 +1,5 @@
 export interface IQuestionCard {
+    id:number,
     question: string,
     choices: string[],
     answerIndices: number[],

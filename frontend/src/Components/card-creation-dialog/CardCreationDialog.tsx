@@ -1,9 +1,12 @@
 import React, {useState} from 'react'
-import {Button, Card, CardContent, Typography} from "@mui/material";
+import {Button, Card, CardContent, CardHeader, IconButton, Typography} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import {createCard} from "../../services/apiService";
 import {getApiData} from "../../Slicer/QuizSlice";
 import {useAppDispatch} from "../../app/hooks";
+import HelpIcon from "@mui/icons-material/Help";
+import Choices from "../choices/Choices";
+import {cardMode} from "../../Interfaces/IQuestionCard";
 
 //component imports
 
@@ -19,19 +22,16 @@ function CardCreationDialog(props: Props) {
     const [answerIndex, setAnswerIndex] = useState<number>(0);
     const [answerIndices, setAnswerIndices] = useState<number[]>([]);
     const handleChange = ({target}: React.ChangeEvent<HTMLInputElement>) => {
-        target.name === "question" ? setQuestion(target.value) :
-            target.name === "choiceText" ? setChoiceText(target.value) :
-                setAnswerIndex(+target.value);
+        target.name === "question" && setQuestion(target.value)
+        target.name === "choiceText" && setChoiceText(target.value)
     }
 
     const saveCoice = () => {
         setChoices([...choices, choiceText]);
         setChoiceText("");
     }
-    const saveIndex = () => {
-        if(answerIndices.indexOf(answerIndex) >= 0) return;
-        setAnswerIndices([...answerIndices, answerIndex]);
-        setAnswerIndex(0);
+    const saveIndex = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAnswerIndices([+e.target.value]);
     }
     const saveCard = () => {
         createCard({question, choices, answerIndices})
@@ -39,22 +39,23 @@ function CardCreationDialog(props: Props) {
     }
     return (
         <Card>
+            <CardHeader
+                action={
+                    <IconButton aria-label="settings">
+                        <HelpIcon/>
+                    </IconButton>
+                }
+                title={`${question}?`}
+            />
             <CardContent>
-                <Typography><TextField value={question} name="question" label="question" onChange={handleChange}></TextField></Typography>
-                <Typography><TextField value={choiceText} name="choiceText" label="choiceText" onChange={handleChange}></TextField></Typography>
-                <Button onClick={saveCoice}>add answer</Button>
-                {/*<TextField*/}
-                {/*    value={answerIndex}*/}
-                {/*    label="answerIndex"*/}
-                {/*    type="number"*/}
-                {/*    InputLabelProps={{*/}
-                {/*        shrink: true,*/}
-                {/*    }}*/}
-                {/*    inputProps={{min:0, max:choices.length -1}}*/}
-                {/*    onChange={handleChange}*/}
-                {/*/>*/}
-                <Button onClick={saveIndex}>save index of correct answer</Button>
-                <Button onClick={saveCard}>save card</Button>
+                <div><TextField value={question} name="question" label="question" onChange={handleChange}></TextField>
+                </div>
+                <div><TextField value={choiceText} name="choiceText" label="choiceText"
+                                onChange={handleChange}></TextField>
+                    <Button disabled={!choiceText.length} onClick={saveCoice}>add answer</Button></div>
+                <Choices choices={choices} mode={cardMode.QUIZ} selectAnswer={saveIndex}/>
+                <Button disabled={choices.length < 2 || !answerIndices.length || !question.length} onClick={saveCard}>save
+                    card</Button>
 
             </CardContent>
         </Card>

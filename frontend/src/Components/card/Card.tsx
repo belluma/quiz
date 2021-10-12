@@ -34,7 +34,7 @@ function Quizcard({card, mode}: Props){
                         <HelpIcon />
                     </IconButton>
                 }
-                title={question}
+                title={`${question}?`}
             />
             <CardContent>
                 <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer}/>

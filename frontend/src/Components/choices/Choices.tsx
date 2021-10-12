@@ -15,7 +15,7 @@ type Props = {
 function Choices({choices, mode, selectAnswer}: Props){
 
     const choicesNoInteraction = choices.map((choice, i) => <h1 key={i}>{choice}</h1>)
-    const radios = choices.map((choice, i) => <FormControlLabel control={<Radio />} label={choice} value={i} />)
+    const radios = choices.map((choice, i) => <FormControlLabel control={<Radio />} label={choice} value={i} key={i}/>)
     const multipleChoice = <RadioGroup aria-label="Multiple Choice" name="multiple-choice-answers"   onChange={selectAnswer}>{radios}</RadioGroup>
     return(
         <div>
