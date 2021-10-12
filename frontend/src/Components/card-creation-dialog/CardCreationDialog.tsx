@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, Card, CardContent} from "@mui/material";
+import {Button, Card, CardContent, Typography} from "@mui/material";
 import TextField from '@mui/material/TextField';
 import {createCard} from "../../services/apiService";
 import {getApiData} from "../../Slicer/QuizSlice";
@@ -40,19 +40,20 @@ function CardCreationDialog(props: Props) {
     return (
         <Card>
             <CardContent>
-                <TextField value={question} name="question" label="question" onChange={handleChange}></TextField>
-                <TextField value={choiceText} name="choiceText" label="choiceText" onChange={handleChange}></TextField>
+                <Typography><TextField value={question} name="question" label="question" onChange={handleChange}></TextField></Typography>
+                <Typography><TextField value={choiceText} name="choiceText" label="choiceText" onChange={handleChange}></TextField></Typography>
                 <Button onClick={saveCoice}>add answer</Button>
-                <TextField
-                    value={answerIndex}
-                    label="answerIndex"
-                    type="number"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    inputProps={{min:0, max:choices.length -1}}
-                    onChange={handleChange}
-                /><Button onClick={saveIndex}>save index of correct answer</Button>
+                {/*<TextField*/}
+                {/*    value={answerIndex}*/}
+                {/*    label="answerIndex"*/}
+                {/*    type="number"*/}
+                {/*    InputLabelProps={{*/}
+                {/*        shrink: true,*/}
+                {/*    }}*/}
+                {/*    inputProps={{min:0, max:choices.length -1}}*/}
+                {/*    onChange={handleChange}*/}
+                {/*/>*/}
+                <Button onClick={saveIndex}>save index of correct answer</Button>
                 <Button onClick={saveCard}>save card</Button>
 
             </CardContent>
