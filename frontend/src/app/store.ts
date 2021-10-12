@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import quizReducer from '../Slicer/QuizSlice';
+import newCardReducer from '../Slicer/NewCardSlice'
 
 export const store = configureStore({
   reducer: {
     quiz: quizReducer,
+    newCard: newCardReducer,
   },
 });
 

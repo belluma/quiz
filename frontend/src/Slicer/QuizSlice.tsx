@@ -47,7 +47,7 @@ export const QuizSlice = createSlice({
         },
         answerCard: (state, action:PayloadAction<IQuestionCard>) => {
             state.answeredCards = [...state.answeredCards, action.payload];
-        }
+        },
     },
     extraReducers: (builder => {
         builder
@@ -70,6 +70,5 @@ export const selectGetAnsweredCards = (state: RootState) => state.quiz.answeredC
 export const selectErrorStatus = (state: RootState) => state.quiz.status;
 export const selectErrorMessage = (state: RootState) => state.quiz.message;
 export const selectError = (state: RootState) => state.quiz.error;
-export const {closeError}= QuizSlice.actions;
-export const {answerCard}= QuizSlice.actions;
+export const {closeError, answerCard}= QuizSlice.actions;
 export default QuizSlice.reducer;
