@@ -9,12 +9,12 @@ export const newCardSlice = createSlice({
     name: "newCard",
     initialState,
     reducers:{
-        changeText:(state, action:PayloadAction<React.ChangeEvent<HTMLInputElement>>) => {
-            state.question = action.payload.target.value;
+        changeQuestionText:(state, action:PayloadAction<string>) => {
+            state.question = action.payload;
         }
     }
 })
 
-export const selectQeustionText = (state: RootState) => state.newCard.question;
-export const {changeText} = newCardSlice.actions;
+export const selectQuestionText = (state: RootState) => state.newCard.question;
+export const {changeQuestionText} = newCardSlice.actions;
 export default newCardSlice.reducer;

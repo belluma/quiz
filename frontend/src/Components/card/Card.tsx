@@ -9,8 +9,9 @@ import CardCreationDialog from "../card-creation-dialog/CardCreationDialog";
 
 //interface imports
 import {cardMode, IQuestionCard} from "../../Interfaces/IQuestionCard";
-import {useAppDispatch} from "../../app/hooks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {answerCard} from "../../Slicer/QuizSlice";
+import {selectQuestionText} from "../../Slicer/NewCardSlice";
 
 type Props = {
     card: IQuestionCard,
@@ -24,6 +25,7 @@ function Quizcard({card, mode}: Props) {
         setSelected([+e.target.value])
     };
     const {question, choices, answerIndices} = card;
+    const questionText:string = useAppSelector(selectQuestionText);
     const submitAnswer = () => {
         console.log(checkAnswer() ? "correct" : "wrong");
         dispatch(answerCard(card))
@@ -36,9 +38,9 @@ function Quizcard({card, mode}: Props) {
                         <HelpIcon/>
                     </IconButton>
                 }
-                title={`${question}?`}
+                title={mode === cardMode.NEW ? `${questionText}?` : `${question}?`}
             />
-            {mode === cardMode.NEW ? <CardCreationDialog/> :
+            {mode === cardMode.NEW ? <CardCreationDialog questionText={questionText}/> :
                 <CardContent>
                     <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer}/>
                 </CardContent>}

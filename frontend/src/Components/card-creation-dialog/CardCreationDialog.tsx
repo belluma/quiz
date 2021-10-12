@@ -7,21 +7,24 @@ import {useAppDispatch} from "../../app/hooks";
 import HelpIcon from "@mui/icons-material/Help";
 import Choices from "../choices/Choices";
 import {cardMode} from "../../Interfaces/IQuestionCard";
+import {changeQuestionText} from "../../Slicer/NewCardSlice";
 
 //component imports
 
 //interface imports
 
-type Props = {};
+type Props = {
+    questionText: string
+};
 
-function CardCreationDialog(props: Props) {
+function CardCreationDialog({questionText}:Props) {
     const dispatch = useAppDispatch();
     const [question, setQuestion] = useState<string>("");
     const [choices, setChoices] = useState<string[]>([]);
     const [choiceText, setChoiceText] = useState<string>("");
     const [answerIndices, setAnswerIndices] = useState<number[]>([]);
     const handleChange = ({target}: React.ChangeEvent<HTMLInputElement>) => {
-        target.name === "question" && setQuestion(target.value)
+        target.name === "question" && dispatch(changeQuestionText(target.value));
         target.name === "choiceText" && setChoiceText(target.value)
     }
 
@@ -42,7 +45,7 @@ function CardCreationDialog(props: Props) {
     return (
             <CardContent>
                 <div>
-                    <TextField value={question} name="question" label="write your question here" onChange={handleChange}/>
+                    <TextField value={questionText} name="question" label="write your question here" onChange={handleChange}/>
                 </div>
                 <div>
                     <TextField value={choiceText} name="choiceText" label="write possible answer here"
@@ -50,12 +53,12 @@ function CardCreationDialog(props: Props) {
                     <Button disabled={!choiceText.length} onClick={saveCoice}>add answer</Button>
                 </div>
                 <Choices choices={choices} mode={cardMode.QUIZ} selectAnswer={saveIndex}/>
-                <Button disabled={choices.length < 2 || !answerIndices.length || !question.length} onClick={saveCard}>save
+                <Button disabled={choices.length < 2 || !answerIndices.length || !questionText.length} onClick={saveCard}>save
                     card</Button>
             </CardContent>
     )
     function resetStates(){
-        setQuestion("");
+        dispatch(changeQuestionText(""))
         setChoices([]);
         setChoiceText("");
         setAnswerIndices([]);
