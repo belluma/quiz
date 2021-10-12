@@ -9,6 +9,7 @@ export enum cardMode {
     RESULT = "RESULT",
     QUIZ = "QUIZ",
     ALL = "ALL",
+    NEW = 'NEW',
 }
 
 export interface IError {

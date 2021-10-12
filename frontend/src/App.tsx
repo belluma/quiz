@@ -10,17 +10,22 @@ import CardCreationDialog from './Components/card-creation-dialog/CardCreationDi
 import AllCards from './Components/all-cards/AllCards';
 import {useAppDispatch} from "./app/hooks";
 import {getApiData} from "./Slicer/QuizSlice";
+import Quizcard from "./Components/card/Card";
+import {cardMode, IQuestionCard} from "./Interfaces/IQuestionCard";
 
 
 function App() {
     const dispatch = useAppDispatch();
     dispatch(getApiData());
 
+    const emptyCard: IQuestionCard = {id:-1, question:"", choices:[], answerIndices:[]}
+    const newCardProps = {card: emptyCard, mode:cardMode.NEW}
+
     return (
         <div>
             <StartView></StartView>
             <Route path="/quiz" component={Quiz} />
-            <Route path="/new" component={CardCreationDialog} />
+            <Route path="/new" render={() => <Quizcard {...newCardProps} />} />
             <Route path="/all" component={AllCards} />
             {/*<Quiz></Quiz>*/}
         </div>

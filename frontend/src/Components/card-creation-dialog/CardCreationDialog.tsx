@@ -38,27 +38,29 @@ function CardCreationDialog(props: Props) {
             .then(() => dispatch(getApiData()));
     }
     return (
-        <Card>
-            <CardHeader
-                action={
-                    <IconButton aria-label="settings">
-                        <HelpIcon/>
-                    </IconButton>
-                }
-                title={`${question}?`}
-            />
+        // <Card sx={{maxWidth: 345}}>
+        //     <CardHeader
+        //         action={
+        //             <IconButton aria-label="settings">
+        //                 <HelpIcon/>
+        //             </IconButton>
+        //         }
+        //         title={`${question}?`}
+        //     />
             <CardContent>
-                <div><TextField value={question} name="question" label="question" onChange={handleChange}></TextField>
+                <div>
+                    <TextField value={question} name="question" label="question" onChange={handleChange}/>
                 </div>
-                <div><TextField value={choiceText} name="choiceText" label="choiceText"
-                                onChange={handleChange}></TextField>
-                    <Button disabled={!choiceText.length} onClick={saveCoice}>add answer</Button></div>
+                <div>
+                    <TextField value={choiceText} name="choiceText" label="choiceText"
+                               onChange={handleChange}/>
+                    <Button disabled={!choiceText.length} onClick={saveCoice}>add answer</Button>
+                </div>
                 <Choices choices={choices} mode={cardMode.QUIZ} selectAnswer={saveIndex}/>
                 <Button disabled={choices.length < 2 || !answerIndices.length || !question.length} onClick={saveCard}>save
                     card</Button>
-
             </CardContent>
-        </Card>
+        // </Card>
     )
 }
 
