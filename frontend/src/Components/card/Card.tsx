@@ -31,7 +31,7 @@ function Quizcard({card, mode}: Props) {
         dispatch(answerCard(card))
     };
     return (
-        <Card sx={{width: 345, height: 500}}>
+        <Card sx={{width: 500, height: 345 ,borderRadius:10}}>
             <Grid sx={{height: "100%"}} container direction='column' justifyContent="space-between">
                 <Grid item>
                     <CardHeader
