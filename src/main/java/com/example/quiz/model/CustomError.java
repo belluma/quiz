@@ -12,5 +12,5 @@ import java.util.Date;
 @NoArgsConstructor
 public class CustomError {
     private Date timeStamp;
-    private String messages;
+    private String message;
 }

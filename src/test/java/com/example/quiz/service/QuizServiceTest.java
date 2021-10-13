@@ -12,6 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -62,6 +63,7 @@ class QuizServiceTest {
         verify(repository, never()).save(card);
         assertEquals("Question can't be empty", exception.getMessage());
     }
+
     @Test
     void createQuizcardThrowsWhenNoChoicesGiven() {
         Quizcard card = new Quizcard(1, "question", List.of(), List.of(0));
@@ -69,6 +71,7 @@ class QuizServiceTest {
         verify(repository, never()).save(card);
         assertEquals("Choices can't be empty", exception.getMessage());
     }
+
     @Test
     void createQuizcardThrowsWhenNoCorrectAnswerGiven() {
         Quizcard card = new Quizcard(1, "question", List.of("a", "b", "c"), List.of());
@@ -76,6 +79,7 @@ class QuizServiceTest {
         verify(repository, never()).save(card);
         assertEquals("Correct answer can't be empty", exception.getMessage());
     }
+
     @Test
     void createQuizcardThrowsWhenCorrectAnswerIndexHigherThanChoicesLength() {
         Quizcard card = new Quizcard(1, "question", List.of("a", "b", "c"), List.of(3));
@@ -83,6 +87,7 @@ class QuizServiceTest {
         verify(repository, never()).save(card);
         assertEquals("Index of correct answer out of bounds", exception.getMessage());
     }
+
     @Test
     void createQuizcardThrowsWhenMoreCorrectAnswersThanChoices() {
         Quizcard card = new Quizcard(1, "question", List.of("a", "b", "c"), List.of(0, 1, 1, 2));
@@ -90,6 +95,7 @@ class QuizServiceTest {
         verify(repository, never()).save(card);
         assertEquals("More correct answers than choices given", exception.getMessage());
     }
+
     @Test
     void createQuizcardThrowsWhenCorrectAnswerIndexNegative() {
         Quizcard card = new Quizcard(1, "question", List.of("a", "b", "c"), List.of(-1));
@@ -97,5 +103,81 @@ class QuizServiceTest {
         verify(repository, never()).save(card);
         assertEquals("Index of correct answer can't be negative", exception.getMessage());
     }
+
+    @Test
+    void findQuizcardById() {
+        Quizcard card = new Quizcard(1, "question", List.of("a", "b", "c"), List.of(0));
+        when(repository.findById(card.getId())).thenReturn(Optional.of(card));
+        Quizcard actual = service.findQuizcardById(1);
+        verify(repository).findById(1);
+        assertThat(actual).isEqualTo(card);
+    }
+
+    @Test
+    void findQuizcardByIdThrowsWhenNotFound() {
+        when(repository.findById(123)).thenReturn(Optional.empty());
+        Exception exception = assertThrows(NoSuchElementException.class, () -> service.findQuizcardById(123));
+        verify(repository).findById(123);
+        assertThat(exception.getMessage()).isEqualTo("Couldn't find a question with id 123");
+
+    }
+
+    @Test
+    void validateQuizcardAnswerWithCorrectAnswer() {
+        Quizcard card = new Quizcard(1, "question", List.of("a", "b", "c"), List.of(0));
+        Quizcard answerGiven = new Quizcard(1, "", List.of(), List.of(0));
+        when(repository.findById(card.getId())).thenReturn(Optional.of(card));
+        boolean actual = service.validateQuizcardAnswer(answerGiven);
+        verify(repository).findById(1);
+        assertTrue(actual);
+    }
+
+    @Test
+    void validateQuizcardAnswerWithMutlipleCorrectAnswers() {
+        Quizcard card = new Quizcard(1, "question", List.of("a", "b", "c"), List.of(0,1));
+        Quizcard answerGiven = new Quizcard(1, "", List.of(), List.of(0, 1));
+        when(repository.findById(1)).thenReturn(Optional.of(card));
+        boolean actual = service.validateQuizcardAnswer(answerGiven);
+        verify(repository).findById(1);
+        assertTrue(actual);
+    }
+
+    @Test
+    void validateQuizcardAnswerWithFalseAnswer() {
+        Quizcard card = new Quizcard(1, "question", List.of("a", "b", "c"), List.of(0));
+        Quizcard answerGiven = new Quizcard(1, "", List.of(), List.of(1));
+        when(repository.findById(card.getId())).thenReturn(Optional.of(card));
+        boolean actual = service.validateQuizcardAnswer(answerGiven);
+        verify(repository).findById(1);
+        assertFalse(actual);
+    }
+
+    @Test
+    void validateQuizcardAnswerWhenOnlyOneOfMultipleCorrectAnswersGiven() {
+        Quizcard card = new Quizcard(1, "question", List.of("a", "b", "c"), List.of(0, 1));
+        Quizcard answerGiven = new Quizcard(1, "", List.of(), List.of(0));
+        when(repository.findById(card.getId())).thenReturn(Optional.of(card));
+        boolean actual = service.validateQuizcardAnswer(answerGiven);
+        verify(repository).findById(1);
+        assertFalse(actual);
+    }
+
+    @Test
+    void validateQuizcardAnswerThrowsWhenNotFound() {
+        when(repository.findById(123)).thenReturn(Optional.empty());
+        Exception exception = assertThrows(NoSuchElementException.class, () -> service.findQuizcardById(123));
+        verify(repository).findById(123);
+        assertThat(exception.getMessage()).isEqualTo("Couldn't find a question with id 123");
+
+    }
+
+    @Test
+    void validateQuizcardAnswerThrowsWhenIndexOutOfBounds() {
+        Quizcard card = new Quizcard(1, "question", List.of("a", "b", "c"), List.of(0, 1));
+        Quizcard answerGiven = new Quizcard(1, "", List.of(), List.of(3));
+        when(repository.findById(card.getId())).thenReturn(Optional.of(card));
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> service.validateQuizcardAnswer(answerGiven));
+        assertThat(exception.getMessage()).isEqualTo("Answer with this index doesn't exist");
+        verify(repository).findById(1);}
 
 }

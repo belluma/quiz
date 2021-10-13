@@ -30,6 +30,11 @@ public class QuizController {
         return new ResponseEntity(quizService.createQuizcard(quizcard), HttpStatus.OK);
     }
 
+    @GetMapping({"/{id}"})
+    public ResponseEntity<Boolean> validateAnswer(@PathVariable Integer id) {
+        System.out.println(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 
 }

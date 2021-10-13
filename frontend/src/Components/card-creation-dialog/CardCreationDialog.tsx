@@ -1,16 +1,16 @@
 import React, {useState} from 'react'
-import TextField from '@mui/material/TextField';
 import {Button,  CardContent } from "@mui/material";
-import {createCard} from "../../services/apiService";
 import {getApiData} from "../../Slicer/QuizSlice";
 import {useAppDispatch} from "../../app/hooks";
-import Choices from "../choices/Choices";
-import {cardMode} from "../../Interfaces/IQuestionCard";
 import {changeQuestionText} from "../../Slicer/NewCardSlice";
 
 //component imports
+import Choices from "../choices/Choices";
+import {createCard} from "../../services/apiService";
+import TextField from '@mui/material/TextField';
 
 //interface imports
+import {cardMode} from "../../Interfaces/IQuestionCard";
 
 type Props = {
     questionText: string
