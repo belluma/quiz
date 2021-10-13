@@ -14,10 +14,10 @@ type Props = {
 
 function Choices({choices, mode, selectAnswer}: Props) {
 
-    const choicesWithoutInput = choices.map((choice, i) => <Grid item xs={1} key={i}><Typography>{choice}</Typography>
+    const choicesWithoutInput = choices.map((choice, i) => <Grid item xs={2} sm={1} key={i}><Typography>{choice}</Typography>
     </Grid>)
 
-    const radios = choices.map((choice, i) => <Grid item xs={1} key={i}><FormControlLabel control={<Radio/>}
+    const radios = choices.map((choice, i) => <Grid item xs={2} key={i}><FormControlLabel control={<Radio/>}
                                                                                           label={choice} value={i}/>
     </Grid>)
 
@@ -33,7 +33,7 @@ function Choices({choices, mode, selectAnswer}: Props) {
     )
 
     function createGrid(childComponent: JSX.Element | JSX.Element[]) {
-        return <Grid item container spacing={2} columns={2} justifyContent="space-around">{childComponent}</Grid>
+        return <Grid item container spacing={2} columns={{xs: 2}} justifyContent="space-around">{childComponent}</Grid>
     }
 }
 

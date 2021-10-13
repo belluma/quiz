@@ -49,7 +49,7 @@ function Quizcard({card, mode}: Props) {
                 titleTypographyProps={{fontSize: 26}}
             />
             {mode === cardMode.NEW ? <CardCreationDialog questionText={questionText}/> :
-                <CardContent sx={{position: "absolute", bottom: "25px"}}>
+                <CardContent sx={{position: "absolute", bottom: "25px", width:0.99}}>
                     <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer}/>
                 </CardContent>}
             {mode === cardMode.QUIZ && <CardActions>
