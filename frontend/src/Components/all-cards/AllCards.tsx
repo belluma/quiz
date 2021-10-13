@@ -1,9 +1,9 @@
 import React from 'react'
 import {useAppSelector} from "../../app/hooks";
 import {selectGetAllCards} from "../../Slicer/QuizSlice";
-import Quizcard from "../card/Card";
 
 //component imports
+import Quizcard from "../card/Card";
 
 //interface imports
 import {cardMode} from "../../Interfaces/IQuestionCard";
