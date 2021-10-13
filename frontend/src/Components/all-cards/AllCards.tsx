@@ -7,14 +7,18 @@ import Quizcard from "../card/Card";
 
 //interface imports
 import {cardMode} from "../../Interfaces/IQuestionCard";
+import {Grid} from "@mui/material";
 
 type Props = {};
 
 function AllCards(props: Props){
     const allCards = useAppSelector(selectGetAllCards);
-    const cards = allCards.map(card => <Quizcard card={card} mode={cardMode.ALL} key={card.id}/>)
+    const cards = allCards.map(card => <Grid item key={card.id}><Quizcard card={card} mode={cardMode.ALL}/></Grid>)
     return(
-       <div>{cards}</div>
+       <Grid container spacing={2} justifyContent="space-around">
+           {cards}
+       </Grid>
+
     )
 }
 
