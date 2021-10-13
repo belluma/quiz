@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 
 //component imports
-import {Button, Card, CardActions, CardContent, CardHeader, IconButton} from "@mui/material";
+import {Button, Card, CardActions, CardContent, CardHeader, Grid, IconButton} from "@mui/material";
 import HelpIcon from '@mui/icons-material/Help';
 import Choices from "../choices/Choices";
 import CardCreationDialog from "../card-creation-dialog/CardCreationDialog";
@@ -32,20 +32,26 @@ function Quizcard({card, mode}: Props) {
     };
     return (
         <Card sx={{width: 345, height: 500}}>
-            <CardHeader
-                component='h1'
-                sx={{bgcolor: 'primary.main'}}
-                avatar={<HelpIcon/>}
-                title={mode === cardMode.NEW ? `${questionText}?` : `${question}?`}
-                titleTypographyProps={{fontSize:26}}
-            />
-            {mode === cardMode.NEW ? <CardCreationDialog questionText={questionText}/> :
-                <CardContent>
-                    <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer}/>
-                </CardContent>}
-            {mode === cardMode.QUIZ && <CardActions>
-                <Button onClick={submitAnswer}>submit answer</Button>
-            </CardActions>}
+            <Grid sx={{height: "100%"}} container direction='column' justifyContent="space-between">
+                <Grid item>
+                    <CardHeader
+                        component='h1'
+                        sx={{bgcolor: 'primary.main'}}
+                        avatar={<HelpIcon/>}
+                        title={mode === cardMode.NEW ? `${questionText}?` : `${question}?`}
+                        titleTypographyProps={{fontSize: 26}}
+                    />
+                </Grid>
+                <Grid item>
+                    {mode === cardMode.NEW ? <CardCreationDialog questionText={questionText}/> :
+                        <CardContent>
+                            <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer}/>
+                        </CardContent>}
+                    {mode === cardMode.QUIZ && <CardActions>
+                        <Button onClick={submitAnswer}>submit answer</Button>
+                    </CardActions>}
+                </Grid>
+            </Grid>
         </Card>
     )
 

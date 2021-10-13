@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react'
-import {FormControl, FormControlLabel, Radio, RadioGroup, useFormControl} from "@mui/material";
+import {FormControl, FormControlLabel, Radio, RadioGroup, Typography, useFormControl} from "@mui/material";
 
 //component imports
 
@@ -14,7 +14,7 @@ type Props = {
 
 function Choices({choices, mode, selectAnswer}: Props){
 
-    const choicesNoInteraction = choices.map((choice, i) => <h1 key={i}>{choice}</h1>)
+    const choicesNoInteraction = choices.map((choice, i) => <Typography key={i}>{choice}</Typography>)
     const radios = choices.map((choice, i) => <FormControlLabel control={<Radio />} label={choice} value={i} key={i}/>)
     const multipleChoice = <RadioGroup aria-label="Multiple Choice" name="multiple-choice-answers"   onChange={selectAnswer}>{radios}</RadioGroup>
     return(

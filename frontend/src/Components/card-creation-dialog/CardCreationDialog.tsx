@@ -26,7 +26,7 @@ function CardCreationDialog({questionText}:Props) {
         target.name === "choiceText" && setChoiceText(target.value)
     }
 
-    const saveCoice = () => {
+    const saveChoice = () => {
         setChoices([...choices, choiceText]);
         setChoiceText("");
     }
@@ -48,7 +48,7 @@ function CardCreationDialog({questionText}:Props) {
                 <div>
                     <TextField value={choiceText} name="choiceText" label="write possible answer here"
                                onChange={handleChange}/>
-                    <Button disabled={!choiceText.length} onClick={saveCoice}>add answer</Button>
+                    <Button disabled={!choiceText.length} onClick={saveChoice}>add answer</Button>
                 </div>
                 <Choices choices={choices} mode={cardMode.QUIZ} selectAnswer={saveIndex}/>
                 <Button disabled={choices.length < 2 || !answerIndices.length || !questionText.length} onClick={saveCard}>save
