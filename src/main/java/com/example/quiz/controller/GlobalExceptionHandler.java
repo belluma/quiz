@@ -29,7 +29,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         String errorMessage = ex.getMessage();
         if (errorMessage == null) errorMessage = ex.toString();
         CustomError message = new CustomError(new Date(), errorMessage);
-        System.out.println(errorMessage.equals(("No quizcards created yet")));
+        System.out.println(errorMessage);
         if (errorMessage.equals("No quizcards created yet")) {
             return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NO_CONTENT);
         }

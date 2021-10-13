@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/quiz")
 public class QuizController {
@@ -21,19 +23,18 @@ public class QuizController {
     }
 
     @GetMapping
-    public ResponseEntity<Quizcard> getAllCards() {
-        return new ResponseEntity(quizService.getAllCards(), HttpStatus.OK);
+    public List<Quizcard> getAllCards() {
+        return quizService.getAllCards();
     }
 
     @PostMapping("new")
-    public ResponseEntity<Quizcard> createNewCard(@RequestBody Quizcard quizcard) {
-        return new ResponseEntity(quizService.createQuizcard(quizcard), HttpStatus.OK);
+    public Quizcard createNewCard(@RequestBody Quizcard quizcard) {
+        return quizService.createQuizcard(quizcard);
     }
 
-    @GetMapping({"/{id}"})
-    public ResponseEntity<Boolean> validateAnswer(@PathVariable Integer id) {
-        System.out.println(id);
-        return new ResponseEntity(HttpStatus.OK);
+    @PostMapping
+    public Boolean validateAnswer(@RequestBody Quizcard quizcard) {
+        return quizService.validateQuizcardAnswer(quizcard);
     }
 
 

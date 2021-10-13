@@ -78,7 +78,7 @@ public class QuizControllerUnitTest {
 
     @Test
     public void testGetAllCardsReturns204WhenNoCards() throws Exception {
-        when(quizService.getAllCards()).thenThrow(new NoSuchElementException("No content"));
+        when(quizService.getAllCards()).thenThrow(new NoSuchElementException("No quizcards created yet"));
         this.mockMvc.perform(get("/api/quiz"))
                 .andExpect(status().isNoContent())
                 .andDo(MockMvcResultHandlers.print());
@@ -86,15 +86,9 @@ public class QuizControllerUnitTest {
     }
 
     @Test
-    public void createNewCard() throws  Exception{
+    public void createNewCard() throws Exception {
         when(quizService.createQuizcard(quizcards.get(0))).thenReturn(quizcards.get(0));
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = null;
-        try {
-            json = objectMapper.writeValueAsString(quizcards.get(0));
-        } catch (JsonProcessingException e) {
-            fail();
-        }
+        String json = createJsonBody(quizcards.get(0));
         this.mockMvc.perform(post("/api/quiz/new")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -103,23 +97,53 @@ public class QuizControllerUnitTest {
                 .andDo(MockMvcResultHandlers.print());
         verify(quizService).createQuizcard(quizcards.get(0));
     }
+
     @Test
-    public void createNewCardReturnsErrorOnIllegalInput() throws Exception{
-        when(quizService.createQuizcard(quizcards.get(0)))
+    public void createNewCardThrowsOnIllegalInput() throws Exception {
+        Quizcard brokenCard = quizcards.get(0);
+        when(quizService.createQuizcard(brokenCard))
                 .thenThrow(new IllegalArgumentException());
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = null;
-        try {
-            json = objectMapper.writeValueAsString(quizcards.get(0));
-        } catch (JsonProcessingException e) {
-            fail();
-        }
+        String json = createJsonBody(brokenCard);
         this.mockMvc.perform(post("/api/quiz/new")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
                         .characterEncoding("utf-8"))
                 .andExpect(status().isNotAcceptable())
                 .andDo(MockMvcResultHandlers.print());
-        verify(quizService).createQuizcard(quizcards.get(0));
+        verify(quizService).createQuizcard(brokenCard);
+    }
+
+    @Test
+    public void validateAnswer() throws Exception {
+        Quizcard card = quizcards.get(0);
+        String json = createJsonBody(quizcards.get(0));
+        when(quizService.validateQuizcardAnswer(card)).thenReturn(true);
+        this.mockMvc.perform(post("/api/quiz")
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("utf-8"))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+        verify(quizService).validateQuizcardAnswer(card);
+    }
+
+    @Test
+    public void validateAnswerThrowsOnIllegalInput() throws Exception{
+        Quizcard brokenCard = quizcards.get(0);
+        when(quizService.validateQuizcardAnswer(brokenCard))
+                .thenThrow(new IllegalArgumentException());
+        String json = createJsonBody(brokenCard);
+        this.mockMvc.perform(post("/api/quiz")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+                        .characterEncoding("utf-8"))
+                .andExpect(status().isNotAcceptable())
+                .andDo(MockMvcResultHandlers.print());
+        verify(quizService).validateQuizcardAnswer(brokenCard);
+    }
+    private String createJsonBody(Quizcard card) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = null;
+        return json = objectMapper.writeValueAsString(quizcards.get(0));
     }
 }
