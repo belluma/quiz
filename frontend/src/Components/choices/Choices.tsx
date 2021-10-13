@@ -20,6 +20,7 @@ function Choices({choices, mode, selectAnswer}: Props) {
     const radios = choices.map((choice, i) => <Grid item xs={1} key={i}><FormControlLabel control={<Radio/>}
                                                                                           label={choice} value={i}/>
     </Grid>)
+
     const multipleChoiceInGrid = <RadioGroup aria-label="Multiple Choice" name="multiple-choice-answers"
                                              onChange={selectAnswer}>
         {createGrid(radios)}</RadioGroup>
@@ -32,7 +33,7 @@ function Choices({choices, mode, selectAnswer}: Props) {
     )
 
     function createGrid(childComponent: JSX.Element | JSX.Element[]) {
-        return <Grid container spacing={4} columns={2} justifyContent="space-around">{childComponent}</Grid>
+        return <Grid item container spacing={2} columns={2} justifyContent="space-around">{childComponent}</Grid>
     }
 }
 

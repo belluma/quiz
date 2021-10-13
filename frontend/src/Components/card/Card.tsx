@@ -31,9 +31,7 @@ function Quizcard({card, mode}: Props) {
         dispatch(answerCard(card))
     };
     return (
-        <Card sx={{width: 500, height: 345 ,borderRadius:10}}>
-            <Grid sx={{height: "100%"}} container direction='column' justifyContent="space-between">
-                <Grid item>
+        <Card sx={{width: 500, height: 345 ,borderRadius:10, position:"relative"}}>
                     <CardHeader
                         component='h1'
                         sx={{bgcolor: 'primary.main'}}
@@ -41,17 +39,13 @@ function Quizcard({card, mode}: Props) {
                         title={mode === cardMode.NEW ? `${questionText}?` : `${question}?`}
                         titleTypographyProps={{fontSize: 26}}
                     />
-                </Grid>
-                <Grid item>
                     {mode === cardMode.NEW ? <CardCreationDialog questionText={questionText}/> :
-                        <CardContent>
+                        <CardContent sx={{position:"absolute", bottom:"25px"}}>
                             <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer}/>
                         </CardContent>}
                     {mode === cardMode.QUIZ && <CardActions>
-                        <Button onClick={submitAnswer}>submit answer</Button>
+                        <Button onClick={submitAnswer} sx={{position:"absolute", bottom:0}}>submit answer</Button>
                     </CardActions>}
-                </Grid>
-            </Grid>
         </Card>
     )
 
