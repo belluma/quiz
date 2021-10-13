@@ -28,7 +28,8 @@ function Quizcard({card, mode}: Props) {
     const questionText: string = useAppSelector(selectQuestionText);
     const submitAnswer = () => {
         console.log(checkAnswer() ? "correct" : "wrong");
-        dispatch(answerCard(card))
+        setSelected([]);
+        dispatch(answerCard(card));
     };
     const cardStyles = {
         height: {
@@ -50,7 +51,7 @@ function Quizcard({card, mode}: Props) {
             />
             {mode === cardMode.NEW ? <CardCreationDialog questionText={questionText}/> :
                 <CardContent sx={{position: "absolute", bottom: "25px", width:0.99}}>
-                    <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer}/>
+                    <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer} selected={selected}/>
                 </CardContent>}
             {mode === cardMode.QUIZ && <CardActions>
                 <Button onClick={submitAnswer} sx={{position: "absolute", bottom: 0}}>submit answer</Button>

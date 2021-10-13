@@ -30,9 +30,7 @@ function CardCreationDialog({questionText}:Props) {
         setChoices([...choices, choiceText]);
         setChoiceText("");
     }
-    const saveIndex = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAnswerIndices([+e.target.value]);
-    }
+
     const saveCard = () => {
         createCard({questionText, choices, answerIndices})
             .then(() => {
@@ -50,7 +48,7 @@ function CardCreationDialog({questionText}:Props) {
                                onChange={handleChange}/>
                     <Button disabled={!choiceText.length} onClick={saveChoice}>add answer</Button>
                 </div>
-                <Choices choices={choices} mode={cardMode.QUIZ} selectAnswer={saveIndex}/>
+                <Choices choices={choices} mode={cardMode.QUIZ} selectAnswer={(e) => setAnswerIndices([+e.target.value])} selected={answerIndices} />
                 <Button disabled={choices.length < 2 || !answerIndices.length || !questionText.length} onClick={saveCard}>save
                     card</Button>
             </CardContent>
