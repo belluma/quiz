@@ -4,7 +4,7 @@ import {useAppSelector} from "../../app/hooks";
 
 //component imports
 import {Grid} from "@mui/material";
-import Quizcard from "../card/Card";
+import Quizcard from "../quizcard/Quizcard";
 
 //interface imports
 import {cardMode, IQuestionCard} from "../../Interfaces/IQuestionCard";

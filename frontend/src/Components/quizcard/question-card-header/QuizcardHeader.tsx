@@ -1,0 +1,26 @@
+import React from 'react'
+
+//component imports
+import {CardHeader} from "@mui/material";
+import HelpIcon from "@mui/icons-material/Help";
+
+//interface imports
+
+type Props = {
+    title: string,
+    clickHandler?: () => void
+};
+
+function QuizcardHeader({title, clickHandler}: Props){
+    return(
+        <CardHeader
+            component='h1'
+            sx={{bgcolor: 'primary.main'}}
+            avatar={<HelpIcon/>}
+            title={title}
+            titleTypographyProps={{fontSize: 26}}
+        />
+    )
+}
+
+export default QuizcardHeader;

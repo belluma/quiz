@@ -1,17 +1,17 @@
-import React, {useState} from 'react'
-import {getApiData} from "../../Slicer/QuizSlice";
-import {useAppDispatch} from "../../app/hooks";
-import {changeQuestionText} from "../../Slicer/NewCardSlice";
+import React, {useImperativeHandle, useState} from 'react'
+import {getApiData} from "../../../Slicer/QuizSlice";
+import {useAppDispatch} from "../../../app/hooks";
+import {changeQuestionText} from "../../../Slicer/NewCardSlice";
 
 //component imports
-import Choices from "../choices/Choices";
-import {createCard} from "../../services/apiService";
+import Choices from "../../choices/Choices";
+import {createCard} from "../../../services/apiService";
 import TextField from '@mui/material/TextField';
 import {Button, CardActions, CardContent} from "@mui/material";
 
 
 //interface imports
-import {cardMode, createCardStatus} from "../../Interfaces/IQuestionCard";
+import {cardMode, createCardStatus} from "../../../Interfaces/IQuestionCard";
 
 type Props = {
     questionText: string
@@ -27,6 +27,8 @@ function CardCreationDialog({questionText}:Props) {
         target.name === "question" && dispatch(changeQuestionText(target.value));
         target.name === "choiceText" && setChoiceText(target.value)
     }
+
+
 const advanceStatus = () => {
     setDialogStatus(dialogStatus === createCardStatus.QUESTION ? createCardStatus.ANSWER : createCardStatus.SELECT);
 }
@@ -74,6 +76,7 @@ const revertStatus = () => {
         setChoices([]);
         setChoiceText("");
         setAnswerIndices([]);
+        setDialogStatus(createCardStatus.QUESTION);
     }
 }
 

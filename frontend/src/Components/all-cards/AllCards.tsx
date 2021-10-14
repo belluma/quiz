@@ -3,7 +3,7 @@ import {useAppSelector} from "../../app/hooks";
 import {selectGetAllCards} from "../../Slicer/QuizSlice";
 
 //component imports
-import Quizcard from "../card/Card";
+import Quizcard from "../quizcard/Quizcard";
 
 //interface imports
 import {cardMode} from "../../Interfaces/IQuestionCard";

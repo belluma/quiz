@@ -6,11 +6,11 @@ import './App.css';
 import StartView from "./Components/start-view/StartView";
 import Quiz from "./Components/quiz/Quiz";
 import {Route} from "react-router";
-import CardCreationDialog from './Components/card-creation-dialog/CardCreationDialog';
+import CardCreationDialog from './Components/quizcard/card-creation-dialog/CardCreationDialog';
 import AllCards from './Components/all-cards/AllCards';
 import {useAppDispatch} from "./app/hooks";
 import {getApiData} from "./Slicer/QuizSlice";
-import Quizcard from "./Components/card/Card";
+import Quizcard from "./Components/quizcard/Quizcard";
 import {cardMode, IQuestionCard} from "./Interfaces/IQuestionCard";
 import {Grid} from "@mui/material";
 
@@ -28,7 +28,7 @@ function App() {
             <Grid container justifyContent="center" alignItems="center">
 
                 <Route path="/quiz" component={Quiz}/>
-                <Route path="/new" render={() => <Quizcard {...newCardProps} />}/>
+                <Route path="/new" component={CardCreationDialog} />
                 <Route path="/all" component={AllCards}/>
             </Grid>
         </div>

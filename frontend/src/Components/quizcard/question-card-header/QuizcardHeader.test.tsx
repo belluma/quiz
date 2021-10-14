@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Card from './Card';
+import QuizcardHeader from './QuizcardHeader';
 
 let container: HTMLElement | null = null;
 beforeEach(() => {
@@ -17,5 +17,5 @@ afterEach(() =>{
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-   ReactDOM.render(<Card />, div);
+   ReactDOM.render(<QuizcardHeader />, div);
     });
