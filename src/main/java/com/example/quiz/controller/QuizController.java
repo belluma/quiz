@@ -27,7 +27,7 @@ public class QuizController {
         return quizService.getAllCards();
     }
 
-    @PostMapping("new")
+    @PostMapping("/new")
     public Quizcard createNewCard(@RequestBody Quizcard quizcard) {
         return quizService.createQuizcard(quizcard);
     }

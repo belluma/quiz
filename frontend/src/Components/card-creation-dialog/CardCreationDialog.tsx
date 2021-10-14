@@ -40,7 +40,7 @@ const revertStatus = () => {
     }
 
     const saveCard = () => {
-        createCard({questionText, choices, answerIndices})
+        createCard({question: questionText, choices, answerIndices})
             .then(() => {
                 dispatch(getApiData());
                 resetStates();
