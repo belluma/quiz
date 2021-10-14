@@ -7,17 +7,18 @@ import HelpIcon from "@mui/icons-material/Help";
 //interface imports
 
 type Props = {
-    title: string,
+    title: string | undefined,
     clickHandler?: () => void
 };
 
 function QuizcardHeader({title, clickHandler}: Props){
     return(
         <CardHeader
+            onClick={clickHandler}
             component='h1'
             sx={{bgcolor: 'primary.main'}}
             avatar={<HelpIcon/>}
-            title={title}
+            title={title ? `${title}?` : title}
             titleTypographyProps={{fontSize: 26}}
         />
     )
