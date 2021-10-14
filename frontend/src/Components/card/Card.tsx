@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {answerCard} from "../../Slicer/QuizSlice";
+import {moveCardToAnseweredCardsStack} from "../../Slicer/QuizSlice";
 import {selectQuestionText} from "../../Slicer/NewCardSlice";
 
 //component imports
@@ -11,6 +11,7 @@ import CardCreationDialog from "../card-creation-dialog/CardCreationDialog";
 
 //interface imports
 import {cardMode, IQuestionCard} from "../../Interfaces/IQuestionCard";
+import { validateAnswer } from '../../services/apiService';
 
 
 type Props = {
@@ -24,12 +25,14 @@ function Quizcard({card, mode}: Props) {
     const onSelectAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelected([+e.target.value])
     };
-    const {question, choices, answerIndices} = card;
+    const {id, question, choices, answerIndices} = card;
     const questionText: string = useAppSelector(selectQuestionText);
     const submitAnswer = () => {
-        console.log(checkAnswer() ? "correct" : "wrong");
+        const answer:IQuestionCard = {id, question, choices, answerIndices: selected}
+        validateAnswer(answer)
+            .then(response => {console.log(response)})
         setSelected([]);
-        dispatch(answerCard(card));
+        dispatch(moveCardToAnseweredCardsStack(card));
     };
     const cardStyles = {
         height: {

@@ -3,7 +3,6 @@ import {getAllCards} from "../services/apiService";
 import {IError, IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
 import {RootState} from "../app/store";
 
-
 const initialState: IQuizState = {
     allCards: [],
     answeredCards:[],
@@ -11,6 +10,12 @@ const initialState: IQuizState = {
     message: "",
     error: false,
     }
+
+interface IResponseData {
+    data:IQuestionCard[],
+    status:number,
+    statusText:string
+}
 
 export const getApiData = createAsyncThunk(
     'todoList/fetchTodos'
@@ -20,11 +25,6 @@ export const getApiData = createAsyncThunk(
     }
 )
 
-interface IResponseData {
-    data:IQuestionCard[],
-    status:number,
-    statusText:string
-}
 
 const handleErrors = (state:IQuizState, action: PayloadAction<IResponseData>): boolean => {
     if(action.payload.status !== 200){
@@ -45,7 +45,7 @@ export const QuizSlice = createSlice({
             state.status = 200;
             state.message = "";
         },
-        answerCard: (state, action:PayloadAction<IQuestionCard>) => {
+        moveCardToAnseweredCardsStack: (state, action:PayloadAction<IQuestionCard>) => {
             state.answeredCards = [...state.answeredCards, action.payload];
         },
     },
@@ -70,5 +70,5 @@ export const selectGetAnsweredCards = (state: RootState) => state.quiz.answeredC
 export const selectErrorStatus = (state: RootState) => state.quiz.status;
 export const selectErrorMessage = (state: RootState) => state.quiz.message;
 export const selectError = (state: RootState) => state.quiz.error;
-export const {closeError, answerCard}= QuizSlice.actions;
+export const {closeError, moveCardToAnseweredCardsStack}= QuizSlice.actions;
 export default QuizSlice.reducer;

@@ -17,7 +17,7 @@ export const createCard = (card:any):Promise<AxiosResponse> =>{
     }).then(response => response)
         .catch(err => err)
 }
-export const validateCard = (card:any):Promise<AxiosResponse> =>{
+export const validateAnswer = (card:any):Promise<AxiosResponse> =>{
     return axios({
         method:'post',
         url:`${BASE_URL}`,
