@@ -41,7 +41,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: app.jar
-          path: backend/target/app.jar
+          path: target/app.jar
 
   deploy-heroku:
     runs-on: ubuntu-latest
