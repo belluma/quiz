@@ -22,3 +22,9 @@ export interface IQuizState extends IError {
     allCards:IQuestionCard[],
     answeredCards: IQuestionCard[],
 }
+
+export enum createCardStatus {
+    QUESTION = "QUESTION",
+    ANSWER = "ANSWER",
+    SELECT = "SELECT"
+}

@@ -52,11 +52,13 @@ function Quizcard({card, mode}: Props) {
                 title={mode === cardMode.NEW ? `${questionText}?` : `${question}?`}
                 titleTypographyProps={{fontSize: 26}}
             />
-            {mode === cardMode.NEW ? <CardCreationDialog questionText={questionText}/> :
+            {mode === cardMode.NEW ?
+                <CardCreationDialog questionText={questionText}/> :
                 <CardContent sx={{position: "absolute", bottom: "25px", width:0.99}}>
                     <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer} selected={selected}/>
                 </CardContent>}
-            {mode === cardMode.QUIZ && <CardActions>
+            {mode === cardMode.QUIZ &&
+            <CardActions>
                 <Button onClick={submitAnswer} sx={{position: "absolute", bottom: 0}}>submit answer</Button>
             </CardActions>}
         </Card>
