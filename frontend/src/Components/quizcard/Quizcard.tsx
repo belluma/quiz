@@ -60,7 +60,7 @@ export function styleCard() {
 
 export function styleCardContent(dialogStatus = "") {
     const styles = {position: "absolute", bottom: 25, width: 0.99} as const;
-    const {bottom, ...qStyles} = {...styles, top: 100} as const;
+    const {bottom, position, ...qStyles} = {...styles} as const;
     return dialogStatus === "QUESTION" ? qStyles : styles;
 }
 
