@@ -34,9 +34,9 @@ function CardCreationDialog(props: Props) {
     const advanceStatus = () => {
         setDialogStatus(dialogStatus === createCardStatus.QUESTION ? createCardStatus.ANSWER : createCardStatus.SELECT);
     }
-    const revertStatus = () => {
-        setDialogStatus(dialogStatus === createCardStatus.SELECT ? createCardStatus.ANSWER : createCardStatus.QUESTION);
-    }
+    // const revertStatus = () => {
+    //     setDialogStatus(dialogStatus === createCardStatus.SELECT ? createCardStatus.ANSWER : createCardStatus.QUESTION);
+    // }
     const saveChoice = () => {
         setChoices([...choices, choiceText]);
         setChoiceText("");

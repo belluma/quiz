@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {getAllCards} from "../services/apiService";
-import {IError, IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
+import { IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
 import {RootState} from "../app/store";
 
 const initialState: IQuizState = {

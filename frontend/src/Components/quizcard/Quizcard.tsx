@@ -23,7 +23,7 @@ function Quizcard({card, mode}: Props) {
     const onSelectAnswer = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSelected([+e.target.value])
     };
-    const {id, question, choices, answerIndices} = card;
+    const {id, question, choices} = card;
     const submitAnswer = () => {
         const answer: IQuestionCard = {id, question, choices, answerIndices: selected}
         validateAnswer(answer)

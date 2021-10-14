@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import {styled} from '@mui/material/styles'
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import {Route, useHistory} from "react-router";
 import Quiz from "../quiz/Quiz";
 import CardCreationDialog from "../quizcard/card-creation-dialog/CardCreationDialog";
