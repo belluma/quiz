@@ -5,10 +5,10 @@ import {moveCardToAnseweredCardsStack} from "../../Slicer/QuizSlice";
 //component imports
 import {Button, Card, CardActions, CardContent,} from "@mui/material";
 import Choices from "../choices/Choices";
-import QuizcardHeader from "./question-card-header/QuizcardHeader";
+import QuizcardHeader from "./quizcard-header/QuizcardHeader";
 
 //interface imports
-import {cardMode, createCardStatus, IQuestionCard} from "../../Interfaces/IQuestionCard";
+import {cardMode,  IQuestionCard} from "../../Interfaces/IQuestionCard";
 import {validateAnswer} from '../../services/apiService';
 
 

@@ -3,7 +3,7 @@ import './App.css';
 
 
 //components
-import StartView from "./Components/start-view/StartView";
+import AppHeader from "./Components/app-header/AppHeader";
 import Quiz from "./Components/quiz/Quiz";
 import {Route} from "react-router";
 import CardCreationDialog from './Components/quizcard/card-creation-dialog/CardCreationDialog';
@@ -18,19 +18,10 @@ import {Grid} from "@mui/material";
 function App() {
     const dispatch = useAppDispatch();
     dispatch(getApiData());
-
-    const emptyCard: IQuestionCard = {id: -1, question: "", choices: [], answerIndices: []}
-    const newCardProps = {card: emptyCard, mode: cardMode.NEW}
-
     return (
         <div>
-            <StartView></StartView>
-            <Grid container justifyContent="center" alignItems="center">
+            <AppHeader></AppHeader>
 
-                <Route path="/quiz" component={Quiz}/>
-                <Route path="/new" component={CardCreationDialog} />
-                <Route path="/all" component={AllCards}/>
-            </Grid>
         </div>
     );
 }

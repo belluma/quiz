@@ -8,7 +8,7 @@ import Choices from "../../choices/Choices";
 import {createCard} from "../../../services/apiService";
 import TextField from '@mui/material/TextField';
 import {Button, Card, CardActions, CardContent} from "@mui/material";
-import QuizcardHeader from "../question-card-header/QuizcardHeader";
+import QuizcardHeader from "../quizcard-header/QuizcardHeader";
 
 
 //interface imports
