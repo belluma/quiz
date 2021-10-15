@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
+import AllCards from "../all-cards/AllCards";
+import {Route, useHistory} from "react-router";
+import 'bulma/css/bulma.css';
 
 
 //component imports
@@ -7,43 +10,52 @@ import {
     Container,
     CssBaseline,
     Grid,
+    IconButton,
     Slide,
     Toolbar,
     Typography,
     useScrollTrigger
 } from "@mui/material";
-import {styled} from '@mui/material/styles'
 import Button from '@mui/material/Button';
-import {Route, useHistory} from "react-router";
+import EditIcon from "@mui/icons-material/Edit";
 import Quiz from "../quiz/Quiz";
 import CardCreationDialog from "../quizcard/card-creation-dialog/CardCreationDialog";
-import AllCards from "../all-cards/AllCards";
+
 //interface imports
 
 type Props = {
     children?: React.ReactElement;
 };
-const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-    alignItems: 'flex-start',
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
-    '@media all': {
-        minHeight: 128,
-    },
-}));
+
+
 function AppHeader(props: Props) {
     const history = useHistory();
+    const [admin, setAdmin] = useState(false);
     return (
         <React.Fragment>
             <CssBaseline/>
             <HideOnScroll {...props}>
-                <AppBar>
-                    <StyledToolbar>
-                        <Typography>Quiz with no name</Typography>
-                            <Button onClick={() => history.push('/quiz')} variant="contained" size="small" color="secondary">Start Quiz</Button>
-                            <Button onClick={() => history.push('/new')} variant="contained" size="small" color="secondary">Create New Card</Button>
-                            <Button onClick={() => history.push('/all')} variant="contained" size="small" color="secondary">Show All Cards</Button>
-                    </StyledToolbar>
+                <AppBar color="secondary">
+                    <Toolbar>
+                        <Typography>Codificantes</Typography>
+                        <IconButton onClick={() => setAdmin(!admin)} edge="end" sx={{color: 'primary.main'}}>
+                            <EditIcon/>
+                        </IconButton>
+                    </Toolbar>
+                    <Toolbar sx={{alignItems: "flex-start", justifyContent: "space-between"}}>
+                        {!admin ?
+                            <Button
+                                onClick={() => history.push('/quiz')} variant="contained" size="small" color="primary">Start
+                                Quiz</Button> :
+                            <>
+                                <Button onClick={() => history.push('/new')} variant="contained" size="small"
+                                        color="primary">Create
+                                    New Card</Button>
+                                <Button onClick={() => history.push('/all')} variant="contained" size="small"
+                                        color="primary">Show
+                                    All Cards</Button>
+                            </>}
+                    </Toolbar>
                 </AppBar>
             </HideOnScroll>
             <Toolbar/>
@@ -55,7 +67,7 @@ function AppHeader(props: Props) {
                 </Grid>
             </Container>
         </React.Fragment>
-        )
+    )
 
     function HideOnScroll(props: Props) {
         const {children} = props;
@@ -66,7 +78,6 @@ function AppHeader(props: Props) {
             </Slide>
         );
     }
-
 
 
 }
