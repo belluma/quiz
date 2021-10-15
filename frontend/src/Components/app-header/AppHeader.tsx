@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import AllCards from "../all-cards/AllCards";
 import {Route, useHistory} from "react-router";
 import 'bulma/css/bulma.css';
@@ -31,6 +31,16 @@ type Props = {
 function AppHeader(props: Props) {
     const history = useHistory();
     const [admin, setAdmin] = useState(false);
+    const [scrollTrigger, setScrollTrigger] = useState<boolean>(window.innerWidth < 900);
+    const handleResize = () =>{
+        if(window.innerWidth < 900 && !scrollTrigger) setScrollTrigger(true)
+        if(window.innerWidth >= 900 && scrollTrigger) setScrollTrigger(false)
+    }
+    useEffect(() => {
+        window.addEventListener("resize", handleResize, false);
+    }, [])
+
+
     return (
         <React.Fragment>
             <CssBaseline/>
@@ -73,7 +83,7 @@ function AppHeader(props: Props) {
         const {children} = props;
         const trigger = useScrollTrigger({});
         return (
-            <Slide appear={false} direction="down" in={!trigger}>
+            <Slide appear={false} direction="down" in={!scrollTrigger ? true : !trigger}>
                 {children}
             </Slide>
         );
