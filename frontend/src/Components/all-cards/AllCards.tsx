@@ -15,7 +15,7 @@ function AllCards(props: Props){
     const allCards = useAppSelector(selectGetAllCards);
     const cards = allCards.map(card => <Grid item key={card.id}><Quizcard card={card} mode={cardMode.ALL}/></Grid>)
     return(
-       <Grid container spacing={2} justifyContent="space-around">
+       <Grid container spacing={2} justifyContent="space-between">
            {cards}
        </Grid>
 
