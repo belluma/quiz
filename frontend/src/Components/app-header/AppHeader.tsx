@@ -59,7 +59,7 @@ function AppHeader(props: Props) {
                 </AppBar>
             </HideOnScroll>
             <Toolbar/>
-            <Container>
+            <Container sx={{pt:10}}>
                 <Grid container justifyContent="center" alignItems="center">
                     <Route path="/quiz" component={Quiz}/>
                     <Route path="/new" component={CardCreationDialog}/>
