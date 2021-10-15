@@ -4,7 +4,7 @@ import {useAppDispatch} from "../../../app/hooks";
 import {changeQuestionText} from "../../../Slicer/NewCardSlice";
 
 //component imports
-import Choices from "../../choices/Choices";
+import Choices from "../choices/Choices";
 import {createCard} from "../../../services/apiService";
 import TextField from '@mui/material/TextField';
 import {Button, Card, CardActions, CardContent} from "@mui/material";

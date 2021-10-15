@@ -4,7 +4,7 @@ import React from 'react'
 import {FormControl, FormControlLabel, Grid, Radio, RadioGroup, Typography} from "@mui/material";
 
 //interface imports
-import {cardMode} from "../../Interfaces/IQuestionCard";
+import {cardMode} from "../../../Interfaces/IQuestionCard";
 
 type Props = {
     choices: string[],

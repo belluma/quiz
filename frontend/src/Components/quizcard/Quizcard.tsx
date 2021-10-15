@@ -4,7 +4,7 @@ import {moveCardToAnseweredCardsStack} from "../../Slicer/QuizSlice";
 
 //component imports
 import {Button, Card, CardActions, CardContent,} from "@mui/material";
-import Choices from "../choices/Choices";
+import Choices from "./choices/Choices";
 import QuizcardHeader from "./quizcard-header/QuizcardHeader";
 
 //interface imports
