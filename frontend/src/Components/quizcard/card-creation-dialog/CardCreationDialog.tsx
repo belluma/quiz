@@ -12,6 +12,8 @@ import {
     Divider,
 } from "@mui/material";
 import QuizcardHeader from "../quizcard-header/QuizcardHeader";
+import CardFooter from "../card-footer/CardFooter";
+import CustomFormGroup from "./custom-form-group/CustomFormGroup";
 
 
 //interface imports
@@ -19,8 +21,6 @@ import {cardMode, createCardStatus} from "../../../Interfaces/IQuestionCard";
 
 //styles
 import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../Quizcard";
-import CustomFormGroup from "./custom-form-group/CustomFormGroup";
-import CardFooter from "../card-footer/CardFooter";
 
 type Props = {};
 

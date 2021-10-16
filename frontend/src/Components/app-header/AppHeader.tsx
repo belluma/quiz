@@ -22,6 +22,7 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Quiz from "../quiz/Quiz";
 import CardCreationDialog from "../quizcard/card-creation-dialog/CardCreationDialog";
 import Login from "../login/Login";
+import Signup from "../signup/Signup";
 
 //interface imports
 
@@ -81,6 +82,7 @@ function AppHeader(props: Props) {
                     <Route path="/new" component={CardCreationDialog}/>
                     <Route path="/all" component={AllCards}/>
                     <Route path="/login" component={Login}/>
+                    <Route path="/signup" component={Signup}/>
 
                 </Grid>
             </Container>
