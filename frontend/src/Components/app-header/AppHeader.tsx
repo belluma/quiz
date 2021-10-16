@@ -21,7 +21,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Quiz from "../quiz/Quiz";
 import CardCreationDialog from "../quizcard/card-creation-dialog/CardCreationDialog";
-import {Columns} from "react-bulma-components";
 
 //interface imports
 

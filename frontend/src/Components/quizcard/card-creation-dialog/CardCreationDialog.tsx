@@ -7,7 +7,17 @@ import {changeQuestionText} from "../../../Slicer/NewCardSlice";
 import Choices from "../choices/Choices";
 import {createCard} from "../../../services/apiService";
 import TextField from '@mui/material/TextField';
-import {Button, Card, CardActions, CardContent, Divider} from "@mui/material";
+import {
+    Button,
+    Card,
+    CardActions,
+    CardContent,
+    createMuiTheme,
+    createTheme,
+    Divider,
+    FormGroup, ThemeOptions,
+    ThemeProvider,
+} from "@mui/material";
 import QuizcardHeader from "../quizcard-header/QuizcardHeader";
 
 
@@ -16,13 +26,13 @@ import {cardMode, createCardStatus} from "../../../Interfaces/IQuestionCard";
 
 //styles
 import {styleCard, styleCardContent} from "../Quizcard";
+import CustomFormGroup from "./custom-form-group/CustomFormGroup";
 
-type Props = {
-};
+type Props = {};
 
 function CardCreationDialog(props: Props) {
     const dispatch = useAppDispatch();
-    const [question, setQuestion] = useState<string>();
+    const [question, setQuestion] = useState<string>("");
     const [choices, setChoices] = useState<string[]>([]);
     const [choiceText, setChoiceText] = useState<string>("");
     const [answerIndices, setAnswerIndices] = useState<number[]>([]);
@@ -49,22 +59,18 @@ function CardCreationDialog(props: Props) {
             });
     }
     return (<Card sx={styleCard()}>
-            <QuizcardHeader title={question} clickHandler={()=>setDialogStatus(createCardStatus.QUESTION)}/>
-            <Divider />
+            <QuizcardHeader title={question} clickHandler={() => setDialogStatus(createCardStatus.QUESTION)}/>
+            <Divider/>
             <CardContent sx={styleCardContent(dialogStatus)}>
                 {dialogStatus === createCardStatus.QUESTION &&
-                <div>
-                    <TextField value={question} name="question" label="write your question here"
-                               onChange={handleChange}/>
-                    <Button onClick={advanceStatus}>Ok</Button>
-                </div>}
+                <CustomFormGroup text={question} handleTextChange={handleChange} disableButton={!question.length}
+                                 handleButtonClick={advanceStatus} textFieldName="question"
+                                 textFieldLabel="write your question here"/>}
                 {dialogStatus === createCardStatus.ANSWER && choices.length < 4 &&
-                <div>
-                    <TextField value={choiceText} name="choiceText" label="write possible answer here"
-                               onChange={handleChange}/>
-                    <Button disabled={!choiceText.length} onClick={saveChoice}>add answer</Button>
-                </div>}
-
+                <CustomFormGroup text={choiceText} handleTextChange={handleChange} disableButton={!choiceText.length}
+                                 handleButtonClick={saveChoice} textFieldName="choiceText"
+                                 textFieldLabel="write possible answer here"/>
+                }
                 <Choices choices={choices} mode={cardMode.QUIZ}
                          selectAnswer={(e) => setAnswerIndices([+e.target.value])} selected={answerIndices}/>
 
@@ -77,8 +83,20 @@ function CardCreationDialog(props: Props) {
         </Card>
     )
 
+    function overrideFontColorOnFocus(): ThemeOptions {
+        return createTheme({
+            palette: {
+                primary: {
+                    main: "#000"
+                }
+            }
+        })
+    }
+
+
     function resetStates() {
         dispatch(changeQuestionText(""))
+        setQuestion("");
         setChoices([]);
         setChoiceText("");
         setAnswerIndices([]);

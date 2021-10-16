@@ -61,7 +61,7 @@ export function styleCard() {
 
 export function styleCardContent(dialogStatus = "") {
     const styles = {position: "absolute", bottom: 40, width: "100%", bgcolor:'primary.main', color:'primary.contrastText'} as const;
-    const {bottom, position, bgcolor, ...qStyles} = {...styles} as const;
+    const {bottom, position,  ...qStyles} = {...styles} as const;
     return dialogStatus === "QUESTION" ? qStyles : styles;
 }
 
