@@ -9,6 +9,7 @@ import CardCreationDialog from "../quizcard/card-creation-dialog/CardCreationDia
 import AllCards from "../all-cards/AllCards";
 import Login from "../login/Login";
 import Signup from "../signup/Signup";
+import Highscore from "../highscore/Highscore";
 //interface imports
 
 type Props = {};
@@ -22,6 +23,7 @@ function MainView(props: Props){
                 <Route path="/all" component={AllCards}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/signup" component={Signup}/>
+                <Route path="/highscore" component={Highscore}/>
 
             </Grid>
         </Container>
