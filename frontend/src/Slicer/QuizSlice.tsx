@@ -84,6 +84,7 @@ export const selectGetAnsweredCards = (state: RootState) => state.quiz.answeredC
 export const selectErrorStatus = (state: RootState) => state.quiz.status;
 export const selectErrorMessage = (state: RootState) => state.quiz.message;
 export const selectError = (state: RootState) => state.quiz.error;
+export const selectPoints = (state: RootState) => state.quiz.pointsCounter;
 
 export const {closeError, moveCardToAnseweredCardsStack} = QuizSlice.actions;
 export default QuizSlice.reducer;
