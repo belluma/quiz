@@ -3,6 +3,7 @@ import React, {ChangeEvent} from 'react'
 //component imports
 import {Button, createTheme, FormGroup, ThemeOptions, ThemeProvider} from "@mui/material";
 import TextField from "@mui/material/TextField";
+import {overrideFontColorOnFocus} from "../../../../theme";
 
 //interface imports
 
@@ -26,15 +27,7 @@ function CustomFormGroup({text, handleTextChange, disableButton, handleButtonCli
             <Button disabled={disableButton} onClick={handleButtonClick} variant="contained">Ok</Button>
         </FormGroup>
     )
-function overrideFontColorOnFocus():ThemeOptions{
-    return createTheme({
-        palette:{
-            primary:{
-                main:"#000"
-            }
-        }
-    })
-}
+
 }
 
 export default CustomFormGroup;

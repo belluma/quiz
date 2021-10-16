@@ -18,4 +18,15 @@ import {createTheme, ThemeOptions} from "@mui/material";
          },
      },
 });
+export const overrideFontColorOnFocus = ():ThemeOptions => {
+    return createTheme({
+        palette:{
+            primary:{
+                main:"#000"
+            }
+        }
+    })
+}
+
+
 export default theme

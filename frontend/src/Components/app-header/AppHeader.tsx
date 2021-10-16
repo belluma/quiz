@@ -21,6 +21,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Quiz from "../quiz/Quiz";
 import CardCreationDialog from "../quizcard/card-creation-dialog/CardCreationDialog";
+import Login from "../login/Login";
 
 //interface imports
 
@@ -79,6 +80,8 @@ function AppHeader(props: Props) {
                     <Route path="/quiz" component={Quiz}/>
                     <Route path="/new" component={CardCreationDialog}/>
                     <Route path="/all" component={AllCards}/>
+                    <Route path="/login" component={Login}/>
+
                 </Grid>
             </Container>
         </React.Fragment>

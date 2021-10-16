@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, CardActions} from "@mui/material";
+import {Button, CardActions, Typography} from "@mui/material";
 
 //component imports
 
@@ -9,11 +9,13 @@ type Props = {
     disableButton:boolean,
     onButtonClick:()=>void,
     buttonText:string,
+    footerText?: string,
 };
 
-function CardFooter({disableButton, onButtonClick, buttonText}: Props){
+function CardFooter({disableButton, onButtonClick, buttonText, footerText}: Props){
     return(
-        <CardActions sx={{position: "absolute", bottom: 1, left:15}}>
+        <CardActions sx={{position: "absolute", bottom: 1, right:15}}>
+            <Typography variant="button">{footerText}</Typography>
             <Button disabled={disableButton} variant="text"
                     onClick={onButtonClick}>{buttonText}</Button>
         </CardActions>

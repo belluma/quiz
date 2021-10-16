@@ -3,14 +3,13 @@ import {selectGetAllCards, selectGetAnsweredCards, selectPoints} from '../../Sli
 import {useAppSelector} from "../../app/hooks";
 
 //component imports
-import {CardContent, Divider, Grid} from "@mui/material";
-import Quizcard, {styleCardContent} from "../quizcard/Quizcard";
+import { Grid} from "@mui/material";
+import Quizcard from "../quizcard/Quizcard";
+import PointsCard from "./points-card/PointsCard";
+
 
 //interface imports
 import {cardMode, IQuestionCard} from "../../Interfaces/IQuestionCard";
-import QuizcardHeader from "../quizcard/quizcard-header/QuizcardHeader";
-import Choices from "../quizcard/choices/Choices";
-import PointsCard from "./points-card/PointsCard";
 
 type Props = {};
 
