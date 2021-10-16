@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from 'react'
-import {Button, createTheme, FormGroup, ThemeOptions, ThemeProvider} from "@mui/material";
-import TextField from "@mui/material/TextField";
 
 //component imports
+import {Button, createTheme, FormGroup, ThemeOptions, ThemeProvider} from "@mui/material";
+import TextField from "@mui/material/TextField";
 
 //interface imports
 
