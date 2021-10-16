@@ -3,7 +3,7 @@ import {useAppDispatch} from "../../app/hooks";
 import {moveCardToAnseweredCardsStack} from "../../Slicer/QuizSlice";
 
 //component imports
-import {Button, Card, CardActions, CardContent,} from "@mui/material";
+import {Button, Card, CardActions, CardContent, Divider,} from "@mui/material";
 import Choices from "./choices/Choices";
 import QuizcardHeader from "./quizcard-header/QuizcardHeader";
 
@@ -36,6 +36,7 @@ function Quizcard({card, mode}: Props) {
     return (
         <Card sx={styleCard()}>
             <QuizcardHeader title={question}/>
+            <Divider />
             <CardContent sx={styleCardContent()}>
                 <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer} selected={selected}/>
             </CardContent>
@@ -59,8 +60,8 @@ export function styleCard() {
 }
 
 export function styleCardContent(dialogStatus = "") {
-    const styles = {position: "absolute", bottom: 25, width: 0.99, bgcolor:'secondary.main'} as const;
-    const {bottom, position, ...qStyles} = {...styles} as const;
+    const styles = {position: "absolute", bottom: 40, width: "100%", bgcolor:'primary.main', color:'primary.contrastText'} as const;
+    const {bottom, position, bgcolor, ...qStyles} = {...styles} as const;
     return dialogStatus === "QUESTION" ? qStyles : styles;
 }
 

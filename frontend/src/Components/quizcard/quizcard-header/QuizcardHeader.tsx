@@ -16,7 +16,8 @@ function QuizcardHeader({title, clickHandler}: Props){
         <CardHeader
             onClick={clickHandler}
             component='h1'
-            sx={{bgcolor: 'primary.main'}}
+
+            sx={{bgcolor: 'background.paper', }}
             avatar={<HelpIcon/>}
             title={title ? `${title}?` : title}
             titleTypographyProps={{fontSize: 26}}

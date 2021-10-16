@@ -28,7 +28,7 @@ function Choices({choices, mode, selectAnswer, selected}: Props) {
 
     return (
 
-        <FormControl style={{width: "100%"}} component="fieldset">
+        <FormControl sx={{width: "100%"}} component="fieldset">
             {mode === cardMode.QUIZ ? multipleChoiceInGrid : createGrid(choicesWithoutInput)}
         </FormControl>
 

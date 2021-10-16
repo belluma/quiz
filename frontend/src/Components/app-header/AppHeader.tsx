@@ -47,35 +47,35 @@ function AppHeader(props: Props) {
         <React.Fragment>
             <CssBaseline/>
             <HideOnScroll {...props}>
-                <AppBar color="secondary">
+                <AppBar sx={{bgcolor:'primary.light'}}>
                     <Toolbar sx={{justifyContent:"space-between"}}>
                         <Typography>Codificantes</Typography>
                         <IconButton onClick={() => setAdmin(!admin)} edge="end"
-                                    sx={{color: 'primary.main'}}>
+                                    >
                             <EditIcon/>
                         </IconButton>
                     </Toolbar>
                     <Toolbar sx={{mb:1, alignItems: "stretch", justifyContent: "space-between"}}>
                         {!admin ?
-                            <ButtonGroup color="secondary">
+                            <ButtonGroup  >
                                 <Button endIcon={<PlayArrowIcon/>}
                                         onClick={() => history.push('/quiz')} variant="contained" size="large"
-                                        color="primary">Start
+                                      sx={{bgcolor:"primary.light"}}  >Start
                                     Quiz</Button>
                             </ButtonGroup> :
                             <ButtonGroup>
                                 <Button onClick={() => history.push('/new')} variant="contained" size="medium"
-                                        color="primary">Create
+                                        sx={{bgcolor:"primary.light"}}>Create
                                     New Card</Button>
                                 <Button onClick={() => history.push('/all')} variant="contained" size="medium"
-                                        color="primary">Show
+                                        sx={{bgcolor:"primary.light"}}>Show
                                     All Cards</Button>
                             </ButtonGroup>}
                     </Toolbar>
                 </AppBar>
             </HideOnScroll>
             <Toolbar/>
-            <Container sx={{pt: 10}} maxWidth={false}>
+            <Container sx={{pt: 10, minHeight:"100vh"}} maxWidth={false}>
                 <Grid container justifyContent="center" alignItems="center">
                     <Route path="/quiz" component={Quiz}/>
                     <Route path="/new" component={CardCreationDialog}/>
