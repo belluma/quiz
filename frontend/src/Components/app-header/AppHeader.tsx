@@ -39,7 +39,7 @@ function AppHeader(props: Props) {
     }
     useEffect(() => {
         window.addEventListener("resize", handleResize, false);
-    }, [])
+    })
 
 
     return (
@@ -83,7 +83,6 @@ function AppHeader(props: Props) {
             </Container>
         </React.Fragment>
     )
-
     function HideOnScroll(props: Props) {
         const {children} = props;
         const trigger = useScrollTrigger({});
@@ -93,8 +92,6 @@ function AppHeader(props: Props) {
             </Slide>
         );
     }
-
-
 }
 
 export default AppHeader;

@@ -21,6 +21,7 @@ export interface IError {
 export interface IQuizState extends IError {
     allCards:IQuestionCard[],
     answeredCards: IQuestionCard[],
+    pointsCounter: number,
 }
 
 export enum createCardStatus {

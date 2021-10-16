@@ -6,17 +6,10 @@ import {changeQuestionText} from "../../../Slicer/NewCardSlice";
 //component imports
 import Choices from "../choices/Choices";
 import {createCard} from "../../../services/apiService";
-import TextField from '@mui/material/TextField';
 import {
-    Button,
     Card,
-    CardActions,
     CardContent,
-    createMuiTheme,
-    createTheme,
     Divider,
-    FormGroup, ThemeOptions,
-    ThemeProvider,
 } from "@mui/material";
 import QuizcardHeader from "../quizcard-header/QuizcardHeader";
 
@@ -80,17 +73,6 @@ function CardCreationDialog(props: Props) {
 
         </Card>
     )
-
-    function overrideFontColorOnFocus(): ThemeOptions {
-        return createTheme({
-            palette: {
-                primary: {
-                    main: "#000"
-                }
-            }
-        })
-    }
-
 
     function resetStates() {
         dispatch(changeQuestionText(""))
