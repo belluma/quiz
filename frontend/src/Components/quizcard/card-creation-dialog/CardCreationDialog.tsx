@@ -25,8 +25,9 @@ import QuizcardHeader from "../quizcard-header/QuizcardHeader";
 import {cardMode, createCardStatus} from "../../../Interfaces/IQuestionCard";
 
 //styles
-import {styleCard, styleCardContent} from "../Quizcard";
+import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../Quizcard";
 import CustomFormGroup from "./custom-form-group/CustomFormGroup";
+import CardFooter from "../card-footer/CardFooter";
 
 type Props = {};
 
@@ -58,7 +59,7 @@ function CardCreationDialog(props: Props) {
                 resetStates();
             });
     }
-    return (<Card sx={styleCard()}>
+    return (<Card sx={makeCardChangeBetweenPortraitAndLandscape()}>
             <QuizcardHeader title={question} clickHandler={() => setDialogStatus(createCardStatus.QUESTION)}/>
             <Divider/>
             <CardContent sx={styleCardContent(dialogStatus)}>
@@ -75,11 +76,8 @@ function CardCreationDialog(props: Props) {
                          selectAnswer={(e) => setAnswerIndices([+e.target.value])} selected={answerIndices}/>
 
             </CardContent>
-            <CardActions>
-                <Button disabled={choices.length < 2 || !answerIndices.length || !question}
-                        onClick={saveCard} sx={{position: "absolute", bottom: 10}}>save
-                    card</Button>
-            </CardActions>
+            <CardFooter disableButton={choices.length < 2 || !answerIndices.length || !question} onButtonClick={saveCard} buttonText="save card" />
+
         </Card>
     )
 

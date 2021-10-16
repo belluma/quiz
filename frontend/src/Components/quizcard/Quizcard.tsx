@@ -10,6 +10,7 @@ import QuizcardHeader from "./quizcard-header/QuizcardHeader";
 //interface imports
 import {cardMode,  IQuestionCard} from "../../Interfaces/IQuestionCard";
 import {validateAnswer} from '../../services/apiService';
+import CardFooter from "./card-footer/CardFooter";
 
 
 type Props = {
@@ -34,21 +35,21 @@ function Quizcard({card, mode}: Props) {
         dispatch(moveCardToAnseweredCardsStack(card));
     };
     return (
-        <Card sx={styleCard()}>
+        <Card sx={makeCardChangeBetweenPortraitAndLandscape()}>
             <QuizcardHeader title={question}/>
             <Divider />
             <CardContent sx={styleCardContent()}>
                 <Choices choices={choices} mode={mode} selectAnswer={onSelectAnswer} selected={selected}/>
             </CardContent>
             {mode === cardMode.QUIZ &&
-            <CardActions>
-                <Button onClick={submitAnswer} sx={{position: "absolute", bottom: 0}}>submit answer</Button>
-            </CardActions>}
+
+            <CardFooter disableButton={false} onButtonClick={submitAnswer} buttonText="submit answer" />}
+
         </Card>
     )
 }
 
-export function styleCard() {
+export function makeCardChangeBetweenPortraitAndLandscape() {
     return {
         height: {
             xs: 500,
@@ -60,7 +61,7 @@ export function styleCard() {
 }
 
 export function styleCardContent(dialogStatus = "") {
-    const styles = {position: "absolute", bottom: 40, width: "100%", bgcolor:'primary.main', color:'primary.contrastText'} as const;
+    const styles = {position: "absolute", bottom: 50, width: "100%", bgcolor:'primary.main', color:'primary.contrastText'} as const;
     const {bottom, position,  ...qStyles} = {...styles} as const;
     return dialogStatus === "QUESTION" ? qStyles : styles;
 }
