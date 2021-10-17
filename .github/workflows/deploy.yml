@@ -64,4 +64,4 @@ jobs:
       - name: Deploy docker container
         run: heroku container:release web -a codificantes
       - name: Connect to postgres DB
-        run: heroku pg:psql postgresql-contoured-52703 --app codificantes
+        run: heroku pg:psql postgresql-pointy-54122 --app codificantes
