@@ -1,7 +1,9 @@
 package com.example.quiz.controller;
 
 import com.example.quiz.model.Quizcard;
+import com.example.quiz.model.QuizcardDTO;
 import com.example.quiz.repository.QuizRepository;
+import com.example.quiz.service.QuizcardMapper;
 import org.apache.tomcat.jni.Global;
 import org.hibernate.tool.schema.spi.SchemaCreator;
 import org.junit.jupiter.api.*;
@@ -40,6 +42,8 @@ public class QuizControllerIntegrationTest {
     @Autowired
     GlobalExceptionHandler exceptionHandler;
 
+    QuizcardMapper mapper = new QuizcardMapper();
+
     @Container
     public static PostgreSQLContainer container = new PostgreSQLContainer()
             .withDatabaseName("quiz")
@@ -52,7 +56,7 @@ public class QuizControllerIntegrationTest {
         registry.add("spring.datasource.password", container::getPassword);
         registry.add("spring.datasource.username", container::getUsername);
     }
-    Quizcard card = new Quizcard(1, "question", List.of("answer"), List.of(0));
+    QuizcardDTO card = new QuizcardDTO(1, "question", List.of("answer"), List.of(0));
     @Test
     @Order(1)
     void test() {
@@ -70,21 +74,21 @@ public class QuizControllerIntegrationTest {
     @Order(3)
     void testCreateNewCard() {
         Quizcard response = quizController.createNewCard(card);
-        assertThat(response).isEqualTo(card);
+        assertThat(response).isEqualTo(mapper.mapQuizcard(card));
     }
     @Test
     @Order(4)
     void testGetAllCardReturnsListOfOneCard() {
         List<Quizcard> response = quizController.getAllCards();
-        assertIterableEquals(response, List.of(card));
+        assertIterableEquals(response, List.of(mapper.mapQuizcard(card)));
 
     }
     @Test
     @Order(5)
     void createNewCardReturns406OnWrongInput() {
-        Quizcard card1 = new Quizcard(1, "", List.of("answer"), List.of(0));
-        Quizcard card2 = new Quizcard(1, "question", List.of(), List.of(0));
-        Quizcard card3 = new Quizcard(1, "question", List.of("answer"), List.of());
+        QuizcardDTO card1 = new QuizcardDTO(1, "", List.of("answer"), List.of(0));
+        QuizcardDTO card2 = new QuizcardDTO(1, "question", List.of(), List.of(0));
+        QuizcardDTO card3 = new QuizcardDTO(1, "question", List.of("answer"), List.of());
         Exception ex = assertThrows(IllegalArgumentException.class, () -> quizController.createNewCard(card1));
         Exception ex2 = assertThrows(IllegalArgumentException.class, () -> quizController.createNewCard(card2));
         Exception ex3 =assertThrows(IllegalArgumentException.class, () ->  quizController.createNewCard(card3));

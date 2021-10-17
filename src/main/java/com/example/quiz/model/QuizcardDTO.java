@@ -3,14 +3,13 @@ package com.example.quiz.model;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
 @Data
-@RequiredArgsConstructor
 @AllArgsConstructor
-public class QuizcardDTO {
+@NoArgsConstructor
+public class QuizcardDTO extends Quizcard {
 
     private Integer id;
     private String question;

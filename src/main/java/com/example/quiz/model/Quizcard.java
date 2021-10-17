@@ -27,6 +27,12 @@ public class Quizcard {
     @ElementCollection
     private List<Integer> answerIndices;
 
+    public Quizcard(String question, List<String> choices, List<Integer> answerIndices) {
+        this.question = question;
+        this.choices = choices;
+        this.answerIndices = answerIndices;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
