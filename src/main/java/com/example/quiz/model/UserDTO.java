@@ -17,7 +17,5 @@ public class UserDTO extends User{
     private Integer id;
 
     private String username;
-    private String email;
-    private String password;
     private List<Highscore> highscores;
 }
