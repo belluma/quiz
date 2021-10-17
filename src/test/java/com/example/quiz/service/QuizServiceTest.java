@@ -3,6 +3,7 @@ package com.example.quiz.service;
 import com.example.quiz.model.DB.Quizcard;
 import com.example.quiz.model.DTO.QuizcardDTO;
 import com.example.quiz.repository.QuizRepository;
+import com.example.quiz.service.mapper.QuizcardMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -32,7 +33,7 @@ class QuizServiceTest {
     void getAllQuizcards() {
         when(repository.findAll()).thenReturn(List.of(new Quizcard()));
         List<QuizcardDTO> actual = service.getAllCards();
-        assertIterableEquals(List.of(mapper.mapToDTOWithoutCorrectAnswers(new Quizcard())), actual);
+        assertIterableEquals(List.of(mapper.mapQuizcardToDTOWithoutCorrectAnswers(new Quizcard())), actual);
         verify(repository).findAll();
     }
 
@@ -49,7 +50,7 @@ class QuizServiceTest {
         Quizcard persistentCard = mapper.mapQuizcard(card);
         when(repository.save(persistentCard)).thenReturn(persistentCard);
         QuizcardDTO actual = service.createQuizcard(card);
-        assertThat(actual).isEqualTo(mapper.mapToDTOWithoutCorrectAnswers(persistentCard));
+        assertThat(actual).isEqualTo(mapper.mapQuizcardToDTOWithoutCorrectAnswers(persistentCard));
         verify(repository).save(persistentCard);
     }
 

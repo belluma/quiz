@@ -3,6 +3,7 @@ package com.example.quiz.service;
 import com.example.quiz.model.DB.Quizcard;
 import com.example.quiz.model.DTO.QuizcardDTO;
 import com.example.quiz.repository.QuizRepository;
+import com.example.quiz.service.mapper.QuizcardMapper;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,14 +32,14 @@ public class QuizService {
         if(cards.isEmpty()) throw new NoSuchElementException("No quizcards created yet");
         return cards
                 .stream()
-                .map(mapper::mapToDTOWithoutCorrectAnswers)
+                .map(mapper::mapQuizcardToDTOWithoutCorrectAnswers)
                 .toList();
     }
 
     public QuizcardDTO createQuizcard(QuizcardDTO quizcard) throws IllegalArgumentException {
         Quizcard persistentQuizcard = mapper.mapQuizcard(quizcard);
         validateQuizcardBody(persistentQuizcard);
-        return mapper.mapToDTOWithoutCorrectAnswers(repository.save(persistentQuizcard));
+        return mapper.mapQuizcardToDTOWithoutCorrectAnswers(repository.save(persistentQuizcard));
 
     }
     private void validateQuizcardBody(Quizcard quizcard) throws IllegalArgumentException{

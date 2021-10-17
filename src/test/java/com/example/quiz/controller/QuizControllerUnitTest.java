@@ -3,7 +3,7 @@ package com.example.quiz.controller;
 import com.example.quiz.model.DB.Quizcard;
 import com.example.quiz.model.DTO.QuizcardDTO;
 import com.example.quiz.service.QuizService;
-import com.example.quiz.service.QuizcardMapper;
+import com.example.quiz.service.mapper.QuizcardMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -64,7 +64,7 @@ public class QuizControllerUnitTest {
 
     @Test
     public void testGetAllCards() throws Exception {
-        when(quizService.getAllCards()).thenReturn(quizcards.stream().map(mapper::mapToDTOWithoutCorrectAnswers).toList());
+        when(quizService.getAllCards()).thenReturn(quizcards.stream().map(mapper::mapQuizcardToDTOWithoutCorrectAnswers).toList());
         this.mockMvc.perform(get("/api/quiz"))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -82,7 +82,7 @@ public class QuizControllerUnitTest {
 
     @Test
     public void createNewCard() throws Exception {
-        QuizcardDTO quizcardDTO = mapper.mapToDTO(quizcards.get(0));
+        QuizcardDTO quizcardDTO = mapper.mapQuizcardToDTO(quizcards.get(0));
         when(quizService.createQuizcard(quizcardDTO)).thenReturn(quizcardDTO);
         String json = createJsonBodyOfQuizcard1();
         this.mockMvc.perform(post("/api/quiz/new")
@@ -96,7 +96,7 @@ public class QuizControllerUnitTest {
 
     @Test
     public void createNewCardThrowsOnIllegalInput() throws Exception {
-        QuizcardDTO brokenCard = mapper.mapToDTO(quizcards.get(0));
+        QuizcardDTO brokenCard = mapper.mapQuizcardToDTO(quizcards.get(0));
         when(quizService.createQuizcard(brokenCard))
                 .thenThrow(new IllegalArgumentException());
         String json = createJsonBodyOfQuizcard1();
@@ -111,7 +111,7 @@ public class QuizControllerUnitTest {
 
     @Test
     public void validateAnswer() throws Exception {
-        QuizcardDTO card = mapper.mapToDTO(quizcards.get(0));
+        QuizcardDTO card = mapper.mapQuizcardToDTO(quizcards.get(0));
         String json = createJsonBodyOfQuizcard1();
         when(quizService.validateQuizcardAnswer(card)).thenReturn(true);
         this.mockMvc.perform(post("/api/quiz")
@@ -125,7 +125,7 @@ public class QuizControllerUnitTest {
 
     @Test
     public void validateAnswerThrowsOnIllegalInput() throws Exception{
-        QuizcardDTO brokenCard = mapper.mapToDTO(quizcards.get(0));
+        QuizcardDTO brokenCard = mapper.mapQuizcardToDTO(quizcards.get(0));
         when(quizService.validateQuizcardAnswer(brokenCard))
                 .thenThrow(new IllegalArgumentException());
         String json = createJsonBodyOfQuizcard1();
@@ -139,6 +139,6 @@ public class QuizControllerUnitTest {
     }
     private String createJsonBodyOfQuizcard1() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(mapper.mapToDTO(quizcards.get(0)));
+        return objectMapper.writeValueAsString(mapper.mapQuizcardToDTO(quizcards.get(0)));
     }
 }

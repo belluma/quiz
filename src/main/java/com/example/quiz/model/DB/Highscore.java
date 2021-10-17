@@ -23,7 +23,7 @@ public class Highscore {
     @ManyToOne
     private User user;
     private int score;
-    private LocalDateTime date = LocalDateTime.now();
+    private final LocalDateTime date = LocalDateTime.now();
 
     @Override
     public boolean equals(Object o) {
