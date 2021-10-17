@@ -1,28 +1,16 @@
 package com.example.quiz.controller;
 
-import com.example.quiz.model.Quizcard;
-import com.example.quiz.model.QuizcardDTO;
-import com.example.quiz.repository.QuizRepository;
+import com.example.quiz.model.DTO.QuizcardDTO;
 import com.example.quiz.service.QuizcardMapper;
-import org.apache.tomcat.jni.Global;
-import org.hibernate.tool.schema.spi.SchemaCreator;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
 
-import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 

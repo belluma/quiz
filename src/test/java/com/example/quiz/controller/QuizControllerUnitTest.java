@@ -1,7 +1,7 @@
 package com.example.quiz.controller;
 
-import com.example.quiz.model.Quizcard;
-import com.example.quiz.model.QuizcardDTO;
+import com.example.quiz.model.DB.Quizcard;
+import com.example.quiz.model.DTO.QuizcardDTO;
 import com.example.quiz.service.QuizService;
 import com.example.quiz.service.QuizcardMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;

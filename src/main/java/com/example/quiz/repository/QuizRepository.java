@@ -1,6 +1,6 @@
 package com.example.quiz.repository;
 
-import com.example.quiz.model.Quizcard;
+import com.example.quiz.model.DB.Quizcard;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

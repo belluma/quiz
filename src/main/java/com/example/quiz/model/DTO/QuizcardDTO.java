@@ -1,5 +1,6 @@
-package com.example.quiz.model;
+package com.example.quiz.model.DTO;
 
+import com.example.quiz.model.DB.Quizcard;
 import lombok.*;
 import org.hibernate.Hibernate;
 

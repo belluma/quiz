@@ -1,7 +1,7 @@
 package com.example.quiz.service;
 
-import com.example.quiz.model.Quizcard;
-import com.example.quiz.model.QuizcardDTO;
+import com.example.quiz.model.DB.Quizcard;
+import com.example.quiz.model.DTO.QuizcardDTO;
 import com.example.quiz.repository.QuizRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;

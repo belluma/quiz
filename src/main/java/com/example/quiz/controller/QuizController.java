@@ -1,8 +1,7 @@
 package com.example.quiz.controller;
 
 
-import com.example.quiz.model.Quizcard;
-import com.example.quiz.model.QuizcardDTO;
+import com.example.quiz.model.DTO.QuizcardDTO;
 import com.example.quiz.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package com.example.quiz.service;
 
-import com.example.quiz.model.Quizcard;
-import com.example.quiz.model.QuizcardDTO;
+import com.example.quiz.model.DB.Quizcard;
+import com.example.quiz.model.DTO.QuizcardDTO;
 
 public class QuizcardMapper {
     public Quizcard mapQuizcard(QuizcardDTO quizcard) {
