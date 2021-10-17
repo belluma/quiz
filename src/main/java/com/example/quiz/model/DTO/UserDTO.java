@@ -21,12 +21,21 @@ public class UserDTO extends User {
     private String username;
     private String email;
     private String password;
+
+    private boolean isOnline;
     private List<Highscore> highscores;
 
-    public UserDTO(Integer id, String username, List<Highscore> highscores) {
+    public UserDTO(Integer id, String username,boolean isOnline, List<Highscore> highscores) {
         this.id = id;
         this.username = username;
+
+        this.isOnline = isOnline;
         this.highscores = highscores;
+    }
+
+
+    public void setIsOnline(boolean isOnline) {
+        this.isOnline = isOnline;
     }
 
 }
