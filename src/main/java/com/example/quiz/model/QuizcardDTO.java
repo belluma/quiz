@@ -7,24 +7,14 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Getter
-@Setter
-@ToString
+@Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name="questions")
-public class Quizcard {
+public class QuizcardDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-
     private String question;
-    @ElementCollection
     private List<String> choices;
-    @ElementCollection
     private List<Integer> answerIndices;
 
     @Override
