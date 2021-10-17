@@ -21,12 +21,12 @@ public class QuizController {
     }
 
     @GetMapping
-    public List<Quizcard> getAllCards() {
+    public List<QuizcardDTO> getAllCards() {
         return quizService.getAllCards();
     }
 
     @PostMapping("/new")
-    public Quizcard createNewCard(@RequestBody QuizcardDTO quizcard)  {
+    public QuizcardDTO createNewCard(@RequestBody QuizcardDTO quizcard)  {
         return quizService.createQuizcard(quizcard);
     }
 
