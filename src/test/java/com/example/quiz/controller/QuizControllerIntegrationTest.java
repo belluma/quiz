@@ -4,9 +4,7 @@ import com.example.quiz.model.Quizcard;
 import com.example.quiz.repository.QuizRepository;
 import org.apache.tomcat.jni.Global;
 import org.hibernate.tool.schema.spi.SchemaCreator;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,13 +22,16 @@ import org.testcontainers.utility.DockerImageName;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 //https://rieckpil.de/howto-write-spring-boot-integration-tests-with-a-real-database/
 public class QuizControllerIntegrationTest {
 
@@ -53,43 +54,44 @@ public class QuizControllerIntegrationTest {
     }
     Quizcard card = new Quizcard(1, "question", List.of("answer"), List.of(0));
     @Test
+    @Order(1)
     void test() {
         assertTrue(container.isRunning());
     }
 
-//    @Test
-//    void testGetAllReturns204() {
-//        ResponseEntity<Quizcard> response = quizController.getAllCards();
-//        assertThat(response.getStatusCodeValue() == 204);
-//    }
+    @Test
+    @Order(2)
+    void testGetAllReturns204() {
+        Exception ex = assertThrows(NoSuchElementException.class, () -> quizController.getAllCards());
+        assertThat(ex.getMessage().equals("No quizcards created yet"));
+    }
 
-//    @Test
-//    void testCreateNewCard() {
-//        ResponseEntity<Quizcard> response = quizController.createNewCard(card);
-//        assertThat(response.getStatusCodeValue() == 200);
-//        assertThat(response.getBody()).isEqualTo(card);
-//    }
-//    @Test
-//    void testGetAllCardReturnsListOfOneCard() {
-//        ResponseEntity<Quizcard> response = quizController.getAllCards();
-//        assertThat(response.getStatusCodeValue() == 200);
-//        assertThat(response.getBody()).isEqualTo(List.of(card));
-//
-//    }
-//    @Test
-//    void createNewCardReturns406OnWrongInput() {
-//        Quizcard card1 = new Quizcard(1, "", List.of("answer"), List.of(0));
-//        Quizcard card2 = new Quizcard(1, "question", List.of(), List.of(0));
-//        Quizcard card3 = new Quizcard(1, "question", List.of("answer"), List.of());
-//        ResponseEntity<Quizcard> response1 = quizController.createNewCard(card1);
-//        ResponseEntity<Quizcard> response2 = quizController.createNewCard(card2);
-//        ResponseEntity<Quizcard> response3 = quizController.createNewCard(card3);
-//        assertThat(response1.getStatusCodeValue() == 406);
-//        assertThat(response2.getStatusCodeValue() == 406);
-//        assertThat(response3.getStatusCodeValue() == 406);
-//    }
-//    @Test
-//    void testNoCardHasBeenAdded() {
-//        testGetAllCardReturnsListOfOneCard();
-//    }
+    @Test
+    @Order(3)
+    void testCreateNewCard() {
+        Quizcard response = quizController.createNewCard(card);
+        assertThat(response).isEqualTo(card);
+    }
+    @Test
+    @Order(4)
+    void testGetAllCardReturnsListOfOneCard() {
+        List<Quizcard> response = quizController.getAllCards();
+        assertIterableEquals(response, List.of(card));
+
+    }
+    @Test
+    @Order(5)
+    void createNewCardReturns406OnWrongInput() {
+        Quizcard card1 = new Quizcard(1, "", List.of("answer"), List.of(0));
+        Quizcard card2 = new Quizcard(1, "question", List.of(), List.of(0));
+        Quizcard card3 = new Quizcard(1, "question", List.of("answer"), List.of());
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> quizController.createNewCard(card1));
+        Exception ex2 = assertThrows(IllegalArgumentException.class, () -> quizController.createNewCard(card2));
+        Exception ex3 =assertThrows(IllegalArgumentException.class, () ->  quizController.createNewCard(card3));
+    }
+
+    @Test
+    void testNoCardHasBeenAdded() {
+        testGetAllCardReturnsListOfOneCard();
+    }
 }

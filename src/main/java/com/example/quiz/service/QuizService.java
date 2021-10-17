@@ -39,8 +39,8 @@ public class QuizService {
     }
     private void validateQuizcardBody(Quizcard quizcard) throws IllegalArgumentException{
         if(quizcard.getQuestion().length() == 0) throw new IllegalArgumentException("Question can't be empty");
-        if(quizcard.getChoices().size() == 0) throw new IllegalArgumentException("Choices can't be empty");
-        if(quizcard.getAnswerIndices().size() == 0) throw new IllegalArgumentException("Correct answer can't be empty");
+        if(quizcard.getChoices().isEmpty()) throw new IllegalArgumentException("Choices can't be empty");
+        if(quizcard.getAnswerIndices().isEmpty()) throw new IllegalArgumentException("Correct answer can't be empty");
         if(quizcard.getChoices().size() <= Collections.max(quizcard.getAnswerIndices()))
             throw new IllegalArgumentException("Index of correct answer out of bounds");
         if(quizcard.getChoices().size() < quizcard.getAnswerIndices().size())

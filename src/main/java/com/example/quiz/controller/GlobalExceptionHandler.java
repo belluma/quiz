@@ -35,7 +35,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         }
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
-    @ExceptionHandler
+    @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleAllTheRest(Exception ex){
         CustomError message = new CustomError();
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
