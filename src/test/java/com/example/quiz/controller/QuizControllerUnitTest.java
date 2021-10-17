@@ -64,7 +64,7 @@ public class QuizControllerUnitTest {
 
     @Test
     public void testGetAllCards() throws Exception {
-        when(quizService.getAllCards()).thenReturn(quizcards);
+        when(quizService.getAllCards()).thenReturn(quizcards.stream().map(mapper::mapToDTOWithoutCorrectAnswers).toList());
         this.mockMvc.perform(get("/api/quiz"))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print());
@@ -83,7 +83,7 @@ public class QuizControllerUnitTest {
     @Test
     public void createNewCard() throws Exception {
         QuizcardDTO quizcardDTO = mapper.mapToDTO(quizcards.get(0));
-        when(quizService.createQuizcard(quizcardDTO)).thenReturn(quizcards.get(0));
+        when(quizService.createQuizcard(quizcardDTO)).thenReturn(quizcardDTO);
         String json = createJsonBodyOfQuizcard1();
         this.mockMvc.perform(post("/api/quiz/new")
                         .content(json)

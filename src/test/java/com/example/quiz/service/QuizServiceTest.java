@@ -31,8 +31,8 @@ class QuizServiceTest {
     @Test
     void getAllQuizcards() {
         when(repository.findAll()).thenReturn(List.of(new Quizcard()));
-        List<Quizcard> actual = service.getAllCards();
-        assertIterableEquals(List.of(new Quizcard()), actual);
+        List<QuizcardDTO> actual = service.getAllCards();
+        assertIterableEquals(List.of(mapper.mapToDTOWithoutCorrectAnswers(new Quizcard())), actual);
         verify(repository).findAll();
     }
 
@@ -48,8 +48,8 @@ class QuizServiceTest {
         QuizcardDTO card = new QuizcardDTO(1, "question", List.of("a", "b", "c"), List.of(0));
         Quizcard persistentCard = mapper.mapQuizcard(card);
         when(repository.save(persistentCard)).thenReturn(persistentCard);
-        Quizcard actual = service.createQuizcard(card);
-        assertThat(actual).isEqualTo(persistentCard);
+        QuizcardDTO actual = service.createQuizcard(card);
+        assertThat(actual).isEqualTo(mapper.mapToDTOWithoutCorrectAnswers(persistentCard));
         verify(repository).save(persistentCard);
     }
 

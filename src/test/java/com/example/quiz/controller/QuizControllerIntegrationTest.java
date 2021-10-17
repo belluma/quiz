@@ -57,6 +57,7 @@ public class QuizControllerIntegrationTest {
         registry.add("spring.datasource.username", container::getUsername);
     }
     QuizcardDTO card = new QuizcardDTO(1, "question", List.of("answer"), List.of(0));
+    QuizcardDTO cardWithConcealedAnswers = new QuizcardDTO(1, "question", List.of("answer"), List.of());
     @Test
     @Order(1)
     void test() {
@@ -73,14 +74,14 @@ public class QuizControllerIntegrationTest {
     @Test
     @Order(3)
     void testCreateNewCard() {
-        Quizcard response = quizController.createNewCard(card);
-        assertThat(response).isEqualTo(mapper.mapQuizcard(card));
+        QuizcardDTO response = quizController.createNewCard(card);
+        assertThat(response).isEqualTo(cardWithConcealedAnswers);
     }
     @Test
     @Order(4)
     void testGetAllCardReturnsListOfOneCard() {
-        List<Quizcard> response = quizController.getAllCards();
-        assertIterableEquals(response, List.of(mapper.mapQuizcard(card)));
+        List<QuizcardDTO> response = quizController.getAllCards();
+        assertIterableEquals(response, List.of(cardWithConcealedAnswers));
 
     }
     @Test
