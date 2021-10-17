@@ -26,16 +26,19 @@ public class QuizService {
     }
 
 
-    public List<Quizcard> getAllCards() throws NoSuchElementException {
+    public List<QuizcardDTO> getAllCards() throws NoSuchElementException {
         List <Quizcard> cards =repository.findAll();
         if(cards.isEmpty()) throw new NoSuchElementException("No quizcards created yet");
-        return cards;
+        return cards
+                .stream()
+                .map(mapper::mapToDTOWithoutCorrectAnswers)
+                .toList();
     }
 
-    public Quizcard createQuizcard(QuizcardDTO quizcard) throws IllegalArgumentException {
+    public QuizcardDTO createQuizcard(QuizcardDTO quizcard) throws IllegalArgumentException {
         Quizcard persistentQuizcard = mapper.mapQuizcard(quizcard);
         validateQuizcardBody(persistentQuizcard);
-        return repository.save(persistentQuizcard);
+        return mapper.mapToDTOWithoutCorrectAnswers(repository.save(persistentQuizcard));
 
     }
     private void validateQuizcardBody(Quizcard quizcard) throws IllegalArgumentException{
