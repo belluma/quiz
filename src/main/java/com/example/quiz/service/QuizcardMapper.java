@@ -10,4 +10,7 @@ public class QuizcardMapper {
     public QuizcardDTO mapToDTO(Quizcard quizcard) {
         return new QuizcardDTO(quizcard.getId(), quizcard.getQuestion(), quizcard.getChoices(), quizcard.getAnswerIndices());
     }
+public QuizcardDTO mapToDTOWithoutCorrectAnswers(Quizcard quizcard) {
+        return new QuizcardDTO(quizcard.getId(), quizcard.getQuestion(), quizcard.getChoices());
+    }
 }

@@ -16,6 +16,12 @@ public class QuizcardDTO extends Quizcard {
     private List<String> choices;
     private List<Integer> answerIndices;
 
+    public QuizcardDTO(Integer id, String question, List<String> choices){
+        this.id = id;
+        this.question = question;
+        this.choices = choices;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
