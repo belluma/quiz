@@ -14,6 +14,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name = "highscores")
+@Builder
 public class Highscore {
 
     @Id

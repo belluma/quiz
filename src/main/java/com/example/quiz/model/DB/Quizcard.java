@@ -14,6 +14,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name="questions")
+@Builder
 public class Quizcard {
 
     @Id

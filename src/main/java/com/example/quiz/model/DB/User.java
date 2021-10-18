@@ -13,6 +13,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Entity
 @Table(name="users")
+@Builder
 public class User {
 
     @Id
