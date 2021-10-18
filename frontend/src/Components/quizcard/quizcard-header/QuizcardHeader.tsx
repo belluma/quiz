@@ -19,7 +19,7 @@ function QuizcardHeader({title, clickHandler}: Props){
 
             sx={{bgcolor: 'background.paper', }}
             avatar={<HelpIcon/>}
-            title={title ? `${title}?` : title}
+            title={title && `${title}?`}
             titleTypographyProps={{fontSize: 26}}
         />
     )
