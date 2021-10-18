@@ -33,6 +33,4 @@ public class QuizController {
     public Boolean validateAnswer(@RequestBody QuizcardDTO quizcard) {
         return quizService.validateQuizcardAnswer(quizcard);
     }
-
-
 }

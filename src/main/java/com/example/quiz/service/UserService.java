@@ -49,9 +49,20 @@ public class UserService {
     public List<UserDTO> getUserByName(String username) throws NoSuchElementException {
         List<User> users = repository.findByUsername(username);
         if (!users.isEmpty()) {
-            return users.stream().map(mapper::mapUserAndConcealData).toList();
+            return users
+                    .stream()
+                    .map(mapper::mapUserAndConcealData)
+                    .toList();
         }
         throw new NoSuchElementException(String.format("No users found whose name contained %s", username));
+    }
+
+    public UserDTO signup(UserDTO user){
+        return mapper.mapUserAndConcealData(repository.save(user));
+    }
+
+    public UserDTO login(UserDTO user) {
+        return user;
     }
 
 }
