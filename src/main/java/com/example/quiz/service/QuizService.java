@@ -14,7 +14,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-@Data
 public class QuizService {
 
     @Autowired

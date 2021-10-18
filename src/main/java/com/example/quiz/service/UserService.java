@@ -4,6 +4,7 @@ import com.example.quiz.model.DB.User;
 import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.repository.UserRepository;
 import com.example.quiz.service.mapper.UserMapper;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,13 +14,16 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
 
     @Autowired
     private final UserRepository repository;
 
     private final UserMapper mapper = new UserMapper();
+
+    public UserService(UserRepository repository){
+        this.repository = repository;
+    }
 
     public List<UserDTO> getAllUsers() {
         return repository
@@ -46,7 +50,7 @@ public class UserService {
         throw new NoSuchElementException(String.format("No user found with id %d", id));
     }
 
-    public List<UserDTO> getUserByName(String username) throws NoSuchElementException {
+    public List<UserDTO> getUsersByName(String username) throws NoSuchElementException {
         List<User> users = repository.findByUsername(username);
         if (!users.isEmpty()) {
             return users

@@ -62,7 +62,7 @@ class UserServiceTest {
         User user2 = buildUser(2);
         when(repository.findByUsername("user")).thenReturn(List.of(user, user2));
         List<UserDTO> expected = List.of(mapper.mapUserAndConcealData(user), mapper.mapUserAndConcealData(user2));
-        List<UserDTO> actual = service.getUserByName("user");
+        List<UserDTO> actual = service.getUsersByName("user");
         assertIterableEquals(actual, expected);
         verify(repository).findByUsername("user");
     }
