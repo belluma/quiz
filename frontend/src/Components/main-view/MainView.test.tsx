@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MainView from './MainView';
+import {BrowserRouter as Router} from "react-router-dom";
+
+
 
 let container: HTMLElement | null = null;
 beforeEach(() => {
@@ -17,5 +20,5 @@ afterEach(() =>{
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-   ReactDOM.render(<MainView />, div);
+    ReactDOM.render(<Router><MainView /></Router>, div);
     });

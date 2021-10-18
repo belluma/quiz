@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { store } from '../../app/store';
 import Quiz from './Quiz';
+import {Provider} from "react-redux";
 
 let container: HTMLElement | null = null;
 beforeEach(() => {
@@ -17,5 +19,5 @@ afterEach(() =>{
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-   ReactDOM.render(<Quiz />, div);
+    ReactDOM.render(<Provider store={store}><Quiz /></Provider>, div);
     });

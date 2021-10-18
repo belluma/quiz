@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import AllCards from './AllCards';
+import {Provider} from "react-redux";
+import { store } from '../../app/store';
 
 let container: HTMLElement | null = null;
 beforeEach(() => {
@@ -17,5 +19,5 @@ afterEach(() =>{
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-   ReactDOM.render(<AllCards />, div);
+    ReactDOM.render(<Provider store={store}><AllCards /> </Provider>, div);
     });
