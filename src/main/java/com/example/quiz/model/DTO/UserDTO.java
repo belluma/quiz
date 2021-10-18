@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,14 +42,13 @@ public class UserDTO extends User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        UserDTO userDTO = (UserDTO) o;
-        return isOnline == userDTO.isOnline && Objects.equals(id, userDTO.id) && Objects.equals(username, userDTO.username) && Objects.equals(email, userDTO.email) && Objects.equals(password, userDTO.password) && Objects.equals(highscores, userDTO.highscores);
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        UserDTO user = (UserDTO) o;
+        return Objects.equals(id, user.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), id, username, email, password, isOnline, highscores);
+        return 0;
     }
 }
