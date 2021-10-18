@@ -10,6 +10,6 @@ public class HighscoreMapper {
     }
 
     public HighscoreDTO mapHighscoreToDTO(Highscore highscore) {
-        return new HighscoreDTO(highscore.getId(), highscore.getUser(), highscore.getScore());
+        return new HighscoreDTO(highscore.getId(), highscore.getUser(), highscore.getScore(), highscore.getDate());
     }
 }

@@ -62,7 +62,7 @@ public class UserService {
     }
 
     public UserDTO signup(UserDTO user){
-        return mapper.mapUserAndConcealData(repository.save(user));
+        return mapper.mapUserAndConcealData(repository.save(mapper.mapUser(user)));
     }
 
     public UserDTO login(UserDTO user) {

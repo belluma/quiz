@@ -10,6 +10,7 @@ import java.util.Objects;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//@Builder
 public class QuizcardDTO extends Quizcard {
 
     private Integer id;

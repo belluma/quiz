@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class QuizControllerIntegrationTest {
 
     @Autowired
-    QuizController quizController; //= new QuizController();
+    QuizController quizController;
     @Autowired
     GlobalExceptionHandler exceptionHandler;
 

@@ -3,10 +3,7 @@ package com.example.quiz.model.DTO;
 
 import com.example.quiz.model.DB.Highscore;
 import com.example.quiz.model.DB.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.util.List;
@@ -15,7 +12,8 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO extends User {
+@Builder
+public class UserDTO {
 
     private Integer id;
 

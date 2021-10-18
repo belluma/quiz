@@ -4,21 +4,25 @@ package com.example.quiz.model.DTO;
 import com.example.quiz.model.DB.Highscore;
 import com.example.quiz.model.DB.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class HighscoreDTO extends Highscore {
+@Builder
+public class HighscoreDTO  {
 
     private Integer id;
     private User user;
     private int score;
+    private LocalDateTime date;
 
     @Override
     public boolean equals(Object o) {
