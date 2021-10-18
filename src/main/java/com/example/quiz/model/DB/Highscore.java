@@ -2,6 +2,7 @@ package com.example.quiz.model.DB;
 
 
 import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "highscores")
@@ -29,13 +30,13 @@ public class Highscore {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Highscore highscore = (Highscore) o;
-        return score == highscore.score && Objects.equals(id, highscore.id) && Objects.equals(user, highscore.user) && Objects.equals(date, highscore.date);
+        return id != null && Objects.equals(id, highscore.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, score, date);
+        return 0;
     }
 }

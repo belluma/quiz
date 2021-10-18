@@ -19,7 +19,11 @@ public class HighscoreService {
     private final HighscoreMapper mapper = new HighscoreMapper();
 
     public List<HighscoreDTO> getHighscores() {
-        return List.of();
+
+        return repository.findAll()
+                .stream()
+                .map(mapper::mapHighscoreToDTO)
+                .toList();
     }
 
     public HighscoreDTO saveHighscore(HighscoreDTO highscore) {
