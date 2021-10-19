@@ -4,7 +4,7 @@
 //import com.example.quiz.security.model.UserDTO;
 //import com.example.quiz.security.repository.QuizUserRepository;
 //import com.example.quiz.security.service.QuizUserService;
-//import com.example.quiz.security.service.UserMapper;
+//import com.example.quiz.service.mapper.UserMapper;
 //import lombok.RequiredArgsConstructor;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 //package com.example.quiz.controller;
 //
-//import com.example.quiz.security.service.UserMapper;
+//import com.example.quiz.service.mapper.UserMapper;
 //import org.junit.jupiter.api.MethodOrderer;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.TestMethodOrder;

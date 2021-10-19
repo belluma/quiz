@@ -1,4 +1,4 @@
-package com.example.quiz.security.service;
+package com.example.quiz.service.mapper;
 
 import com.example.quiz.security.model.QuizUser;
 import com.example.quiz.security.model.UserDTO;
