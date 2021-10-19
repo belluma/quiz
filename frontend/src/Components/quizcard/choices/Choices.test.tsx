@@ -18,8 +18,8 @@ afterEach(() => {
     }
     container = null;
 })
-const choices = ['a',  'c', 'd'];
-const selected = [1];
+const choices:string[] = ['a', 'bfdsfsda', 'c', 'd'];
+const selected:number[] = [];
 describe("test choices in all cardmodes", () => {
     it('renders without crashing in mode NEW', () => {
         const div = document.createElement('div');
@@ -65,19 +65,11 @@ describe("test radio buttons work", () => {
                                           selected={selected}/>)
         const radios = (screen.getAllByRole('radio'))
         const labels = choices.map((choice) => screen.getByText(choice));
-        // fireEvent.click(radios[1]);
-        // expect(handleChange).toHaveBeenCalledTimes(1);
-        // console.log(radios.length);
-        // console.log(radios[0]);
-        // console.log(radios[1])
-        //     radios.forEach((radio, i) => {
-        //     fireEvent.click(radios[labels.length - 1 - i]);
-        //     console.log(radio);
-        //     expect(handleChange).toHaveBeenCalledTimes(i + 1);
-        // })
-        // component.debug();
-        // expect(handleChange).toHaveBeenCalledTimes(8)
-        // console.log([...radios, ...labels])
+        [...radios, ...labels].forEach((radio, i) => {
+            fireEvent.click(radio);
+        })
+        expect(handleChange).toHaveBeenCalledTimes(8);
+
     })
 })
 
