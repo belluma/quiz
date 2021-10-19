@@ -18,8 +18,8 @@ afterEach(() => {
     }
     container = null;
 })
-const choices:string[] = ['a', 'bfdsfsda', 'c', 'd'];
-const selected:number[] = [];
+const choices: string[] = ['a', 'b', 'c', 'd'];
+const selected: number[] = [];
 describe("test choices in all cardmodes", () => {
     it('renders without crashing in mode NEW', () => {
         const div = document.createElement('div');
@@ -57,7 +57,6 @@ describe("test choices are present", () => {
     })
 })
 
-
 describe("test radio buttons work", () => {
     test("test onChange fires when clicking on radio or label", () => {
         const handleChange = jest.fn();
@@ -70,6 +69,16 @@ describe("test radio buttons work", () => {
         })
         expect(handleChange).toHaveBeenCalledTimes(8);
 
+    })
+    test("onChange doesn't fire when clicking on already selected label or radio", () =>{
+        const handleChange = jest.fn();
+        const component = render(<Choices choices={choices} mode={cardMode.QUIZ} selectAnswer={handleChange}
+                                          selected={[0]}/>)
+        const radio = screen.getAllByRole('radio')[0];
+        const label = screen.getByText('a');
+        fireEvent.click(radio);
+        fireEvent.click(label);
+        expect(handleChange).toHaveBeenCalledTimes(0);
     })
 })
 
