@@ -23,14 +23,17 @@ it('renders without crashing', () => {
     ReactDOM.render(<QuizcardHeader title={"title"} clickHandler={() => {
     }}/>, div);
 });
-
-test('has text given in title props', () => {
-    render(<QuizcardHeader title={"title"} clickHandler={() => console.log("title")}/>);
-    expect(screen.getByText('title?')).toBeInTheDocument();
-})
-test('calls clickHandler prop when clicked', () => {
-    const handleClick = jest.fn();
-    const {baseElement} = render(<QuizcardHeader title={"title"} clickHandler={handleClick}/>);
-    fireEvent.click(baseElement);
-    // expect(handleClick).toHaveBeenCalledTimes(1);
-})
+describe("app header", () => {
+    test('has text given in title props', () => {
+        render(<QuizcardHeader title={"title"} clickHandler={() => {
+        }}/>);
+        expect(screen.getByText('title?')).toBeInTheDocument();
+    });
+    test('calls clickHandler prop when clicked', () => {
+        const handleClick = jest.fn();
+        render(<QuizcardHeader title={"title"} clickHandler={handleClick}/>);
+        const header = screen.getByRole('heading');
+        fireEvent.click(header);
+        expect(handleClick).toHaveBeenCalledTimes(1);
+    });
+});
