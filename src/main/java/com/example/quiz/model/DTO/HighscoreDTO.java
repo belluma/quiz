@@ -1,8 +1,7 @@
 package com.example.quiz.model.DTO;
 
 
-import com.example.quiz.model.DB.Highscore;
-import com.example.quiz.model.DB.User;
+import com.example.quiz.security.model.QuizUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ import java.util.Objects;
 public class HighscoreDTO  {
 
     private Integer id;
-    private User user;
+    private QuizUser quizUser;
     private int score;
     private LocalDateTime date;
 

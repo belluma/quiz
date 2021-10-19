@@ -1,6 +1,7 @@
 package com.example.quiz.model.DB;
 
 
+import com.example.quiz.security.model.QuizUser;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -23,7 +24,7 @@ public class Highscore {
     private Integer id;
 
     @ManyToOne
-    private User user;
+    private QuizUser quizUser;
     private int score;
     private final LocalDateTime date = LocalDateTime.now();
 

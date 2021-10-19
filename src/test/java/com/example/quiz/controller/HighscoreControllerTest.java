@@ -1,7 +1,5 @@
 package com.example.quiz.controller;
 
-import com.example.quiz.model.DB.Highscore;
-import com.example.quiz.model.DB.User;
 import com.example.quiz.model.DTO.HighscoreDTO;
 import com.example.quiz.service.mapper.HighscoreMapper;
 import org.junit.jupiter.api.MethodOrderer;

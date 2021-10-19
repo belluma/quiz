@@ -1,8 +1,7 @@
-package com.example.quiz.model.DTO;
+package com.example.quiz.security.model;
 
 
 import com.example.quiz.model.DB.Highscore;
-import com.example.quiz.model.DB.User;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -15,7 +14,6 @@ import java.util.Objects;
 @Builder
 public class UserDTO {
 
-    private Integer id;
 
     private String username;
     private String email;
@@ -24,10 +22,8 @@ public class UserDTO {
     private boolean isOnline;
     private List<Highscore> highscores;
 
-    public UserDTO(Integer id, String username,boolean isOnline, List<Highscore> highscores) {
-        this.id = id;
+    public UserDTO(String username,boolean isOnline, List<Highscore> highscores) {
         this.username = username;
-
         this.isOnline = isOnline;
         this.highscores = highscores;
     }
@@ -42,7 +38,7 @@ public class UserDTO {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         UserDTO user = (UserDTO) o;
-        return Objects.equals(id, user.getId());
+        return Objects.equals(username, user.getUsername());
     }
 
     @Override
