@@ -1,4 +1,5 @@
 package com.example.quiz.security.service;
+import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.security.repository.QuizUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -27,5 +28,9 @@ public class UserAuthService implements UserDetailsService {
                         .authorities("user")
                         .build())
                 .orElseThrow(()-> new UsernameNotFoundException("Username does not exist: " + username));
+    }
+
+    public UserDTO signup(UserDTO user) {
+        AppUser appUser = mapper
     }
 }
