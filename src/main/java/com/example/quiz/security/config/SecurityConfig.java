@@ -35,9 +35,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //to enable posts (and also delete/put???)
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
+//        http.authorizeRequests().and()
+//                .formLogin()
+//                .loginPage("/quiz")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll()
+//                .and()
+//                .httpBasic();
+
+                http.csrf().disable()
+                .authorizeRequests().anyRequest().authenticated()
+//                .antMatchers("/**").permitAll()
                 .and().formLogin()
                 .and().httpBasic();
     }

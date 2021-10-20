@@ -2,28 +2,32 @@ package com.example.quiz.controller;
 
 
 import com.example.quiz.security.model.UserDTO;
-import com.example.quiz.security.service.QuizUserService;
+import com.example.quiz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/user")
 public class UserController {
 
     @Autowired
-    private final QuizUserService service;
+    private final UserService service;
 
-    public UserController(QuizUserService service) {
+    public UserController(UserService service) {
         this.service = service;
     }
-    @GetMapping("/me")
+    @GetMapping()
     public UserDTO getUserInfo(Principal principal)throws Exception{
         String username = principal.getName();
         return service.getUserByUsername(username);
     }
+    @GetMapping("/login")
+    public String  showLoginPage(){
+        return "login";
+    }
+
 //    @GetMapping
 //    public List<UserDTO> getAllUsers() {
 //        return service.getAllUsers();
@@ -32,11 +36,6 @@ public class UserController {
 //    @GetMapping("/online")
 //    public List<UserDTO> getAllUsersOnline() {
 //        return service.getAllUsersOnline();
-//    }
-//
-//    @GetMapping("{id}")
-//    public UserDTO getUserById(@PathVariable Integer id) {
-//        return service.getUserById(id);
 //    }
 //
 //    @GetMapping("{name}")

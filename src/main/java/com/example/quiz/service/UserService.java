@@ -1,4 +1,4 @@
-package com.example.quiz.security.service;
+package com.example.quiz.service;
 
 import com.example.quiz.security.model.UserDTO;
 import com.example.quiz.security.repository.QuizUserRepository;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class QuizUserService {
+public class UserService {
 
     @Autowired
     private final QuizUserRepository repository;

@@ -20,7 +20,7 @@ public class UserAuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByUsername(username)
+        return repository.findById(username)
                 .map(appUser -> User
                         .withUsername(username)
                         .password(appUser.getPassword())

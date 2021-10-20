@@ -19,6 +19,7 @@ interface IResponseData {
 }
 
 export const getApiData = createAsyncThunk(
+
     'quiz/fetchQuizcards'
     , async () => {
         const {data, status, statusText} = await (getAllCards());
@@ -39,7 +40,9 @@ const handleErrors = (state: IQuizState, action: PayloadAction<IResponseData>): 
         state.status = action.payload.status;
         state.message = action.payload.statusText;
         state.error = true;
-        if (action.payload.status === 204) state.allCards = state.answeredCards = [];
+        if (action.payload.status === 204){
+            state.allCards = state.answeredCards = [];
+        }
         return true
     }
     return false

@@ -2,8 +2,8 @@ package com.example.quiz.controller;
 
 
 import com.example.quiz.model.DTO.QuizcardDTO;
-import com.example.quiz.security.service.QuizUserService;
 import com.example.quiz.service.QuizService;
+import com.example.quiz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +17,11 @@ public class QuizController {
     private final QuizService quizService;
 
     @Autowired
-    private final QuizUserService quizUserService;
+    private final UserService userService;
 
-    public QuizController(QuizService quizService, QuizUserService quizUserService) {
+    public QuizController(QuizService quizService, UserService userService) {
         this.quizService = quizService;
-        this.quizUserService = quizUserService;
+        this.userService = userService;
     }
 
     @GetMapping
