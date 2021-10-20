@@ -13,8 +13,16 @@ import java.util.HashMap;
 @Service
 public class JWTUtilService {
 
-    @Value("@{jwt.secret}")
+    @Value("${jwt.secret}")
     private String JWT_SECRET;
+
+    public String extractUserName(String token) {
+        return Jwts.parser()
+                .setSigningKey(JWT_SECRET)
+                .parseClaimsJwt(token)
+                .getBody()
+                .getSubject();
+    }
 
 
     public String createToken(HashMap<String, Object> claims, String subject){

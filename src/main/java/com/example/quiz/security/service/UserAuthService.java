@@ -1,6 +1,8 @@
 package com.example.quiz.security.service;
+import com.example.quiz.model.DB.QuizUser;
 import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.security.repository.QuizUserRepository;
+import com.example.quiz.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +16,7 @@ public class UserAuthService implements UserDetailsService {
 
     @Autowired
     private final QuizUserRepository repository;
+    private UserMapper mapper = new UserMapper();
 
     public UserAuthService(QuizUserRepository repository) {
         this.repository = repository;
@@ -31,6 +34,7 @@ public class UserAuthService implements UserDetailsService {
     }
 
     public UserDTO signup(UserDTO user) {
-        AppUser appUser = mapper
+        QuizUser appUser = mapper.mapUser(user);
+        return mapper.mapUserAndConcealData(repository.save(appUser));
     }
 }
