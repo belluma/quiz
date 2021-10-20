@@ -1,29 +1,21 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import CardCreationDialog from './CardCreationDialog';
 import {store} from "../../../app/store";
 import {Provider} from "react-redux";
 import {render, screen} from "@testing-library/react";
 
-// let container: HTMLElement | null = null;
-// beforeEach(() => {
-//     container = document.createElement('div');
-//     document.body.appendChild(container);
-// });
-//
-// afterEach(() => {
-//     if (container) {
-//         ReactDOM.unmountComponentAtNode(container);
-//         container.remove();
-//     }
-//     container = null;
-// })
-
 it('renders without crashing', () => {
     render(<Provider store={store}><CardCreationDialog/></Provider>)
 });
 describe("QuizcardHeader", () => {
-    test("status gets reset on click", () => {
+    test("status gets reset from ANSWER to QUESTION on click", () => {
+        const dialog = render(<Provider store={store}><CardCreationDialog/></Provider>)
+        const header = screen.getByRole("heading");
+
+
+        console.log(header);
+    })
+test("status gets reset from SELECT to QUESTION on click", () => {
         const dialog = render(<Provider store={store}><CardCreationDialog/></Provider>)
         const header = screen.getByRole("heading");
 

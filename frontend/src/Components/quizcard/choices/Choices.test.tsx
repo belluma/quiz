@@ -70,7 +70,7 @@ describe("test radio buttons work", () => {
         expect(handleChange).toHaveBeenCalledTimes(8);
 
     })
-    test("onChange doesn't fire when clicking on already selected label or radio", () =>{
+    test("onChange doesn't fire when clicking on already selected label or radio", () => {
         const handleChange = jest.fn();
         const component = render(<Choices choices={choices} mode={cardMode.QUIZ} selectAnswer={handleChange}
                                           selected={[0]}/>)
