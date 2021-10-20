@@ -17,7 +17,7 @@ function CardFooter({disableButton, onButtonClick, buttonText, footerText}: Prop
         <CardActions sx={{position: "absolute", bottom: 1, right:15}}>
             <Typography variant="button">{footerText}</Typography>
             <Button disabled={disableButton} variant="text"
-                    onClick={onButtonClick} name="button">{buttonText} </Button>
+                    onClick={onButtonClick} >{buttonText} </Button>
         </CardActions>
     )
 }
