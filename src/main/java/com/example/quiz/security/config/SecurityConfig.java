@@ -38,7 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    //to enable posts (and also delete/put???)
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
