@@ -1,7 +1,7 @@
 package com.example.quiz.service.mapper;
 
-import com.example.quiz.security.model.QuizUser;
-import com.example.quiz.security.model.UserDTO;
+import com.example.quiz.model.DB.QuizUser;
+import com.example.quiz.model.DTO.UserDTO;
 
 public class UserMapper {
 

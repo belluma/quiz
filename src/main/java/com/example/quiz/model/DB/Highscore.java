@@ -1,7 +1,6 @@
 package com.example.quiz.model.DB;
 
 
-import com.example.quiz.security.model.QuizUser;
 import lombok.*;
 import org.hibernate.Hibernate;
 

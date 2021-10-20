@@ -1,4 +1,4 @@
-package com.example.quiz.security.model;
+package com.example.quiz.model.DTO;
 
 
 import com.example.quiz.model.DB.Highscore;

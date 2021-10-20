@@ -1,10 +1,9 @@
 package com.example.quiz.security.repository;
 
-import com.example.quiz.security.model.QuizUser;
+import com.example.quiz.model.DB.QuizUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository

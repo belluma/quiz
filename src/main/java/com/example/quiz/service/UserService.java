@@ -1,6 +1,6 @@
 package com.example.quiz.service;
 
-import com.example.quiz.security.model.UserDTO;
+import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.security.repository.QuizUserRepository;
 import com.example.quiz.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;

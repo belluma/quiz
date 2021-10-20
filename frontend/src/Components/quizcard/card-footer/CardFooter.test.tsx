@@ -29,18 +29,25 @@ describe("text props get forwarded", () => {
     test("to button", () => {
         expect(screen.getByText("button")).toBeInTheDocument();
     })
-    // test("to typography component", () => {
-    //     expect(screen.getByRole('button', {name: "footer"})).toBeInTheDocument();
-    // // console.log(screen.getByText("footer"))
-    // })
+    test("to typography component", () => {
+        expect(screen.getByText("footer")).toBeInTheDocument();
+    })
 })
 
-// test("onButtonClick function gets executed on buttton click", () => {
-//     const onButtonClick = jest.fn();
-//     render(<CardFooter disableButton={false} onButtonClick={onButtonClick} buttonText={"button"}
-//                        footerText={"footer"}/>)
-//     const buttons = screen.getAllByRole("button")
-//     console.log(buttons)
-//     buttons.forEach((button) => fireEvent.click(button))
-//     // expect(onButtonClick).toHaveBeenCalledTimes(2);
-// })
+test("onButtonClick function gets executed on buttton click", () => {
+    const onButtonClick = jest.fn();
+    render(<CardFooter disableButton={false} onButtonClick={onButtonClick} buttonText={"button"}
+                       footerText={"footer"}/>)
+    const buttons = screen.getAllByRole("button", {name:"button"})
+    buttons.forEach((button) => fireEvent.click(button))
+    expect(onButtonClick).toHaveBeenCalledTimes(1);
+})
+
+test("button gets disabled via props", () => {
+    const onButtonClick = jest.fn();
+    render(<CardFooter disableButton={true} onButtonClick={onButtonClick} buttonText={"button"}
+                       footerText={"footer"}/>)
+    const buttons = screen.getAllByRole("button", {name:"button"})
+    buttons.forEach((button) => fireEvent.click(button))
+    expect(onButtonClick).toHaveBeenCalledTimes(0);
+})

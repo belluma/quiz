@@ -1,7 +1,7 @@
 package com.example.quiz.controller;
 
 
-import com.example.quiz.security.model.UserDTO;
+import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

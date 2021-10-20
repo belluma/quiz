@@ -1,7 +1,6 @@
-package com.example.quiz.security.model;
+package com.example.quiz.model.DB;
 
 
-import com.example.quiz.model.DB.Highscore;
 import lombok.*;
 import org.hibernate.Hibernate;
 

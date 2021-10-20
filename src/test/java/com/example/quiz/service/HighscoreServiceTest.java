@@ -1,7 +1,7 @@
 package com.example.quiz.service;
 
 import com.example.quiz.model.DB.Highscore;
-import com.example.quiz.security.model.QuizUser;
+import com.example.quiz.model.DB.QuizUser;
 import com.example.quiz.model.DTO.HighscoreDTO;
 import com.example.quiz.repository.HighscoreRepository;
 import com.example.quiz.service.mapper.HighscoreMapper;

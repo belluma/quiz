@@ -1,7 +1,7 @@
 package com.example.quiz.model.DTO;
 
 
-import com.example.quiz.security.model.QuizUser;
+import com.example.quiz.model.DB.QuizUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
