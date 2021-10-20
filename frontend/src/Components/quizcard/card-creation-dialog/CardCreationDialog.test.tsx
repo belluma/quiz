@@ -1,21 +1,66 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CardCreationDialog from './CardCreationDialog';
+import {store} from "../../../app/store";
+import {Provider} from "react-redux";
+import {render, screen} from "@testing-library/react";
 
-let container: HTMLElement | null = null;
-beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-});
-
-afterEach(() =>{
-    if(container){
-    ReactDOM.unmountComponentAtNode(container);
-    container.remove();
-    }    container = null;
-})
+// let container: HTMLElement | null = null;
+// beforeEach(() => {
+//     container = document.createElement('div');
+//     document.body.appendChild(container);
+// });
+//
+// afterEach(() => {
+//     if (container) {
+//         ReactDOM.unmountComponentAtNode(container);
+//         container.remove();
+//     }
+//     container = null;
+// })
 
 it('renders without crashing', () => {
-    const div = document.createElement('div');
-   // ReactDOM.render(<CardCreationDialog />, div);
+    render(<Provider store={store}><CardCreationDialog/></Provider>)
+});
+describe("QuizcardHeader", () => {
+    test("status gets reset on click", () => {
+        const dialog = render(<Provider store={store}><CardCreationDialog/></Provider>)
+        const header = screen.getByRole("heading");
+
+
+        console.log(header);
+    })
+})
+
+describe("CardContent", () => {
+    test("Question Form Group renders when status == question", () => {
     });
+    it('sets question text on input in text field', () => {
+    });
+    it("advances to answer status on button click", () => {
+    });
+
+    test("Choices Form Group renders when status == answer", () => {
+    });
+    it("sets choice text on input in text field", () => {
+    });
+    it("saves choice on button click", () => {
+    });
+    it("resets value on save choice", () => {
+    });
+    it("renders a choice after choice has been added", () => {
+    });
+    it("removes answer from choices on delete button", () => {
+    })
+})
+
+describe("CardFooter", () => {
+    it("disables button when less than two choices", () => {
+    })
+    it("disables button when no correct answer chosen", () => {
+    })
+    it("disables button when no question text", () => {
+    })
+    it("executes save card on button click", () => {
+    })
+})
