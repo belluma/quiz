@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ReactAppController {
 
-    @RequestMapping(value = { "/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/**/{y:[\\w\\-]+}" })
+    @RequestMapping(value = "/**/{[path:[^\\.]*}")
     public String getIndex(HttpServletRequest request) {
         return "/index.html";
     }
 
 }
-//https://stackoverflow.com/questions/47689971/how-to-work-with-react-routers-and-spring-boot-controller

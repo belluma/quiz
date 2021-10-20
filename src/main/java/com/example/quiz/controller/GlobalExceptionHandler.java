@@ -5,6 +5,7 @@ import com.example.quiz.model.CustomError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -28,7 +29,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         String errorMessage = ex.getMessage();
         if (errorMessage == null) errorMessage = ex.toString();
         CustomError message = new CustomError( errorMessage);
-        System.out.println(errorMessage);
+//        log.error(message, ex);
+
+        if (errorMessage.equals("No quizcards created yet")) {
+            return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler({BadCredentialsException.class,})
+    public ResponseEntity<Object> handleBadCredentialsException(Exception ex) {
+        String errorMessage = ex.getMessage();
+        if (errorMessage == null) errorMessage = ex.toString();
+        CustomError message = new CustomError( errorMessage);
+//        log.error(message, ex);
         if (errorMessage.equals("No quizcards created yet")) {
             return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NO_CONTENT);
         }

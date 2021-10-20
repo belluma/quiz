@@ -27,7 +27,6 @@ describe("QuizcardHeader", () => {
         const dialog = render(<Provider store={store}><CardCreationDialog/></Provider>)
         const header = screen.getByRole("heading");
 
-
         console.log(header);
     })
 })
