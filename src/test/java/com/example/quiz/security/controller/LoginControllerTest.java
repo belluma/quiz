@@ -4,6 +4,7 @@ import com.example.quiz.controller.GlobalExceptionHandler;
 import com.example.quiz.model.DTO.UserDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.junit.Rule;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,8 +51,8 @@ class LoginControllerTest {
 
     @BeforeEach
     private void addUserToDb() {
-
-        restTemplate.postForEntity("/auth/login", createUser(), String.class);
+        loginController.signup(createUser());
+//        restTemplate.postForEntity("/auth/login/signup", createUser(), String.class);
     }
 
     @Test
@@ -68,11 +69,11 @@ class LoginControllerTest {
     }
 
     @Test
-    @Order(2)
     void loginFailsWithWrongCredentials() {
         UserDTO user = createUser();
         user.setPassword("123");
         ResponseEntity<String> response = restTemplate.postForEntity("/auth/login", user, String.class);
+        System.out.println(response);
         assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
     }
 

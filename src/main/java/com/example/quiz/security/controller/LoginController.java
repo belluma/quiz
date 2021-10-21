@@ -36,7 +36,7 @@ public class LoginController {
     }
 
     //temporary to get test running
-    @PostMapping("signup")
+    @PostMapping("/signup")
     public UserDTO signup(@RequestBody UserDTO user){
         return userAuthService.signup(user);
     }
