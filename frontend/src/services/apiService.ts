@@ -1,13 +1,13 @@
 import axios, {AxiosResponse} from "axios";
+import { IQuestionCard } from "../Interfaces/IQuestionCard";
 
 
 
 const BASE_URL = "/api/quiz"
 
-export const getAllCards = ():Promise<AxiosResponse> => {
+export const getAllCards = ():Promise<IQuestionCard[]> => {
     return axios.get(BASE_URL)
-        .then(result => result)
-        .catch(err => err)
+        .then(response => response.data)
 }
 
 export const createCard = (card:any):Promise<AxiosResponse> =>{
@@ -16,8 +16,7 @@ export const createCard = (card:any):Promise<AxiosResponse> =>{
         url:`${BASE_URL}/new`,
         data: card,
         headers:{"Content-Type": "application/json"}
-    }).then(response => response)
-        .catch(err => err)
+    }).then(response => response.data)
 }
 export const validateAnswer = (card:any):Promise<AxiosResponse> =>{
     return axios({
@@ -25,6 +24,5 @@ export const validateAnswer = (card:any):Promise<AxiosResponse> =>{
         url:`${BASE_URL}`,
         data: card,
         headers:{"Content-Type": "application/json"}
-    }).then(response => response)
-        .catch(err => err)
+    }).then(response => response.data)
 }

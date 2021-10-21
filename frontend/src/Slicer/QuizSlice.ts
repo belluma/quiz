@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {getAllCards, validateAnswer} from "../services/apiService";
 import {IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
 import {RootState} from "../app/store";
+import {AxiosResponse} from "axios";
 
 const initialState: IQuizState = {
     allCards: [],
@@ -9,7 +10,7 @@ const initialState: IQuizState = {
     status: 200,
     message: "",
     error: false,
-    pointsCounter:0,
+    pointsCounter: 0,
 }
 
 interface IResponseData {
@@ -19,35 +20,34 @@ interface IResponseData {
 }
 
 export const getApiData = createAsyncThunk(
-
     'quiz/fetchQuizcards'
-    , async () => {
-        const {data, status, statusText} = await (getAllCards());
-        return {data, status, statusText};
-    }
-)
+    , async () => await getAllCards().catch(err => {
+        console.log(err.message)
+    }))
+
+
 export const validateQuizcard = createAsyncThunk(
     'quiz/vaildateAnswer',
-    async (answer: IQuestionCard) => {
-        const {data, status, statusText} = await (validateAnswer(answer));
-        return {data, status, statusText};
-
-    }
+    async (answer: IQuestionCard) => await (validateAnswer(answer))
+    //     const {data, status, statusText} =
+    //     return {data, status, statusText};
+    //
+    // }
 )
 
-export const handleErrors = (state: IQuizState, action: PayloadAction<IResponseData>): boolean => {
-    if (action.payload.status !== 200) {
-        state.status = action.payload.status;
-        state.message = action.payload.statusText;
-        state.error = true;
-        if (action.payload.status === 204){
-            state.allCards = state.answeredCards = [];
-        }
-        return true
-    }
+export const handleErrors = (state: IQuizState, action: PayloadAction<IQuestionCard[]>): boolean => {
+    // if (action.payload.status !== 200) {
+    // state.status = action.payload.status;
+    // state.message = action.payload.statusText;
+    // state.error = true;
+    // if (action.payload.status === 204){
+    //     state.allCards = state.answeredCards = [];
+    // }
+    // return true
+    // }
     return false
 }
-const resetErrorState = (state:IQuizState) => {
+const resetErrorState = (state: IQuizState) => {
     state.status = 200;
     state.message = "";
     state.error = false;
@@ -69,15 +69,17 @@ export const QuizSlice = createSlice({
         builder
             .addCase(getApiData.pending, state => {
             })
-            .addCase(getApiData.fulfilled, (state, action: PayloadAction<IResponseData>) => {
-                if (handleErrors(state, action)) return
-                state.allCards = action.payload.data
-                resetErrorState(state);
+            .addCase(getApiData.fulfilled, (state, action: PayloadAction<Promise<IQuestionCard> | void>) => {
+                state.allCards = action.payload
+                console.log(action.payload)
+                // if (handleErrors(state, action)) return
+                // state.allCards = action.payload
+                // resetErrorState(state);
             })
-            .addCase(validateQuizcard.fulfilled, (state, action:PayloadAction<IResponseData>) => {
-                if (handleErrors(state, action)) return
-                if (action.payload.data)state.pointsCounter += 1;
-                resetErrorState(state);
+            .addCase(validateQuizcard.fulfilled, (state, action: PayloadAction<any>) => {
+                // if (handleErrors(state, action)) return
+                // if (action.payload.data)state.pointsCounter += 1;
+                // resetErrorState(state);
             })
     })
 })
