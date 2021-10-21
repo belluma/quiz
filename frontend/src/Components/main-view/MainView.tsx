@@ -12,7 +12,7 @@ import Signup from "../signup/Signup";
 import Highscore from "../highscore/Highscore";
 import {useAppSelector} from "../../app/hooks";
 import {selectLoggedIn} from "../../Slicer/authSlice";
-import ProtectedRoute from "../protected-route/ProtectedRoute";
+import ProtectedRoute from "./protected-route/ProtectedRoute";
 //interface imports
 
 type Props = {};

@@ -50,6 +50,15 @@ export const overrideFontColorOnFocus = ():ThemeOptions => {
         }
     })
 }
+export const overrideBackgroundForError = ():ThemeOptions => {
+    return createTheme({
+        palette:{
+            primary:{
+                main:"red"
+            }
+        }
+    })
+}
 
 
 export default theme
