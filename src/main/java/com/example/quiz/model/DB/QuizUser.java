@@ -30,9 +30,14 @@ public class QuizUser {
     @ToString.Exclude
     private List<Highscore> highscores;
 
+    public QuizUser(String username, String password){
+        this.username = username;
+        this.password = password;
+    }
+
     @Override
     public String toString() {
-        return getClass().getSimpleName() + ": " + username;
+        return getClass().getSimpleName() + ": " + username + password;
     }
 
     @Override

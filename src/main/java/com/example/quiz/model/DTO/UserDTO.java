@@ -32,6 +32,11 @@ public class UserDTO {
         this.email = email;
      this.password = password;
     }
+public UserDTO(String username, String password) {
+        this.username = username;
+        this.email = email;
+     this.password = password;
+    }
 
 
     public void setIsOnline(boolean isOnline) {

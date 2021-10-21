@@ -2,7 +2,6 @@ package com.example.quiz.security.controller;
 
 import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.security.service.JWTUtilService;
-import com.example.quiz.security.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,13 +18,11 @@ public class LoginController {
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtilService jwtService;
-    private final UserAuthService userAuthService;
 
     @Autowired
-    public LoginController(AuthenticationManager authenticationManager, JWTUtilService jwtService, UserAuthService userAuthService){
+    public LoginController(AuthenticationManager authenticationManager, JWTUtilService jwtService){
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
-        this.userAuthService = userAuthService;
     }
 
     @PostMapping
@@ -35,9 +32,5 @@ public class LoginController {
         return jwtService.createToken(new HashMap<>(), user.getUsername());
     }
 
-    //temporary to get test running
-    @PostMapping("/signup")
-    public UserDTO signup(@RequestBody UserDTO user){
-        return userAuthService.signup(user);
-    }
+
 }

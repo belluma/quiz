@@ -16,10 +16,12 @@ public class JWTUtilService {
     @Value("${jwt.secret}")
     private String JWT_SECRET;
 
-    public String extractUserName(String token) {
+    private long duration = 4 * 60 * 60 * 1000;
+
+    public String extractUsername(String token) {
         return Jwts.parser()
                 .setSigningKey(JWT_SECRET)
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
     }
@@ -32,7 +34,7 @@ public class JWTUtilService {
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plus(Duration.ofHours(4))))
+                .setExpiration(Date.from(Instant.now().plus(Duration.ofMillis(duration))))
                 .signWith(SignatureAlgorithm.HS256, JWT_SECRET )
                 .compact();
 

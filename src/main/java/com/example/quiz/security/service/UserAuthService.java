@@ -3,7 +3,6 @@ import com.example.quiz.model.DB.QuizUser;
 import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.security.repository.QuizUserRepository;
 import com.example.quiz.service.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,9 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserAuthService implements UserDetailsService {
 
-    @Autowired
     private final QuizUserRepository repository;
-    private UserMapper mapper = new UserMapper();
 
     public UserAuthService(QuizUserRepository repository) {
         this.repository = repository;
@@ -31,10 +28,5 @@ public class UserAuthService implements UserDetailsService {
                         .authorities("user")
                         .build())
                 .orElseThrow(()-> new UsernameNotFoundException("Username does not exist: " + username));
-    }
-
-    public UserDTO signup(UserDTO user) {
-        QuizUser appUser = mapper.mapUser(user);
-        return mapper.mapUserAndConcealData(repository.save(appUser));
     }
 }

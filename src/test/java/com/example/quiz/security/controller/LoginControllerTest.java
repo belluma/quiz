@@ -2,6 +2,8 @@ package com.example.quiz.security.controller;
 
 import com.example.quiz.controller.GlobalExceptionHandler;
 import com.example.quiz.model.DTO.UserDTO;
+import com.example.quiz.security.repository.QuizUserRepository;
+import com.example.quiz.service.mapper.UserMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.junit.Rule;
@@ -35,6 +37,9 @@ class LoginControllerTest {
     private TestRestTemplate restTemplate;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private QuizUserRepository userRepository;
+    private UserMapper mapper = new UserMapper();
 
     @Value("${jwt.secret}")
     private String JWT_SECRET;
@@ -52,15 +57,15 @@ class LoginControllerTest {
             .withUsername("quiz")
             .withPassword("quiz");
 
-    @BeforeEach
-    private void addUserToDb() {
-        loginController.signup(createUser());
-//        restTemplate.postForEntity("/auth/login/signup", createUser(), String.class);
+    @AfterEach
+    public void clearDb() {
+        userRepository.deleteAll();
     }
 
     @Test
     void login() {
         UserDTO user = createUser();
+        userRepository.save(mapper.mapUser(user));
         user.setPassword("1234");
         ResponseEntity<String> response = restTemplate.postForEntity("/auth/login", user, String.class);
         Claims body = Jwts.parser()
@@ -74,9 +79,9 @@ class LoginControllerTest {
     @Test
     void loginFailsWithWrongCredentials() {
         UserDTO user = createUser();
+        userRepository.save(mapper.mapUser(user));
         user.setPassword("123");
         ResponseEntity<String> response = restTemplate.postForEntity("/auth/login", user, String.class);
-        System.out.println(response);
         assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
     }
 
