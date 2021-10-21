@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from "axios";
-import {IUser} from "../Interfaces/IUser";
+
+
 
 const BASE_URL = "/api/quiz"
 

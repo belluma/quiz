@@ -10,6 +10,9 @@ import AllCards from "../all-cards/AllCards";
 import Login from "../login/Login";
 import Signup from "../signup/Signup";
 import Highscore from "../highscore/Highscore";
+import {useAppSelector} from "../../app/hooks";
+import {selectLoggedIn} from "../../Slicer/authSlice";
+import ProtectedRoute from "../protected-route/ProtectedRoute";
 //interface imports
 
 type Props = {};
@@ -18,13 +21,12 @@ function MainView(props: Props){
     return(
         <Container sx={{pt: 15}} maxWidth={false}>
             <Grid container justifyContent="center" alignItems="center">
-                <Route path="/quiz" component={Quiz}/>
-                <Route path="/new" component={CardCreationDialog}/>
-                <Route path="/all" component={AllCards}/>
+                <ProtectedRoute route={"/quiz"} component={Quiz} />
+                <ProtectedRoute route={"/new"} component={CardCreationDialog}/>
+                <ProtectedRoute route={"/all"} component={AllCards}/>
                 <Route path="/login" component={Login}/>
-                <Route path="/signup" component={Signup}/>
-                <Route path="/highscore" component={Highscore}/>
-
+                <Route path={"/signup"} component={Signup}/>
+                <ProtectedRoute route={"/highscore"} component={Highscore}/>
             </Grid>
         </Container>
     )

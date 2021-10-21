@@ -46,5 +46,5 @@ export const LoginSlice = createSlice({
             })
     }})
 
-export const selectLoggedIn = (state: RootState) => state.login.loggedIn = true;
+export const selectLoggedIn = (state: RootState) => state.login.loggedIn;
 export default LoginSlice.reducer;
