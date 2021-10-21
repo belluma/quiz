@@ -1,14 +1,14 @@
 package com.example.quiz.controller;
 
 import com.example.quiz.model.DTO.QuizcardDTO;
+import com.example.quiz.repository.QuizRepository;
 import com.example.quiz.service.mapper.QuizcardMapper;
-import org.junit.Rule;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -19,10 +19,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -34,6 +35,8 @@ public class QuizControllerIntegrationTest {
     QuizController quizController;
     @Autowired
     GlobalExceptionHandler exceptionHandler;
+    @Autowired
+    QuizRepository repository;
     @Autowired
     TestRestTemplate restTemplate;
 
@@ -53,47 +56,45 @@ public class QuizControllerIntegrationTest {
     }
     QuizcardDTO card = new QuizcardDTO(1, "question", List.of("answer"), List.of(0));
     QuizcardDTO cardWithConcealedAnswers = new QuizcardDTO(1, "question", List.of("answer"), List.of());
+
+    @AfterEach
+    public void clearDB(){
+        repository.deleteAll();
+    }
+
+
     @Test
-    @Order(1)
     void test() {
         assertTrue(container.isRunning());
     }
 
     @Test
-    @Order(2)
     void testGetAllReturns204() {
-        Exception ex = assertThrows(NoSuchElementException.class, () -> quizController.getAllCards());
-        assertThat(ex.getMessage().equals("No quizcards created yet"));
+        Exception ex = assertThrows(NoSuchElementException.class, () -> restTemplate.exchange("/api/quiz",HttpMethod.GET, headers, QuizcardDTO.class));
+        assertThat(ex.getMessage(), equalTo("No quizcards created yet"));
     }
 
     @Test
-    @Order(3)
-    void testCreateNewCard() {
-//        QuizcardDTO response = quizController.createNewCard(card);
-//        ResponseEntity<QuizcardDTO> response = restTemplate.postForEntity("/api/quz/new", card, QuizcardDTO.class);
-//        ResponseEntity<QuizcardDTO> response = restTemplate.exchange("/api/quz/new", HttpMethod.POST, new HttpEntity<>(card, headers), QuizcardDTO.class);
-//        assertThat(response.getBody()).isEqualTo(cardWithConcealedAnswers);
+    void testCreateNewCardAddsOneCardToDb() {
+        ResponseEntity<QuizcardDTO> response = restTemplate.exchange("/api/quiz/new", HttpMethod.POST, headers, QuizcardDTO.class);
+       //get correct response from post method
+        assertThat(response.getStatusCode(), is(HttpStatus.OK));
+        assertThat(response.getBody(), equalTo(cardWithConcealedAnswers));
+        //check that element has been addded to db
+        ResponseEntity<List<QuizcardDTO>> dbContents = restTemplate.exchange("/api/quiz", HttpMethod.GET, headers, QuizcardDTO.class);
+        assertThat(dbContents.getStatusCode(), is(HttpStatus.OK));
+        assertIterableEquals(dbContents.getBody(), List.of(equalTo(cardWithConcealedAnswers)));
     }
-    @Test
-    @Order(4)
-    void testGetAllCardReturnsListOfOneCard() {
-        List<QuizcardDTO> response = quizController.getAllCards();
-        assertIterableEquals(response, List.of(cardWithConcealedAnswers));
 
-    }
     @Test
-    @Order(5)
     void createNewCardReturns406OnWrongInput() {
         QuizcardDTO card1 = new QuizcardDTO(1, "", List.of("answer"), List.of(0));
         QuizcardDTO card2 = new QuizcardDTO(1, "question", List.of(), List.of(0));
         QuizcardDTO card3 = new QuizcardDTO(1, "question", List.of("answer"), List.of());
-        Exception ex = assertThrows(IllegalArgumentException.class, () -> quizController.createNewCard(card1));
-        Exception ex2 = assertThrows(IllegalArgumentException.class, () -> quizController.createNewCard(card2));
-        Exception ex3 =assertThrows(IllegalArgumentException.class, () ->  quizController.createNewCard(card3));
+        Exception ex = assertThrows(IllegalArgumentException.class, () -> restTemplate.exchange("/api/quiz/new", HttpMethod.POST,card1, headers, QuizcardDTO.class);
+        Exception ex2 = assertThrows(IllegalArgumentException.class, () -> restTemplate.exchange("/api/quiz/new", HttpMethod.POST, card2,headers, QuizcardDTO.class);
+        Exception ex3 =assertThrows(IllegalArgumentException.class, () ->  restTemplate.exchange("/api/quiz/new", HttpMethod.POST, card3,headers, QuizcardDTO.class);
+        testGetAllReturns204();
     }
 
-    @Test
-    void testNoCardHasBeenAdded() {
-        testGetAllCardReturnsListOfOneCard();
-    }
 }
