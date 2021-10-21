@@ -81,17 +81,15 @@ public class QuizControllerIntegrationTest {
     @Test
     void testGetAllReturns204() {
         HttpHeaders headers = createHeadersWithJwtAuth();
-        System.err.println(headers);
-        System.err.println(restTemplate.exchange("/api/quiz", HttpMethod.GET, new HttpEntity<>(headers), QuizcardDTO[].class));
-        Exception ex = assertThrows(NoSuchElementException.class, () -> restTemplate.exchange("/api/quiz", HttpMethod.GET, new HttpEntity<>(headers), QuizcardDTO[].class));
-        System.err.println(ex);
-        assertThat(ex.getMessage(), equalTo("No quizcards created yet"));
+
+        ResponseEntity<QuizcardDTO[]> response = restTemplate.exchange("/api/quiz", HttpMethod.GET, new HttpEntity<>(headers), QuizcardDTO[].class);
+        assertThat(response.getStatusCode(), is(HttpStatus.NO_CONTENT));
     }
 
     @Test
     void testCreateNewCardAddsOneCardToDb() {
         HttpHeaders headers = createHeadersWithJwtAuth();
-        ResponseEntity<QuizcardDTO> response = restTemplate.exchange("/api/quiz/new", HttpMethod.POST, new HttpEntity<>(headers), QuizcardDTO.class);
+        ResponseEntity<QuizcardDTO> response = restTemplate.exchange("/api/quiz/new", HttpMethod.POST, new HttpEntity<>(card, headers), QuizcardDTO.class);
         System.err.println(response);
         //get correct response from post method
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
@@ -100,7 +98,6 @@ public class QuizControllerIntegrationTest {
         ResponseEntity<QuizcardDTO[]> dbContents = restTemplate.exchange("/api/quiz", HttpMethod.GET, new HttpEntity<>(headers), QuizcardDTO[].class);
         QuizcardDTO[] expected = {cardWithConcealedAnswers};
         assertThat(dbContents.getStatusCode(), is(HttpStatus.OK));
-//        assertIterableEquals(expected, dbContents.getBody());
     }
 
     @Test
