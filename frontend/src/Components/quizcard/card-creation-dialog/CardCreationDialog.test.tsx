@@ -7,6 +7,14 @@ import {render, screen} from "@testing-library/react";
 it('renders without crashing', () => {
     render(<Provider store={store}><CardCreationDialog/></Provider>)
 });
+
+describe("CardContent", () => {
+    it("renders CustomFormGroup question on initial render", () => {
+
+    })
+})
+
+
 describe("QuizcardHeader", () => {
     test("status gets reset from ANSWER to QUESTION on click", () => {
         const dialog = render(<Provider store={store}><CardCreationDialog/></Provider>)

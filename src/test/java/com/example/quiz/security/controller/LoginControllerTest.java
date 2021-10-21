@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -32,6 +33,8 @@ class LoginControllerTest {
     private GlobalExceptionHandler exceptionHandler;
     @Autowired
     private TestRestTemplate restTemplate;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Value("${jwt.secret}")
     private String JWT_SECRET;
@@ -77,7 +80,7 @@ class LoginControllerTest {
         assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
     }
 
-    private static UserDTO createUser() {
-        return new UserDTO("username", "a@b.c", "$2a$10$FyP28ouTokqY2snJndKihex0qPn8VLcJtVcjq.7/c3J9RdAvXUxWC");
+    private UserDTO createUser() {
+        return new UserDTO("username", "a@b.c", passwordEncoder.encode("1234"));
     }
 }
