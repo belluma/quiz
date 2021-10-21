@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react'
 import {useHistory} from "react-router";
 import {overrideFontColorOnFocus} from "../../theme";
 import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../quizcard/Quizcard";
-import {login as sendLogin} from '../../services/apiService'
+import {login as sendLogin} from '../../Slicer/authSlice'
 
 //component imports
 import {
@@ -16,27 +16,23 @@ import {
     ThemeProvider,
 } from "@mui/material";
 import CardFooter from "../quizcard/card-footer/CardFooter";
+import {IUser} from "../../Interfaces/IUser";
+import {useAppDispatch} from "../../app/hooks";
 
 //interface imports
 
 type Props = {};
 
 function Login(props: Props) {
+    const dispatch = useAppDispatch();
     const history = useHistory();
-    const [username, setUsername]= useState<string>();
-    const [password, setPassword] = useState<string>();
-
+    const [credentials, setCredentials] = useState<IUser> ({username:"", password:""});
     const login = () => {
-        if(username && password)
-            sendLogin({username, password})
+        credentials && dispatch(sendLogin(credentials));
     }
-    const enterUsername = (e: ChangeEvent<HTMLInputElement>) => {
-        setUsername(e.target.value);
+    const onInput = (e: ChangeEvent<HTMLInputElement>) => {
+        setCredentials({...credentials, [e.target.name]:e.target.value })
     }
-const enterPassword = (e: ChangeEvent<HTMLInputElement>) => {
-        setPassword(e.target.value);
-    }
-
 
     return (
         <Card sx={makeCardChangeBetweenPortraitAndLandscape()}>
@@ -46,8 +42,8 @@ const enterPassword = (e: ChangeEvent<HTMLInputElement>) => {
 
                 <FormGroup >
                     <ThemeProvider theme={overrideFontColorOnFocus()}>
-                        <TextField onChange={enterUsername} sx={{my: 1}} required name="username" label="username" type="username"/>
-                        <TextField onChange={enterPassword} sx={{my: 1}} required name="password"  type="password"/>
+                        <TextField onChange={onInput} sx={{my: 1}} required name="username" label="username" type="username"/>
+                        <TextField onChange={onInput} sx={{my: 1}} required name="password"  type="password"/>
                         <Button type="submit" onClick={login}>Login</Button>
                     </ThemeProvider>
                 </FormGroup>

@@ -27,17 +27,3 @@ export const validateAnswer = (card:any):Promise<AxiosResponse> =>{
     }).then(response => response)
         .catch(err => err)
 }
-
-export const login = (user:IUser) => {
-    console.log(user)
-    return axios({
-        method:'post',
-        url:`/auth/login`,
-        data: user,
-        headers:{"Content-Type": "application/json"}
-    }).then(response => {
-        console.log(response)
-        return response
-    })
-        .catch(err => err)
-}

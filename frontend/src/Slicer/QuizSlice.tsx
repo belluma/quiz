@@ -35,7 +35,7 @@ export const validateQuizcard = createAsyncThunk(
     }
 )
 
-const handleErrors = (state: IQuizState, action: PayloadAction<IResponseData>): boolean => {
+export const handleErrors = (state: IQuizState, action: PayloadAction<IResponseData>): boolean => {
     if (action.payload.status !== 200) {
         state.status = action.payload.status;
         state.message = action.payload.statusText;
