@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 
@@ -10,6 +10,10 @@ import {CssBaseline, Toolbar} from "@mui/material";
 import MainView from "./Components/main-view/MainView";
 
 function App() {
+    const [token, setToken] = useState();
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
+
     const dispatch = useAppDispatch();
     dispatch(getApiData());
     return (

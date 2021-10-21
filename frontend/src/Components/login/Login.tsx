@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {ChangeEvent, useState} from 'react'
 import {useHistory} from "react-router";
 import {overrideFontColorOnFocus} from "../../theme";
 import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../quizcard/Quizcard";
+import {login as sendLogin} from '../../services/apiService'
 
 //component imports
 import {
@@ -22,16 +23,32 @@ type Props = {};
 
 function Login(props: Props) {
     const history = useHistory();
+    const [username, setUsername]= useState<string>();
+    const [password, setPassword] = useState<string>();
+
+    const login = () => {
+        if(username && password)
+            sendLogin({username, password})
+    }
+    const enterUsername = (e: ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value);
+    }
+const enterPassword = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    }
+
+
     return (
         <Card sx={makeCardChangeBetweenPortraitAndLandscape()}>
             <CardHeader title="Login to your account" align="center"/>
             <Divider/>
             <CardContent sx={styleCardContent("QUESTION")}>
-                <FormGroup>
+
+                <FormGroup >
                     <ThemeProvider theme={overrideFontColorOnFocus()}>
-                        <TextField sx={{my: 1}} required label="email address" type="email"/>
-                        <TextField sx={{my: 1}} required label="Password" type="password"/>
-                        <Button type="submit">Login</Button>
+                        <TextField onChange={enterUsername} sx={{my: 1}} required name="username" label="username" type="username"/>
+                        <TextField onChange={enterPassword} sx={{my: 1}} required name="password"  type="password"/>
+                        <Button type="submit" onClick={login}>Login</Button>
                     </ThemeProvider>
                 </FormGroup>
             </CardContent>
