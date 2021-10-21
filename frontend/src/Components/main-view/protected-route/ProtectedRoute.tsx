@@ -1,7 +1,7 @@
 import React from 'react'
 import Login from "../../login/Login";
 import {useAppSelector} from "../../../app/hooks";
-import {selectLoggedIn} from "../../../Slicer/authSlice";
+import {selectLoggedIn} from "../../../Slicer/AuthSlice";
 import {Route} from "react-router";
 
 //component imports

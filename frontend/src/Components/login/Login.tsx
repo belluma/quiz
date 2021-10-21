@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react'
 import {useHistory} from "react-router";
 import {overrideFontColorOnFocus} from "../../theme";
 import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../quizcard/Quizcard";
-import {login as sendLogin} from '../../Slicer/authSlice'
+import {login as sendLogin} from '../../Slicer/AuthSlice'
 
 //component imports
 import {

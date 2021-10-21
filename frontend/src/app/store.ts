@@ -1,13 +1,15 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import quizReducer from '../Slicer/QuizSlice';
 import newCardReducer from '../Slicer/NewCardSlice'
-import loginReducer from '../Slicer/authSlice'
+import loginReducer from '../Slicer/AuthSlice'
+import errorReducer from '../Slicer/ErrorSlice'
 
 export const store = configureStore({
   reducer: {
     quiz: quizReducer,
     newCard: newCardReducer,
     login: loginReducer,
+    error: errorReducer,
   },
 });
 
