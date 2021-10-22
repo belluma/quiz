@@ -3,7 +3,7 @@ import axios from "axios";
 import {IUser} from "../Interfaces/IUser";
 import {RootState} from "../app/store";
 import {receiveError} from "./ErrorSlice";
-import {getApiData} from "./QuizSlice";
+
 const initialState = {
     loggedIn: false,
     token:""
@@ -30,7 +30,6 @@ export const login = createAsyncThunk(
        if(data.status !== 200) {
            thunkAPI.dispatch(receiveError(data))
        }
-       thunkAPI.dispatch(getApiData())
         return data
     }
 )

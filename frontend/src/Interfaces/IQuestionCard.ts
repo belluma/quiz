@@ -24,6 +24,16 @@ export interface IQuizState extends IError {
     pointsCounter: number,
 }
 
+export interface IAuthState{
+    loggedIn: boolean,
+    token: string,
+}
+export interface Istate {
+    quiz:IQuizState,
+    login: IAuthState,
+    error: IError,
+}
+
 export enum createCardStatus {
     QUESTION = "QUESTION",
     ANSWER = "ANSWER",

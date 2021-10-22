@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {getApiData} from "../../../Slicer/QuizSlice";
-import {useAppDispatch} from "../../../app/hooks";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 import {changeQuestionText} from "../../../Slicer/NewCardSlice";
 
 //component imports
@@ -21,6 +21,7 @@ import {cardMode, createCardStatus} from "../../../Interfaces/IQuestionCard";
 
 //styles
 import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../Quizcard";
+import { selectToken } from '../../../Slicer/AuthSlice';
 
 type Props = {};
 
@@ -31,6 +32,7 @@ function CardCreationDialog(props: Props) {
     const [choiceText, setChoiceText] = useState<string>("");
     const [answerIndices, setAnswerIndices] = useState<number[]>([]);
     const [dialogStatus, setDialogStatus] = useState<createCardStatus>(createCardStatus.QUESTION);
+    const token = useAppSelector(selectToken);
     const handleChange = ({target}: React.ChangeEvent<HTMLInputElement>) => {
         target.name === "question" && setQuestion(target.value);
         target.name === "choiceText" && setChoiceText(target.value)
@@ -46,7 +48,7 @@ function CardCreationDialog(props: Props) {
         setChoiceText("");
     }
     const saveCard = () => {
-        createCard({question: question, choices, answerIndices})
+        createCard({question: question, choices, answerIndices}, token)
             .then(() => {
                 dispatch(getApiData());
                 resetStates();

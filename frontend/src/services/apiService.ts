@@ -13,7 +13,7 @@ export const getAllCards = (token: string): Promise<AxiosResponse> => {
         .catch(err => err)
 }
 
-export const createCard = (card: any, ): Promise<AxiosResponse> => {
+export const createCard = (card: any, token:string ): Promise<AxiosResponse> => {
     return axios({
         method: 'post',
         url: `${BASE_URL}/new`,
@@ -24,12 +24,16 @@ export const createCard = (card: any, ): Promise<AxiosResponse> => {
 
 }
 export const validateAnswer = (card: any, token:string): Promise<AxiosResponse> => {
+    console.log('fdskl;afsd')
     return axios({
         method: 'post',
         url: `${BASE_URL}`,
         data: card,
         headers: {"Content-Type": "application/json", "Authorization":getHeader(token)}
-    }).then(response => response)
+    }).then(response => {
+        console.log(response)
+        return response
+    })
         .catch(err => err)
 
 }
