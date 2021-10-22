@@ -26,6 +26,7 @@ function MainView(props: Props){
                 <Route path="/login" component={Login}/>
                 <Route path={"/signup"} component={Signup}/>
                 <ProtectedRoute route={"/highscore"} component={Highscore}/>
+                <ProtectedRoute route={"/"} />
                 <Error/>
             </Grid>
         </Container>
