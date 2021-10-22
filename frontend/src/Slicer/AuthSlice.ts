@@ -42,7 +42,12 @@ interface IResponseData {
 export const LoginSlice = createSlice({
     name:'login',
     initialState,
-    reducers:{},
+    reducers:{
+        logout:(state) => {
+            localStorage.removeItem("codificantesToken");
+            state.loggedIn = false;
+        }
+    },
     extraReducers:builder => {
         builder
             .addCase(login.pending, state => {
@@ -56,6 +61,8 @@ export const LoginSlice = createSlice({
                 localStorage.setItem('codificantesToken', action.payload.data);
             })
     }})
+
+export const {logout} = LoginSlice.actions;
 
 export const selectLoggedIn = (state: RootState) => state.login.loggedIn;
 export const selectToken = (state: RootState) => state.login.token;

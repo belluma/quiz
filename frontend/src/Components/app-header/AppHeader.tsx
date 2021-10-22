@@ -12,8 +12,11 @@ import {
     useScrollTrigger
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import LogoutIcon from "@mui/icons-material/Logout";
 import StartButton from "./start-button/StartButton";
 import AdminButtons from "./admin-buttons/AdminButtons";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {logout, selectLoggedIn} from "../../Slicer/AuthSlice";
 
 //interface imports
 
@@ -22,6 +25,8 @@ type Props = {
 };
 
 function AppHeader(props: Props) {
+    const dispatch = useAppDispatch();
+    const loggedIn = useAppSelector(selectLoggedIn)
     const [admin, setAdmin] = useState(false);
     const [scrollTrigger, setScrollTrigger] = useState<boolean>(window.innerWidth < 900);
     const handleResize = () => {
@@ -42,6 +47,9 @@ function AppHeader(props: Props) {
                 </Toolbar>
                 <Toolbar sx={{mb: 1, alignItems: "stretch", justifyContent: "space-between"}}>
                     {admin ? <AdminButtons/> : <StartButton/>}
+                    {loggedIn &&<IconButton onClick={() => dispatch(logout())} edge="end">
+                        <LogoutIcon/>
+                    </IconButton> }
                 </Toolbar>
             </AppBar>
         </HideOnScroll>
