@@ -19,7 +19,7 @@ function Goodbye(props: Props) {
         <Card sx={makeCardChangeBetweenPortraitAndLandscape()}>
             <CardHeader title="Sing up for free to play Codificantes" align="center"/>
             <Divider/>
-            <CardContent sx={styleCardContent("QUESTION")}>
+            <CardContent sx={{...styleCardContent(), bottom: 120, textAlign: 'center'}}>
                 <Typography variant="h2">Goodbye!</Typography>
             </CardContent>
         </Card>

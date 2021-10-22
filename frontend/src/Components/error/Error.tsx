@@ -21,13 +21,13 @@ function Error(props: Props) {
         dispatch(closeError());
     }
     return (
-        <Dialog open={error}>
+        <Dialog open={error} sx={{bgcolor: "transparent"}} PaperProps={{sx:{bgcolor:"transparent"}}}>
         <ThemeProvider theme={overrideBackgroundForError()}>
             <Card sx={makeCardChangeBetweenPortraitAndLandscape()}>
                 <CardHeader title="Error!!1!" align="center"/>
                 <Divider/>
-                <CardContent sx={styleCardContent()}>
-                    <Typography variant="h5">{statusText}</Typography>
+                <CardContent sx={{...styleCardContent(), bottom:120, textAlign:"center"}}>
+                    <Typography variant="h2">{statusText}</Typography>
                 </CardContent>
                 <CardFooter disableButton={false} footerText="Something went wrong " buttonText="OK"
                             onButtonClick={clickHandler}/>
