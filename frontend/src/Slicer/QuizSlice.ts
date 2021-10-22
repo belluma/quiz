@@ -2,9 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {getAllCards, validateAnswer} from "../services/apiService";
 import { IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
 import {RootState} from "../app/store";
-import {useAppSelector} from "../app/hooks";
 import { receiveError} from "./ErrorSlice";
-import {selectToken} from "./AuthSlice";
 
 const initialState: IQuizState = {
     allCards: [],
@@ -27,7 +25,9 @@ export const handleError = (err: any) => {
 export const getApiData = createAsyncThunk(
     'quiz/fetchQuizcards'
     , async (_, thunkAPI) =>  {
-        const {data, status, statusText} = await getAllCards(useAppSelector(selectToken))
+        // @ts-ignore
+        const token = thunkAPI.getState().login.token;
+        const {data, status, statusText} = await getAllCards(token)
         if(status !== 200){
             thunkAPI.dispatch(receiveError(data))
             return handleError(data)

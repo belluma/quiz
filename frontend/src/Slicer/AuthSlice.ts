@@ -26,11 +26,11 @@ const sendLoginData = (credentials: IUser) => {
 export const login = createAsyncThunk(
     'login',
     async (credentials:IUser, thunkAPI) =>  {
-        const data = await sendLoginData(credentials)
-       if(data.status !== 200) {
-           thunkAPI.dispatch(receiveError(data))
+        const {data, status, statusText} = await sendLoginData(credentials)
+       if(status !== 200) {
+           thunkAPI.dispatch(receiveError({status,statusText}))
        }
-        return data
+        return {data, status, statusText}
     }
 )
 interface IResponseData {

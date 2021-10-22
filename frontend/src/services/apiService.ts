@@ -18,20 +18,18 @@ export const createCard = (card: any, token:string ): Promise<AxiosResponse> => 
         method: 'post',
         url: `${BASE_URL}/new`,
         data: card,
-        headers: {"Content-Type": "application/json"}
+        headers: {"Content-Type": "application/json", "Authorization": getHeader(token)}
     }).then(response => response)
         .catch(err => err)
 
 }
 export const validateAnswer = (card: any, token:string): Promise<AxiosResponse> => {
-    console.log('fdskl;afsd')
     return axios({
         method: 'post',
         url: `${BASE_URL}`,
         data: card,
         headers: {"Content-Type": "application/json", "Authorization":getHeader(token)}
     }).then(response => {
-        console.log(response)
         return response
     })
         .catch(err => err)
