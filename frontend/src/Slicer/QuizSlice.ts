@@ -1,11 +1,10 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getAllCards, handleError, validateAnswer} from "../services/apiService";
+import {getAllCards, validateAnswer} from "../services/apiService";
 import {IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
 import {RootState} from "../app/store";
-import {AxiosResponse} from "axios";
 import {useAppSelector} from "../app/hooks";
-import {selectLoggedIn} from "./AuthSlice";
-import {IError, receiveError} from "./ErrorSlice";
+import { receiveError} from "./ErrorSlice";
+import {selectToken} from "./AuthSlice";
 
 const initialState: IQuizState = {
     allCards: [],
@@ -22,45 +21,35 @@ interface IResponseData {
     statusText: string
 }
 
-const isError = (object: IQuestionCard[] | IError) => 'status' in object;
+export const handleError = (err: any) => {
+    return {data: [], status: err.response.status, statusText: err.response.data.message}
+}
 
 export const getApiData = createAsyncThunk(
     'quiz/fetchQuizcards'
     , async (_, thunkAPI) =>  {
-        const {data, status, statusText} = await getAllCards();
+        const {data, status, statusText} = await getAllCards(useAppSelector(selectToken));
         if(status !== 200){
             thunkAPI.dispatch(receiveError(data))
             return handleError(data)
         }
-        return data
+        return {data, status, statusText}
     }
     )
 
 
 export const validateQuizcard = createAsyncThunk(
     'quiz/vaildateAnswer',
-    async (answer: IQuestionCard, thunkAPI) => validateAnswer(answer).catch(err => err.response.data)
-    //
-    // }
+    async (answer: IQuestionCard, thunkAPI) => {
+        const {data, status, statusText} = await validateAnswer(answer, useAppSelector(selectToken));
+        if(status !== 200){
+            thunkAPI.dispatch(receiveError(data))
+            return handleError(data)
+        }
+        return {data, status, statusText}
+    }
 )
 
-export const handleErrors = (state: IQuizState, action: PayloadAction<IQuestionCard[]>): boolean => {
-    // if (action.payload.status !== 200) {
-    // state.status = action.payload.status;
-    // state.message = action.payload.statusText;
-    // state.error = true;
-    // if (action.payload.status === 204){
-    //     state.allCards = state.answeredCards = [];
-    // }
-    // return true
-    // }
-    return false
-}
-const resetErrorState = (state: IQuizState) => {
-    state.status = 200;
-    state.message = "";
-    state.error = false;
-}
 export const QuizSlice = createSlice({
     name: 'todoList',
     initialState,
@@ -79,17 +68,10 @@ export const QuizSlice = createSlice({
             .addCase(getApiData.pending, state => {
             })
             .addCase(getApiData.fulfilled, (state, action: PayloadAction<IResponseData> ) => {
-
                 state.allCards = action.payload.data
-                console.log(action.payload)
-                // if (handleErrors(state, action)) return
-                // state.allCards = action.payload
-                // resetErrorState(state);
             })
             .addCase(validateQuizcard.fulfilled, (state, action: PayloadAction<any>) => {
-                // if (handleErrors(state, action)) return
-                // if (action.payload.data)state.pointsCounter += 1;
-                // resetErrorState(state);
+                if (action.payload.data)state.pointsCounter += 1;
             })
     })
 })
@@ -97,8 +79,6 @@ export const QuizSlice = createSlice({
 export const selectGetAllCards = (state: RootState) => state.quiz.allCards;
 export const selectGetAnsweredCards = (state: RootState) => state.quiz.answeredCards;
 export const selectErrorStatus = (state: RootState) => state.quiz.status;
-// export const selectErrorMessage = (state: RootState) => state.quiz.message;
-// export const selectError = (state: RootState) => state.quiz.error;
 export const selectPoints = (state: RootState) => state.quiz.pointsCounter;
 
 export const {closeError, moveCardToAnseweredCardsStack} = QuizSlice.actions;

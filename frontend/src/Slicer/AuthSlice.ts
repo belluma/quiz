@@ -3,8 +3,10 @@ import axios from "axios";
 import {IUser} from "../Interfaces/IUser";
 import {RootState} from "../app/store";
 import {receiveError} from "./ErrorSlice";
+import {getApiData} from "./QuizSlice";
 const initialState = {
-    loggedIn: false
+    loggedIn: false,
+    token:""
 }
 
 const sendLoginData = (credentials: IUser) => {
@@ -22,12 +24,13 @@ const sendLoginData = (credentials: IUser) => {
 }
 
 export const login = createAsyncThunk(
-    'quiz/login',
+    'login',
     async (credentials:IUser, thunkAPI) =>  {
         const data = await sendLoginData(credentials)
        if(data.status !== 200) {
            thunkAPI.dispatch(receiveError(data))
        }
+       thunkAPI.dispatch(getApiData())
         return data
     }
 )
@@ -49,10 +52,13 @@ export const LoginSlice = createSlice({
                 if (action.payload.status !== 200){
                     return;
                 }
+                console.log(action)
                 state.loggedIn = true;
+                state.token = action.payload.data
                 localStorage.setItem('codificantesToken', action.payload.data);
             })
     }})
 
 export const selectLoggedIn = (state: RootState) => state.login.loggedIn;
+export const selectToken = (state: RootState) => state.login.token;
 export default LoginSlice.reducer;
