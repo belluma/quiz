@@ -2,8 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import axios from "axios";
 import {IUser} from "../Interfaces/IUser";
 import {RootState} from "../app/store";
-
-
+import {receiveError} from "./ErrorSlice";
 const initialState = {
     loggedIn: false
 }
@@ -14,16 +13,22 @@ const sendLoginData = (credentials: IUser) => {
         url: `/auth/login`,
         data: credentials,
         headers: {"Content-Type": "application/json"}
-    }).then(response => response)
-        .catch(err => err)
+    }).then(response => {
+        return response
+    })
+        .catch(err => {
+            return {data: "",status: err.response.status, statusText:err.response.data.message}
+        })
 }
-
 
 export const login = createAsyncThunk(
     'quiz/login',
-    async (credentials:IUser) => {
-        const {data, status, statusText} = await (sendLoginData(credentials));
-        return {data,status, statusText}
+    async (credentials:IUser, thunkAPI) =>  {
+        const data = await sendLoginData(credentials)
+       if(data.status !== 200) {
+           thunkAPI.dispatch(receiveError(data))
+       }
+        return data
     }
 )
 interface IResponseData {
@@ -41,6 +46,9 @@ export const LoginSlice = createSlice({
             .addCase(login.pending, state => {
             })
             .addCase(login.fulfilled, (state, action: PayloadAction<IResponseData>) => {
+                if (action.payload.status !== 200){
+                    return;
+                }
                 state.loggedIn = true;
                 localStorage.setItem('currentUser', action.payload.data);
             })

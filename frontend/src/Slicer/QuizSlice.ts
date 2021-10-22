@@ -3,6 +3,8 @@ import {getAllCards, validateAnswer} from "../services/apiService";
 import {IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
 import {RootState} from "../app/store";
 import {AxiosResponse} from "axios";
+import {useAppSelector} from "../app/hooks";
+import {selectLoggedIn} from "./AuthSlice";
 
 const initialState: IQuizState = {
     allCards: [],
@@ -21,14 +23,13 @@ interface IResponseData {
 
 export const getApiData = createAsyncThunk(
     'quiz/fetchQuizcards'
-    , async () => await getAllCards().catch(err => {
-        console.log(err.message)
-    }))
+    , async () =>  useAppSelector(selectLoggedIn) ? getAllCards().catch(err => []) : []
+    )
 
 
 export const validateQuizcard = createAsyncThunk(
     'quiz/vaildateAnswer',
-    async (answer: IQuestionCard) => await (validateAnswer(answer))
+    async (answer: IQuestionCard) => await (validateAnswer(answer)).catch(err => err.response.data)
     //     const {data, status, statusText} =
     //     return {data, status, statusText};
     //
@@ -69,7 +70,8 @@ export const QuizSlice = createSlice({
         builder
             .addCase(getApiData.pending, state => {
             })
-            .addCase(getApiData.fulfilled, (state, action: PayloadAction<Promise<IQuestionCard> | void>) => {
+            .addCase(getApiData.fulfilled, (state, action: PayloadAction<IQuestionCard[]> ) => {
+
                 state.allCards = action.payload
                 console.log(action.payload)
                 // if (handleErrors(state, action)) return
@@ -87,8 +89,8 @@ export const QuizSlice = createSlice({
 export const selectGetAllCards = (state: RootState) => state.quiz.allCards;
 export const selectGetAnsweredCards = (state: RootState) => state.quiz.answeredCards;
 export const selectErrorStatus = (state: RootState) => state.quiz.status;
-export const selectErrorMessage = (state: RootState) => state.quiz.message;
-export const selectError = (state: RootState) => state.quiz.error;
+// export const selectErrorMessage = (state: RootState) => state.quiz.message;
+// export const selectError = (state: RootState) => state.quiz.error;
 export const selectPoints = (state: RootState) => state.quiz.pointsCounter;
 
 export const {closeError, moveCardToAnseweredCardsStack} = QuizSlice.actions;

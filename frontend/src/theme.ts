@@ -54,7 +54,7 @@ export const overrideBackgroundForError = ():ThemeOptions => {
     return createTheme({
         palette:{
             primary:{
-                main:"red"
+                main:"#ff0000"
             }
         }
     })

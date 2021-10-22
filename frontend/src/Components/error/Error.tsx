@@ -1,24 +1,28 @@
 import React from 'react'
 import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../quizcard/Quizcard";
-import {useAppDispatch} from '../../app/hooks';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
 
 //component imports
-import {Card, CardContent, CardHeader, Divider, ThemeProvider, Typography} from "@mui/material";
+import {Card, CardContent, CardHeader, Dialog, Divider, ThemeProvider, Typography} from "@mui/material";
 import CardFooter from "../quizcard/card-footer/CardFooter";
 import {overrideBackgroundForError} from "../../theme";
+import {closeError, selectError, selectStatus, selectStatusText} from "../../Slicer/ErrorSlice";
 
 //interface imports
 
 type Props = {
-    status:number,
-    statusText:string,
 };
 
-function Error({status, statusText}: Props) {
+function Error(props: Props) {
+     const error = useAppSelector(selectError)
+     const status = useAppSelector(selectStatus)
+     const statusText = useAppSelector(selectStatusText)
     const dispatch = useAppDispatch();
     const clickHandler = () => {
+        dispatch(closeError());
     }
     return (
+        <Dialog open={error}>
         <ThemeProvider theme={overrideBackgroundForError()}>
             <Card sx={makeCardChangeBetweenPortraitAndLandscape()}>
                 <CardHeader title="Error!!1!" align="center"/>
@@ -30,6 +34,7 @@ function Error({status, statusText}: Props) {
                             onButtonClick={clickHandler}/>
             </Card>
         </ThemeProvider>
+        </Dialog>
     )
 }
 

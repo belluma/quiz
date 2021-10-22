@@ -10,9 +10,8 @@ import AllCards from "../all-cards/AllCards";
 import Login from "../login/Login";
 import Signup from "../signup/Signup";
 import Highscore from "../highscore/Highscore";
-import {useAppSelector} from "../../app/hooks";
-import {selectLoggedIn} from "../../Slicer/AuthSlice";
 import ProtectedRoute from "./protected-route/ProtectedRoute";
+import Error from '../error/Error'
 //interface imports
 
 type Props = {};
@@ -27,6 +26,7 @@ function MainView(props: Props){
                 <Route path="/login" component={Login}/>
                 <Route path={"/signup"} component={Signup}/>
                 <ProtectedRoute route={"/highscore"} component={Highscore}/>
+                <Error/>
             </Grid>
         </Container>
     )
