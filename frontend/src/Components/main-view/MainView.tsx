@@ -1,5 +1,4 @@
 import React from 'react'
-import {Route} from "react-router";
 
 
 //component imports
@@ -12,6 +11,9 @@ import Signup from "../signup/Signup";
 import Highscore from "../highscore/Highscore";
 import ProtectedRoute from "./protected-route/ProtectedRoute";
 import Error from '../error/Error'
+import Goodbye from "../goodbye/Goodbye";
+import {Route} from "react-router";
+
 //interface imports
 
 type Props = {};
@@ -20,11 +22,12 @@ function MainView(props: Props){
     return(
         <Container sx={{pt: 15}} maxWidth={false}>
             <Grid container justifyContent="center" alignItems="center">
+                <Route path={"/logout"} component={Goodbye} />
+                <Route path="/login" component={Login}/>
+                <Route path={"/signup"} component={Signup}/>
                 <ProtectedRoute route={"/quiz"} component={Quiz} />
                 <ProtectedRoute route={"/new"} component={CardCreationDialog}/>
                 <ProtectedRoute route={"/all"} component={AllCards}/>
-                <Route path="/login" component={Login}/>
-                <Route path={"/signup"} component={Signup}/>
                 <ProtectedRoute route={"/highscore"} component={Highscore}/>
                 <ProtectedRoute route={"/"} />
                 <Error/>

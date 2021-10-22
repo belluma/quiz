@@ -4,6 +4,7 @@ import {selectLoggedIn} from "../../../Slicer/AuthSlice";
 
 //component imports
 import {Redirect, Route} from "react-router";
+import Login from "../../login/Login";
 
 //interface imports
 
@@ -15,8 +16,9 @@ function ProtectedRoute({route, component}: Props){
     const loggedIn = useAppSelector(selectLoggedIn);
 
     return(
-        loggedIn ? <Route path={route} component={component} /> : <Redirect  to="/login" />
-    )
+        // loggedIn ? <Route exact={exact} path={route} component={component} /> : <Redirect  to="/login" />
+    <Route  path={route} component={loggedIn ? component : Login} />
+)
 }
 
 export default ProtectedRoute;

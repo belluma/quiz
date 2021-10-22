@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useState} from 'react'
-import {useHistory} from "react-router";
+import {Redirect, useHistory} from "react-router";
 import {overrideFontColorOnFocus} from "../../theme";
 import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../quizcard/Quizcard";
-import {login as sendLogin} from '../../Slicer/AuthSlice'
+import {login as sendLogin, selectLoggedIn} from '../../Slicer/AuthSlice'
 
 //component imports
 import {
@@ -17,13 +17,14 @@ import {
 } from "@mui/material";
 import CardFooter from "../quizcard/card-footer/CardFooter";
 import {IUser} from "../../Interfaces/IUser";
-import {useAppDispatch} from "../../app/hooks";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
 
 //interface imports
 
 type Props = {};
 
 function Login(props: Props) {
+    const loggedIn = useAppSelector(selectLoggedIn);
     const dispatch = useAppDispatch();
     const history = useHistory();
     const [credentials, setCredentials] = useState<IUser> ({username:"", password:""});
@@ -35,6 +36,7 @@ function Login(props: Props) {
     }
 
     return (
+        loggedIn ? <Redirect to="/quiz"/> :
         <Card sx={makeCardChangeBetweenPortraitAndLandscape()}>
             <CardHeader title="Login to your account" align="center"/>
             <Divider/>

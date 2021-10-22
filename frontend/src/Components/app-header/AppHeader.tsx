@@ -17,6 +17,7 @@ import StartButton from "./start-button/StartButton";
 import AdminButtons from "./admin-buttons/AdminButtons";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {logout, selectLoggedIn} from "../../Slicer/AuthSlice";
+import {useHistory} from "react-router";
 
 //interface imports
 
@@ -25,10 +26,15 @@ type Props = {
 };
 
 function AppHeader(props: Props) {
+    const history = useHistory();
     const dispatch = useAppDispatch();
     const loggedIn = useAppSelector(selectLoggedIn)
     const [admin, setAdmin] = useState(false);
     const [scrollTrigger, setScrollTrigger] = useState<boolean>(window.innerWidth < 900);
+    const handleLogout = () => {
+        dispatch(logout);
+        history.push('/logout')
+    }
     const handleResize = () => {
         if (window.innerWidth < 900 && !scrollTrigger) setScrollTrigger(true)
         if (window.innerWidth >= 900 && scrollTrigger) setScrollTrigger(false)
@@ -47,9 +53,9 @@ function AppHeader(props: Props) {
                 </Toolbar>
                 <Toolbar sx={{mb: 1, alignItems: "stretch", justifyContent: "space-between"}}>
                     {admin ? <AdminButtons/> : <StartButton/>}
-                    {loggedIn &&<IconButton onClick={() => dispatch(logout())} edge="end">
+                    {loggedIn && <IconButton onClick={handleLogout} edge="end">
                         <LogoutIcon/>
-                    </IconButton> }
+                    </IconButton>}
                 </Toolbar>
             </AppBar>
         </HideOnScroll>
