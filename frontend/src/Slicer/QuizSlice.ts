@@ -1,10 +1,11 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getAllCards, validateAnswer} from "../services/apiService";
+import {getAllCards, handleError, validateAnswer} from "../services/apiService";
 import {IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
 import {RootState} from "../app/store";
 import {AxiosResponse} from "axios";
 import {useAppSelector} from "../app/hooks";
 import {selectLoggedIn} from "./AuthSlice";
+import {IError, receiveError} from "./ErrorSlice";
 
 const initialState: IQuizState = {
     allCards: [],
@@ -21,17 +22,24 @@ interface IResponseData {
     statusText: string
 }
 
+const isError = (object: IQuestionCard[] | IError) => 'status' in object;
+
 export const getApiData = createAsyncThunk(
     'quiz/fetchQuizcards'
-    , async () =>  useAppSelector(selectLoggedIn) ? getAllCards().catch(err => []) : []
+    , async (_, thunkAPI) =>  {
+        const {data, status, statusText} = await getAllCards();
+        if(status !== 200){
+            thunkAPI.dispatch(receiveError(data))
+            return handleError(data)
+        }
+        return data
+    }
     )
 
 
 export const validateQuizcard = createAsyncThunk(
     'quiz/vaildateAnswer',
-    async (answer: IQuestionCard) => await (validateAnswer(answer)).catch(err => err.response.data)
-    //     const {data, status, statusText} =
-    //     return {data, status, statusText};
+    async (answer: IQuestionCard, thunkAPI) => validateAnswer(answer).catch(err => err.response.data)
     //
     // }
 )
@@ -70,9 +78,9 @@ export const QuizSlice = createSlice({
         builder
             .addCase(getApiData.pending, state => {
             })
-            .addCase(getApiData.fulfilled, (state, action: PayloadAction<IQuestionCard[]> ) => {
+            .addCase(getApiData.fulfilled, (state, action: PayloadAction<IResponseData> ) => {
 
-                state.allCards = action.payload
+                state.allCards = action.payload.data
                 console.log(action.payload)
                 // if (handleErrors(state, action)) return
                 // state.allCards = action.payload

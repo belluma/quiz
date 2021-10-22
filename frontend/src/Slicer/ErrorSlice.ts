@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../app/store";
 
-interface IError  {
+export interface IError  {
     status:number,
     statusText:string,
 }
@@ -22,7 +22,6 @@ export const ErrorSlice = createSlice({
             state.statusText = "";
         },
         receiveError:(state, action:PayloadAction<IError>) => {
-            console.log(action.payload)
             state.error = true;
             state.status = action.payload.status;
             state.statusText = action.payload.statusText;

@@ -12,7 +12,7 @@ export enum cardMode {
     NEW = 'NEW',
 }
 
-export interface IError {
+interface IError {
     status: number,
     message: string,
     error: boolean,

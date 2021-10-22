@@ -50,7 +50,7 @@ export const LoginSlice = createSlice({
                     return;
                 }
                 state.loggedIn = true;
-                localStorage.setItem('currentUser', action.payload.data);
+                localStorage.setItem('codificantesToken', action.payload.data);
             })
     }})
 
