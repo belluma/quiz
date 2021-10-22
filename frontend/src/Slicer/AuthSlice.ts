@@ -52,7 +52,6 @@ export const LoginSlice = createSlice({
                 if (action.payload.status !== 200){
                     return;
                 }
-                console.log(action)
                 state.loggedIn = true;
                 state.token = action.payload.data
                 localStorage.setItem('codificantesToken', action.payload.data);

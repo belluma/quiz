@@ -4,7 +4,6 @@ import axios, {AxiosResponse} from "axios";
 const BASE_URL = "/api/quiz"
 
 export const getAllCards = (token: string): Promise<AxiosResponse> => {
-console.log(token)
     return axios({
         method: 'get',
         url: `${BASE_URL}`,

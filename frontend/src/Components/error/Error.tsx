@@ -1,12 +1,12 @@
 import React from 'react'
 import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../quizcard/Quizcard";
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {closeError, selectError,  selectStatusText} from "../../Slicer/ErrorSlice";
 
 //component imports
 import {Card, CardContent, CardHeader, Dialog, Divider, ThemeProvider, Typography} from "@mui/material";
 import CardFooter from "../quizcard/card-footer/CardFooter";
 import {overrideBackgroundForError} from "../../theme";
-import {closeError, selectError, selectStatus, selectStatusText} from "../../Slicer/ErrorSlice";
 
 //interface imports
 
@@ -15,7 +15,6 @@ type Props = {
 
 function Error(props: Props) {
      const error = useAppSelector(selectError)
-     const status = useAppSelector(selectStatus)
      const statusText = useAppSelector(selectStatusText)
     const dispatch = useAppDispatch();
     const clickHandler = () => {
