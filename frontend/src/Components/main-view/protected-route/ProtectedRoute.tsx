@@ -11,7 +11,6 @@ type Props = {
     route:string,
     component?:any
 };
-
 function ProtectedRoute({route, component}: Props){
     const loggedIn = useAppSelector(selectLoggedIn);
 

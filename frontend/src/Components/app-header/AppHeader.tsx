@@ -1,20 +1,19 @@
 import React, {useEffect, useState} from 'react'
-import {useHistory} from "react-router";
 import 'bulma/css/bulma.css';
 
 
 //component imports
 import {
-    AppBar, ButtonGroup,
+    AppBar,
     IconButton,
     Slide,
     Toolbar,
     Typography,
     useScrollTrigger
 } from "@mui/material";
-import Button from '@mui/material/Button';
 import EditIcon from "@mui/icons-material/Edit";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import StartButton from "./start-button/StartButton";
+import AdminButtons from "./admin-buttons/AdminButtons";
 
 //interface imports
 
@@ -23,7 +22,6 @@ type Props = {
 };
 
 function AppHeader(props: Props) {
-    const history = useHistory();
     const [admin, setAdmin] = useState(false);
     const [scrollTrigger, setScrollTrigger] = useState<boolean>(window.innerWidth < 900);
     const handleResize = () => {
@@ -43,21 +41,7 @@ function AppHeader(props: Props) {
                     </IconButton>
                 </Toolbar>
                 <Toolbar sx={{mb: 1, alignItems: "stretch", justifyContent: "space-between"}}>
-                    {!admin ?
-                        <ButtonGroup>
-                            <Button endIcon={<PlayArrowIcon/>}
-                                    onClick={() => history.push('/quiz')} variant="contained" size="large"
-                                    sx={{bgcolor: "primary.light"}}>Start
-                                Quiz</Button>
-                        </ButtonGroup> :
-                        <ButtonGroup>
-                            <Button onClick={() => history.push('/new')} variant="contained" size="medium"
-                                    sx={{bgcolor: "primary.light"}}>Create
-                                New Card</Button>
-                            <Button onClick={() => history.push('/all')} variant="contained" size="medium"
-                                    sx={{bgcolor: "primary.light"}}>Show
-                                All Cards</Button>
-                        </ButtonGroup>}
+                    {admin ? <AdminButtons/> : <StartButton/>}
                 </Toolbar>
             </AppBar>
         </HideOnScroll>
