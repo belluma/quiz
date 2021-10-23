@@ -21,7 +21,7 @@ export const ErrorSlice = createSlice({
             state.status = 200;
             state.statusText = "";
         },
-        receiveError:(state, action:PayloadAction<IError>) => {
+        getErrorMessage:(state, action:PayloadAction<IError>) => {
             state.error = true;
             state.status = action.payload.status;
             state.statusText = action.payload.statusText;
@@ -32,5 +32,5 @@ export const ErrorSlice = createSlice({
 export const selectError = (state: RootState) => state.error.error;
 export const selectStatus = (state: RootState) => state.error.status;
 export const selectStatusText = (state: RootState) => state.error.statusText;
-export const {closeError, receiveError} = ErrorSlice.actions;
+export const {closeError, getErrorMessage} = ErrorSlice.actions;
 export default ErrorSlice.reducer;

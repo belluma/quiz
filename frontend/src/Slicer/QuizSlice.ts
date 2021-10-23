@@ -1,8 +1,12 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {getAllCards, validateAnswer} from "../services/apiService";
-import { IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
+import {IQuestionCard, IQuizState} from "../Interfaces/IQuestionCard";
 import {RootState} from "../app/store";
-import { receiveError} from "./ErrorSlice";
+import {getErrorMessage} from "./ErrorSlice";
+import {validateToken} from "../services/authService";
+import {logout} from "./AuthSlice";
+import history from '../services/history'
+import {BaseThunkAPI} from "@reduxjs/toolkit/dist/createAsyncThunk";
 
 const initialState: IQuizState = {
     allCards: [],
@@ -19,37 +23,53 @@ interface IResponseData {
     statusText: string
 }
 
-export const handleError = (err: any) => {
-    return {...err, data:[]}
+export const parseError = (err: any) => {
+    return {...err, data: []}
 }
 export const getApiData = createAsyncThunk(
     'quiz/fetchQuizcards'
-    , async (_, thunkAPI) =>  {
+    , async (_, thunkAPI) => {
         // @ts-ignore
         const token = thunkAPI.getState().login.token;
-        const {data, status, statusText} = await getAllCards(token)
-        if(status !== 200){
-            thunkAPI.dispatch(receiveError({status, statusText}))
-            return handleError({data, status,statusText})
+        if (tokenInvalid(token, thunkAPI)) return;
+        const {data, status, statusText} = await getAllCards(token);
+        if (errorMessage(status, statusText, thunkAPI)){
+            return parseError({data, status, statusText});
         }
-        return {data, status, statusText}
+        return {data, status, statusText};
     }
-    )
+)
 
 export const validateQuizcard = createAsyncThunk(
     'quiz/vaildateAnswer',
     async (answer: IQuestionCard, thunkAPI) => {
         // @ts-ignore
-        const token = thunkAPI.getState().login.token
+        const token = thunkAPI.getState().login.token;
+        if (tokenInvalid(token, thunkAPI)) return;
         const {data, status, statusText} = await validateAnswer(answer, token);
-        console.log(status)
-        if(status !== 200){
-            thunkAPI.dispatch(receiveError({ status, statusText}))
-            return handleError({data, status,statusText})
+        if (errorMessage(status, statusText, thunkAPI)){
+            return parseError({data, status, statusText});
         }
-        return {data, status, statusText}
+        return {data, status, statusText};
     }
 )
+
+function tokenInvalid(token: string, thunkApi: any) {
+    if (!validateToken(token)) {
+        thunkApi.dispatch(logout());
+        errorMessage(401, "Session expired!", thunkApi)
+        history.push('/login)');
+        return true
+    }
+}
+
+function errorMessage(status: number, statusText: string, thunkApi: any) {
+    if (status !== 200) {
+        thunkApi.dispatch(getErrorMessage({status, statusText}))
+        return true
+    }
+
+}
 
 export const QuizSlice = createSlice({
     name: 'todoList',
@@ -68,11 +88,13 @@ export const QuizSlice = createSlice({
         builder
             .addCase(getApiData.pending, state => {
             })
-            .addCase(getApiData.fulfilled, (state, action: PayloadAction<IResponseData> ) => {
+            .addCase(getApiData.fulfilled, (state, action: PayloadAction<IResponseData>) => {
+                if(!action.payload) return;
                 state.allCards = action.payload.data
             })
             .addCase(validateQuizcard.fulfilled, (state, action: PayloadAction<any>) => {
-                if (action.payload.data)state.pointsCounter += 1;
+                if(!action.payload) return;
+                if (action.payload.data) state.pointsCounter += 1;
             })
     })
 })
