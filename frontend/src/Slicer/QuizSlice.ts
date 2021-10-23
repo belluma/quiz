@@ -6,7 +6,6 @@ import {getErrorMessage} from "./ErrorSlice";
 import {validateToken} from "../services/authService";
 import {logout} from "./AuthSlice";
 import history from '../services/history'
-import {BaseThunkAPI} from "@reduxjs/toolkit/dist/createAsyncThunk";
 
 const initialState: IQuizState = {
     allCards: [],

@@ -32,7 +32,7 @@ function AppHeader(props: Props) {
     const [admin, setAdmin] = useState(false);
     const [scrollTrigger, setScrollTrigger] = useState<boolean>(window.innerWidth < 900);
     const handleLogout = () => {
-        dispatch(logout);
+        dispatch(logout());
         history.push('/logout')
     }
     const handleResize = () => {

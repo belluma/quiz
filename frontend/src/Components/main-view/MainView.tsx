@@ -14,7 +14,6 @@ import Error from '../error/Error'
 import Goodbye from "../security/goodbye/Goodbye";
 import {Route, Switch} from "react-router";
 import Deck from "../quiz/deck/Deck";
-import JwtExpire from "../security/jwt-expire/JwtExpire";
 
 //interface imports
 
@@ -35,7 +34,6 @@ function MainView(props: Props) {
                     <ProtectedRoute path={"/"} component={Deck}/>
                 </Switch>
                 <Error/>
-                {/*<JwtExpire />*/}
             </Grid>
         </Container>
     )
