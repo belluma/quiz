@@ -17,5 +17,5 @@ afterEach(() =>{
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-   ReactDOM.render(<FaceDownCard />, div);
+   ReactDOM.render(<FaceDownCard  offset={1}/>, div);
     });

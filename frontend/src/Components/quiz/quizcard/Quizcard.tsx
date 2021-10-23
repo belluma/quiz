@@ -40,7 +40,7 @@ function Quizcard({card, mode}: Props) {
             </CardContent>
             {mode === cardMode.QUIZ &&
 
-            <CardFooter disableButton={false} onButtonClick={submitAnswer} buttonText="submit answer"/>}
+            <CardFooter disableButton={!selected.length} onButtonClick={submitAnswer} buttonText="submit answer"/>}
 
         </Card>
     );
