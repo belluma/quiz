@@ -14,7 +14,7 @@ const sendLoginData = (credentials: IUser) => {
         method: 'post',
         url: `/auth/login`,
         data: credentials,
-        headers: {"Content-Type": "application/json"}
+        headers: {}
     }).then(response => {
         return response
     })

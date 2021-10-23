@@ -1,5 +1,5 @@
 import React from 'react'
-import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../quizcard/Quizcard";
+import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../../style-helpers/card";
 
 //component imports
 import {Card, CardContent, Divider, Typography} from "@mui/material";

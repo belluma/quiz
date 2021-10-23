@@ -3,7 +3,7 @@ import {useAppSelector} from "../../../app/hooks";
 import {selectLoggedIn} from "../../../Slicer/AuthSlice";
 
 //component imports
-import {Redirect, Route} from "react-router";
+import { Route} from "react-router";
 import Login from "../../login/Login";
 
 //interface imports

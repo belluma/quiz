@@ -1,5 +1,5 @@
 import React from 'react'
-import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../quizcard/Quizcard";
+import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../style-helpers/card";
 import {overrideFontColorOnFocus} from "../../theme";
 import {selectLoggedIn} from "../../Slicer/AuthSlice";
 import {useAppSelector} from "../../app/hooks";

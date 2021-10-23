@@ -1,14 +1,20 @@
 import React from 'react'
+import FaceDownCard from "./face-down-card/FaceDownCard";
 
 //component imports
 
 //interface imports
 
-type Props = {};
+type Props = {
+    cards?:number
+    quizname?:string
+};
 
-function Stack(props: Props){
+function Stack({cards, quizname}: Props){
+
+
     return(
-       <div>Stack</div>
+       <FaceDownCard quizname={quizname}/>
     )
 }
 

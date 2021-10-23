@@ -1,11 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MainView from './MainView';
-import {BrowserRouter as Router} from "react-router-dom";
-import {store} from "../../app/store";
-import {Provider} from "react-redux";
-
-
+import FaceDownCard from './FaceDownCard';
 
 let container: HTMLElement | null = null;
 beforeEach(() => {
@@ -22,5 +17,5 @@ afterEach(() =>{
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Provider store={store}><Router><MainView/></Router></Provider>, div);
-        });
+   ReactDOM.render(<FaceDownCard />, div);
+    });

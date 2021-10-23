@@ -1,5 +1,5 @@
 import React from 'react'
-import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../quizcard/Quizcard";
+import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../style-helpers/card";
 import {useAppDispatch, useAppSelector} from '../../app/hooks';
 import {closeError, selectError,  selectStatusText} from "../../Slicer/ErrorSlice";
 

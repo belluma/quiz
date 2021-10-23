@@ -20,7 +20,7 @@ import CustomFormGroup from "./custom-form-group/CustomFormGroup";
 import {cardMode, createCardStatus} from "../../../Interfaces/IQuestionCard";
 
 //styles
-import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../Quizcard";
+import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../../style-helpers/card";
 import { selectToken } from '../../../Slicer/AuthSlice';
 
 type Props = {};
