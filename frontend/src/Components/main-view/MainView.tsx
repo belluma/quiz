@@ -14,26 +14,28 @@ import Error from '../error/Error'
 import Goodbye from "../security/goodbye/Goodbye";
 import {Route, Switch} from "react-router";
 import Deck from "../quiz/deck/Deck";
+import JwtExpire from "../security/jwt-expire/JwtExpire";
 
 //interface imports
 
 type Props = {};
 
-function MainView(props: Props){
-    return(
+function MainView(props: Props) {
+    return (
         <Container sx={{pt: 15}} maxWidth={false}>
             <Grid container justifyContent="center" alignItems="center">
                 <Switch>
-                <Route path={"/logout"} component={Goodbye} />
-                <Route path="/login" component={Login}/>
-                <Route path={"/signup"} component={Signup}/>
-                <ProtectedRoute route={"/quiz"} component={Quiz} />
-                <ProtectedRoute route={"/new"} component={CardCreationDialog}/>
-                <ProtectedRoute route={"/all"} component={AllCards}/>
-                <ProtectedRoute route={"/highscore"} component={Highscore}/>
-                <ProtectedRoute route={"/"} component={Deck} />
+                    <Route path={"/logout"} component={Goodbye}/>
+                    <Route path="/login" component={Login}/>
+                    <Route path={"/signup"} component={Signup}/>
+                    <ProtectedRoute path={"/new"} component={CardCreationDialog}/>
+                    <ProtectedRoute path={"/quiz"} component={Quiz}/>
+                    <ProtectedRoute path={"/all"} component={AllCards}/>
+                    <ProtectedRoute path={"/highscore"} component={Highscore}/>
+                    <ProtectedRoute path={"/"} component={Deck}/>
                 </Switch>
                 <Error/>
+                {/*<JwtExpire />*/}
             </Grid>
         </Container>
     )

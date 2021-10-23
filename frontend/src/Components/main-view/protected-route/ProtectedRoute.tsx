@@ -9,15 +9,14 @@ import Login from "../../security/login/Login";
 //interface imports
 
 type Props = {
-    route:string,
+    path:string,
     component?:any
 };
-function ProtectedRoute({route, component}: Props){
+function ProtectedRoute(props: Props){
     const loggedIn = useAppSelector(selectLoggedIn);
 
     return(
-        // loggedIn ? <Route exact={exact} path={route} component={component} /> : <Redirect  to="/login" />
-    <Route  path={route} component={loggedIn ? component : Login} />
+        loggedIn ? <Route {...props} /> : <Route component={Login} />
 )
 }
 
