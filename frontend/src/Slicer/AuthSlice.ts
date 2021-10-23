@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUser} from "../Interfaces/IUser";
 import {RootState} from "../app/store";
 import {getErrorMessage} from "./ErrorSlice";
-import {sendLoginData} from "../services/authService";
+import {sendLoginData, validateToken} from "../services/authService";
 
 const initialState = {
     loggedIn: false,
@@ -33,7 +33,16 @@ export const LoginSlice = createSlice({
         logout:(state) => {
             localStorage.removeItem("codificantesToken");
             state.loggedIn = false;
+        },
+        loginFromStorage:(state) =>{
+            const token = localStorage.getItem("codificantesToken");
+            if(token && validateToken(token)){
+                state.loggedIn = true;
+                state.token = token;
+            }
+
         }
+
     },
     extraReducers:builder => {
         builder
@@ -49,7 +58,7 @@ export const LoginSlice = createSlice({
             })
     }})
 
-export const {logout} = LoginSlice.actions;
+export const {logout, loginFromStorage} = LoginSlice.actions;
 
 export const selectLoggedIn = (state: RootState) => state.login.loggedIn;
 export const selectToken = (state: RootState) => state.login.token;
