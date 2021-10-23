@@ -13,7 +13,7 @@ import ProtectedRoute from "./protected-route/ProtectedRoute";
 import Error from '../error/Error'
 import Goodbye from "../goodbye/Goodbye";
 import {Route} from "react-router";
-import Stack from "../stack/Stack";
+import Deck from "../deck/Deck";
 
 //interface imports
 
@@ -30,7 +30,7 @@ function MainView(props: Props){
                 <ProtectedRoute route={"/new"} component={CardCreationDialog}/>
                 <ProtectedRoute route={"/all"} component={AllCards}/>
                 <ProtectedRoute route={"/highscore"} component={Highscore}/>
-                <ProtectedRoute route={"/"} component={Stack} />
+                <ProtectedRoute route={"/"} component={Deck} />
                 <Error/>
             </Grid>
         </Container>

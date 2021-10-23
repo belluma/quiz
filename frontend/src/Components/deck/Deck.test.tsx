@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Stack from './Stack';
+import Deck from './Deck';
 
 let container: HTMLElement | null = null;
 beforeEach(() => {
@@ -17,5 +17,5 @@ afterEach(() =>{
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-   ReactDOM.render(<Stack />, div);
+   ReactDOM.render(<Deck />, div);
     });
