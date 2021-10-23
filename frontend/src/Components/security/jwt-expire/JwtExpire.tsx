@@ -26,7 +26,7 @@ function JwtExpire({history}: Props) {
         history.push('/logout')
     }
     const dispatch = useAppDispatch();
-    history.listen((action, location) => {
+    history.listen(( location, action) => {
         console.log(action, location);
         const token = localStorage.getItem("codificantesToken");
         if (token) {

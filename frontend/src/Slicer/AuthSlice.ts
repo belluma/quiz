@@ -1,27 +1,14 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import axios from "axios";
 import {IUser} from "../Interfaces/IUser";
 import {RootState} from "../app/store";
 import {receiveError} from "./ErrorSlice";
+import {sendLoginData} from "../services/authService";
 
 const initialState = {
     loggedIn: false,
     token:""
 }
 
-const sendLoginData = (credentials: IUser) => {
-    return axios({
-        method: 'post',
-        url: `/auth/login`,
-        data: credentials,
-        headers: {}
-    }).then(response => {
-        return response
-    })
-        .catch(err => {
-            return {data: "",status: err.response.status, statusText:err.response.data.message}
-        })
-}
 
 export const login = createAsyncThunk(
     'login',
