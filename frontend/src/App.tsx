@@ -11,7 +11,6 @@ import MainView from "./Components/main-view/MainView";
 import {selectToken} from "./Slicer/AuthSlice";
 
 function App() {
-    console.log(localStorage.getItem("codificantesToken"))
     const token = useAppSelector(selectToken);
     const dispatch = useAppDispatch();
     token.length && dispatch(getApiData());

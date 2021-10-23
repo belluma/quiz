@@ -26,7 +26,7 @@ function MainView(props: Props) {
             <Grid container justifyContent="center" alignItems="center">
                 <Switch>
                     <Route path={"/logout"} component={Goodbye}/>
-                    <Route path="/login" component={Login}/>
+                    <Route path={"/login"} component={Login}/>
                     <Route path={"/signup"} component={Signup}/>
                     <ProtectedRoute path={"/new"} component={CardCreationDialog}/>
                     <ProtectedRoute path={"/quiz"} component={Quiz}/>

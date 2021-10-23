@@ -20,7 +20,7 @@ interface IResponseData {
 }
 
 export const handleError = (err: any) => {
-    return {data: [], status: err.response.status, statusText: err.response.data.message}
+    return {...err, data:[]}
 }
 export const getApiData = createAsyncThunk(
     'quiz/fetchQuizcards'
@@ -29,8 +29,8 @@ export const getApiData = createAsyncThunk(
         const token = thunkAPI.getState().login.token;
         const {data, status, statusText} = await getAllCards(token)
         if(status !== 200){
-            thunkAPI.dispatch(receiveError(data))
-            return handleError(data)
+            thunkAPI.dispatch(receiveError({status, statusText}))
+            return handleError({data, status,statusText})
         }
         return {data, status, statusText}
     }
@@ -41,12 +41,13 @@ export const validateQuizcard = createAsyncThunk(
     async (answer: IQuestionCard, thunkAPI) => {
         // @ts-ignore
         const token = thunkAPI.getState().login.token
-        const {data, status} = await validateAnswer(answer, token);
+        const {data, status, statusText} = await validateAnswer(answer, token);
+        console.log(status)
         if(status !== 200){
-            thunkAPI.dispatch(receiveError(data))
-            return handleError(data)
+            thunkAPI.dispatch(receiveError({ status, statusText}))
+            return handleError({data, status,statusText})
         }
-        return {data}
+        return {data, status, statusText}
     }
 )
 
