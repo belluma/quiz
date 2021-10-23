@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AllCards from './AllCards';
 import {Provider} from "react-redux";
-import { store } from '../../app/store';
+import { store } from '../../../app/store';
 
 let container: HTMLElement | null = null;
 beforeEach(() => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import CardCreationDialog from './CardCreationDialog';
-import {store} from "../../../app/store";
+import {store} from "../../../../app/store";
 import {Provider} from "react-redux";
 import {render, screen} from "@testing-library/react";
 

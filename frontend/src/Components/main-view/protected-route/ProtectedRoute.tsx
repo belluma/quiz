@@ -4,7 +4,7 @@ import {selectLoggedIn} from "../../../Slicer/AuthSlice";
 
 //component imports
 import { Route} from "react-router";
-import Login from "../../login/Login";
+import Login from "../../security/login/Login";
 
 //interface imports
 

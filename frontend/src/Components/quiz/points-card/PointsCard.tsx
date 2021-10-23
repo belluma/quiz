@@ -3,7 +3,7 @@ import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../..
 
 //component imports
 import {Card, CardContent, Divider, Typography} from "@mui/material";
-import QuizcardHeader from "../../quizcard/quizcard-header/QuizcardHeader";
+import QuizcardHeader from "../quizcard/quizcard-header/QuizcardHeader";
 
 
 //interface imports

@@ -1,6 +1,6 @@
 import React from 'react'
-import {useAppSelector} from "../../app/hooks";
-import {selectGetAllCards, selectGetAnsweredCards} from "../../Slicer/QuizSlice";
+import {useAppSelector} from "../../../app/hooks";
+import {selectGetAllCards, selectGetAnsweredCards} from "../../../Slicer/QuizSlice";
 
 //component imports
 import FaceDownCard from "./face-down-card/FaceDownCard";

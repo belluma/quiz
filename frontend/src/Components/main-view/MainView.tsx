@@ -4,16 +4,16 @@ import React from 'react'
 //component imports
 import {Container, Grid} from "@mui/material";
 import Quiz from "../quiz/Quiz";
-import CardCreationDialog from "../quizcard/card-creation-dialog/CardCreationDialog";
-import AllCards from "../all-cards/AllCards";
-import Login from "../login/Login";
-import Signup from "../signup/Signup";
-import Highscore from "../highscore/Highscore";
+import CardCreationDialog from "../quiz/quizcard/card-creation-dialog/CardCreationDialog";
+import AllCards from "../quiz/all-cards/AllCards";
+import Login from "../security/login/Login";
+import Signup from "../security/signup/Signup";
+import Highscore from "../quiz/highscore/Highscore";
 import ProtectedRoute from "./protected-route/ProtectedRoute";
 import Error from '../error/Error'
-import Goodbye from "../goodbye/Goodbye";
+import Goodbye from "../security/goodbye/Goodbye";
 import {Route, Switch} from "react-router";
-import Deck from "../deck/Deck";
+import Deck from "../quiz/deck/Deck";
 
 //interface imports
 

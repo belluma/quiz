@@ -1,12 +1,12 @@
 import React from 'react'
-import {useAppSelector} from "../../app/hooks";
-import {selectGetAllCards} from "../../Slicer/QuizSlice";
+import {useAppSelector} from "../../../app/hooks";
+import {selectGetAllCards} from "../../../Slicer/QuizSlice";
 
 //component imports
 import Quizcard from "../quizcard/Quizcard";
 
 //interface imports
-import {cardMode} from "../../Interfaces/IQuestionCard";
+import {cardMode} from "../../../Interfaces/IQuestionCard";
 import {Grid} from "@mui/material";
 
 type Props = {};

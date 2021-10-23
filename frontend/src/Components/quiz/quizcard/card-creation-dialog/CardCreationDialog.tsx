@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
-import {getApiData} from "../../../Slicer/QuizSlice";
-import {useAppDispatch, useAppSelector} from "../../../app/hooks";
-import {changeQuestionText} from "../../../Slicer/NewCardSlice";
+import {getApiData} from "../../../../Slicer/QuizSlice";
+import {useAppDispatch, useAppSelector} from "../../../../app/hooks";
+import {changeQuestionText} from "../../../../Slicer/NewCardSlice";
 
 //component imports
 import Choices from "../choices/Choices";
-import {createCard} from "../../../services/apiService";
+import {createCard} from "../../../../services/apiService";
 import {
     Card,
     CardContent,
@@ -17,11 +17,11 @@ import CustomFormGroup from "./custom-form-group/CustomFormGroup";
 
 
 //interface imports
-import {cardMode, createCardStatus} from "../../../Interfaces/IQuestionCard";
+import {cardMode, createCardStatus} from "../../../../Interfaces/IQuestionCard";
 
 //styles
-import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../../style-helpers/card";
-import { selectToken } from '../../../Slicer/AuthSlice';
+import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../../../style-helpers/card";
+import { selectToken } from '../../../../Slicer/AuthSlice';
 
 type Props = {};
 

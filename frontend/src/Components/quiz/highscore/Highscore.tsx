@@ -4,7 +4,7 @@ import React from 'react'
 import {DataGrid, GridRowsProp, GridColDef} from "@mui/x-data-grid";
 
 //interface imports
-import {IHighscore} from "../../Interfaces/IUser";
+import {IHighscore} from "../../../Interfaces/IUser";
 
 type Props = {
     highscores: IHighscore[]

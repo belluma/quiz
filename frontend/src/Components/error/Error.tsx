@@ -5,7 +5,7 @@ import {closeError, selectError,  selectStatusText} from "../../Slicer/ErrorSlic
 
 //component imports
 import {Card, CardContent, CardHeader, Dialog, Divider, ThemeProvider, Typography} from "@mui/material";
-import CardFooter from "../quizcard/card-footer/CardFooter";
+import CardFooter from "../quiz/quizcard/card-footer/CardFooter";
 import {overrideBackgroundForError} from "../../theme";
 
 //interface imports

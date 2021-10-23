@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Choices from './Choices';
-import {cardMode} from "../../../Interfaces/IQuestionCard";
+import {cardMode} from "../../../../Interfaces/IQuestionCard";
 import fn = jest.fn;
 import {fireEvent, render, screen} from "@testing-library/react";
 

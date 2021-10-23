@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {useAppDispatch} from "../../app/hooks";
-import {moveCardToAnseweredCardsStack, validateQuizcard} from "../../Slicer/QuizSlice";
+import {useAppDispatch} from "../../../app/hooks";
+import {moveCardToAnseweredCardsStack, validateQuizcard} from "../../../Slicer/QuizSlice";
 
 //component imports
 import {Card, CardContent, Divider,} from "@mui/material";
@@ -8,9 +8,9 @@ import Choices from "./choices/Choices";
 import QuizcardHeader from "./quizcard-header/QuizcardHeader";
 
 //interface imports
-import {cardMode, IQuestionCard} from "../../Interfaces/IQuestionCard";
+import {cardMode, IQuestionCard} from "../../../Interfaces/IQuestionCard";
 import CardFooter from "./card-footer/CardFooter";
-import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../style-helpers/card";
+import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../../style-helpers/card";
 
 
 type Props = {

@@ -6,7 +6,7 @@ import {
     Divider,
     Typography
 } from "@mui/material";
-import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../style-helpers/card";
+import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../../style-helpers/card";
 
 //component imports
 

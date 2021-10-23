@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 //interface imports
-import {cardMode} from "../../../Interfaces/IQuestionCard";
+import {cardMode} from "../../../../Interfaces/IQuestionCard";
 
 type Props = {
     choices: string[],

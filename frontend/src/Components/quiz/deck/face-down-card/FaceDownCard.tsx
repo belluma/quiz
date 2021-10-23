@@ -1,5 +1,5 @@
 import React from 'react'
-import {portraitView, styleCardContent} from "../../../style-helpers/card";
+import {portraitView, styleCardContent} from "../../../../style-helpers/card";
 
 //component imports
 import {

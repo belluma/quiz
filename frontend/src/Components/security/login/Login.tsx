@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useState} from 'react'
 import {Redirect, useHistory} from "react-router";
-import {overrideFontColorOnFocus} from "../../theme";
-import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../style-helpers/card";
-import {login as sendLogin, selectLoggedIn} from '../../Slicer/AuthSlice'
+import {overrideFontColorOnFocus} from "../../../theme";
+import {makeCardChangeBetweenPortraitAndLandscape, styleCardContent} from "../../../style-helpers/card";
+import {login as sendLogin, selectLoggedIn} from '../../../Slicer/AuthSlice'
 
 //component imports
 import {
@@ -15,9 +15,9 @@ import {
     TextField,
     ThemeProvider,
 } from "@mui/material";
-import CardFooter from "../quizcard/card-footer/CardFooter";
-import {IUser} from "../../Interfaces/IUser";
-import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import CardFooter from "../../quiz/quizcard/card-footer/CardFooter";
+import {IUser} from "../../../Interfaces/IUser";
+import {useAppDispatch, useAppSelector} from "../../../app/hooks";
 
 //interface imports
 
