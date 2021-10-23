@@ -12,7 +12,7 @@ import Highscore from "../highscore/Highscore";
 import ProtectedRoute from "./protected-route/ProtectedRoute";
 import Error from '../error/Error'
 import Goodbye from "../goodbye/Goodbye";
-import {Route} from "react-router";
+import {Route, Switch} from "react-router";
 import Deck from "../deck/Deck";
 
 //interface imports
@@ -23,6 +23,7 @@ function MainView(props: Props){
     return(
         <Container sx={{pt: 15}} maxWidth={false}>
             <Grid container justifyContent="center" alignItems="center">
+                <Switch>
                 <Route path={"/logout"} component={Goodbye} />
                 <Route path="/login" component={Login}/>
                 <Route path={"/signup"} component={Signup}/>
@@ -31,6 +32,7 @@ function MainView(props: Props){
                 <ProtectedRoute route={"/all"} component={AllCards}/>
                 <ProtectedRoute route={"/highscore"} component={Highscore}/>
                 <ProtectedRoute route={"/"} component={Deck} />
+                </Switch>
                 <Error/>
             </Grid>
         </Container>
