@@ -1,7 +1,7 @@
 package com.example.quiz.service;
 
 import com.example.quiz.model.DTO.UserDTO;
-import com.example.quiz.security.repository.QuizUserRepository;
+import com.example.quiz.security.repository.UserRepository;
 import com.example.quiz.service.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    private final QuizUserRepository repository;
+    private final UserRepository repository;
 
     private final UserMapper mapper = new UserMapper();
 

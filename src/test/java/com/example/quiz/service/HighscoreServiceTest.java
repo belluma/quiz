@@ -1,7 +1,7 @@
 package com.example.quiz.service;
 
 import com.example.quiz.model.DB.Highscore;
-import com.example.quiz.model.DB.QuizUser;
+import com.example.quiz.model.DB.AppUser;
 import com.example.quiz.model.DTO.HighscoreDTO;
 import com.example.quiz.repository.HighscoreRepository;
 import com.example.quiz.service.mapper.HighscoreMapper;
@@ -42,7 +42,7 @@ class HighscoreServiceTest {
     private Highscore buildHighscore() {
         return Highscore.builder()
                 .id(1)
-                .quizUser(QuizUser.builder()
+                .appUser(AppUser.builder()
                         .username("user1")
                         .email("user@email.com")
                         .password("123")

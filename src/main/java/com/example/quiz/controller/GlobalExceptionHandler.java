@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.nio.file.AccessDeniedException;
 import java.util.NoSuchElementException;
 
 @Slf4j
@@ -36,10 +37,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NO_CONTENT);
     }
 
-    @ExceptionHandler({BadCredentialsException.class,})
+    @ExceptionHandler({BadCredentialsException.class, AccessDeniedException.class})
     public ResponseEntity<Object> handleBadCredentialsException(Exception ex) {
         CustomError message = new CustomError(ex);
-        return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler({Throwable.class})

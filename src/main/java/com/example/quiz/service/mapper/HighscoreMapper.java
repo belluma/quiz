@@ -6,10 +6,10 @@ import com.example.quiz.model.DTO.HighscoreDTO;
 public class HighscoreMapper {
 
     public Highscore mapHighscore(HighscoreDTO highscore) {
-        return new Highscore(highscore.getId(), highscore.getQuizUser(), highscore.getScore());
+        return new Highscore(highscore.getId(), highscore.getAppUser(), highscore.getScore());
     }
 
     public HighscoreDTO mapHighscoreToDTO(Highscore highscore) {
-        return new HighscoreDTO(highscore.getId(), highscore.getQuizUser(), highscore.getScore(), highscore.getDate());
+        return new HighscoreDTO(highscore.getId(), highscore.getAppUser(), highscore.getScore(), highscore.getDate());
     }
 }

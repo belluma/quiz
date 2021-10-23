@@ -21,10 +21,10 @@ public class UserController {
         String username = principal.getName();
         return service.getUserByUsername(username);
     }
-    @GetMapping("/login")
-    public String  showLoginPage(){
-        return "login";
-    }
+//    @GetMapping("/login")
+//    public String  showLoginPage(){
+//        return "login";
+//    }
 
 //    @GetMapping
 //    public List<UserDTO> getAllUsers() {

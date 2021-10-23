@@ -1,10 +1,10 @@
 package com.example.quiz.controller;
 
-import com.example.quiz.model.DB.QuizUser;
+import com.example.quiz.model.DB.AppUser;
 import com.example.quiz.model.DTO.QuizcardDTO;
 import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.repository.QuizRepository;
-import com.example.quiz.security.repository.QuizUserRepository;
+import com.example.quiz.security.repository.UserRepository;
 import com.example.quiz.service.mapper.QuizcardMapper;
 import com.example.quiz.service.mapper.UserMapper;
 import org.junit.jupiter.api.*;
@@ -19,9 +19,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.lang.reflect.Array;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
@@ -44,7 +42,7 @@ public class QuizControllerIntegrationTest {
     @Autowired
     TestRestTemplate restTemplate;
     @Autowired
-    QuizUserRepository userRepository;
+    UserRepository userRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -114,7 +112,7 @@ public class QuizControllerIntegrationTest {
 
     private HttpHeaders createHeadersWithJwtAuth() {
 
-        QuizUser user = new QuizUser("user", passwordEncoder.encode("1234"));
+        AppUser user = new AppUser("user", passwordEncoder.encode("1234"));
         userRepository.save(user);
         UserDTO loginData = new UserDTO("user", "1234");
         ResponseEntity<String> response = restTemplate.postForEntity("/auth/login", loginData, String.class);

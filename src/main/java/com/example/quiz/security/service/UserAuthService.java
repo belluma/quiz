@@ -1,5 +1,5 @@
 package com.example.quiz.security.service;
-import com.example.quiz.security.repository.QuizUserRepository;
+import com.example.quiz.security.repository.UserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserAuthService implements UserDetailsService {
 
-    private final QuizUserRepository repository;
+    private final UserRepository repository;
 
-    public UserAuthService(QuizUserRepository repository) {
+    public UserAuthService(UserRepository repository) {
         this.repository = repository;
     }
 

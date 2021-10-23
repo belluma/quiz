@@ -1,6 +1,6 @@
 package com.example.quiz.service;
 
-import com.example.quiz.security.repository.QuizUserRepository;
+import com.example.quiz.security.repository.UserRepository;
 import com.example.quiz.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 class QuizUserServiceTest {
 
     @Autowired
-    QuizUserRepository repository = mock(QuizUserRepository.class);
+    UserRepository repository = mock(UserRepository.class);
 
     UserMapper mapper = new UserMapper();
 

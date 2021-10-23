@@ -23,7 +23,7 @@ public class Highscore {
     private Integer id;
 
     @ManyToOne
-    private QuizUser quizUser;
+    private AppUser appUser;
     private int score;
     private final LocalDateTime date = LocalDateTime.now();
 

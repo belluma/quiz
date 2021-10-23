@@ -18,7 +18,7 @@ import java.util.Objects;
 @Entity
 @Table(name="users")
 @Builder
-public class QuizUser {
+public class AppUser {
 
     @Id
     private String username;
@@ -30,7 +30,7 @@ public class QuizUser {
     @ToString.Exclude
     private List<Highscore> highscores;
 
-    public QuizUser(String username, String password){
+    public AppUser(String username, String password){
         this.username = username;
         this.password = password;
     }
@@ -44,8 +44,8 @@ public class QuizUser {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        QuizUser quizUser = (QuizUser) o;
-        return username != null && Objects.equals(username, quizUser.username);
+        AppUser appUser = (AppUser) o;
+        return username != null && Objects.equals(username, appUser.username);
     }
 
     @Override

@@ -2,11 +2,10 @@ package com.example.quiz.security.controller;
 
 import com.example.quiz.controller.GlobalExceptionHandler;
 import com.example.quiz.model.DTO.UserDTO;
-import com.example.quiz.security.repository.QuizUserRepository;
+import com.example.quiz.security.repository.UserRepository;
 import com.example.quiz.service.mapper.UserMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.junit.Rule;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,17 +28,12 @@ import static org.hamcrest.Matchers.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class LoginControllerTest {
 
-    @Autowired
-    private LoginController loginController;
-    @Autowired
-    private GlobalExceptionHandler exceptionHandler;
-    @Autowired
-    private TestRestTemplate restTemplate;
+       private TestRestTemplate restTemplate;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private QuizUserRepository userRepository;
-    private UserMapper mapper = new UserMapper();
+    private UserRepository userRepository;
+    private final UserMapper mapper = new UserMapper();
 
     @Value("${jwt.secret}")
     private String JWT_SECRET;
@@ -77,8 +71,19 @@ class LoginControllerTest {
     }
 
     @Test
-    void loginFailsWithWrongCredentials() {
+    void loginFailsWithWrongPassword() {
         UserDTO user = createUser();
+        userRepository.save(mapper.mapUser(user));
+        user.setPassword("123");
+        ResponseEntity<String> response = restTemplate.postForEntity("/auth/login", user, String.class);
+        assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
+    }
+
+    @Test
+    void loginFailsWithWrongUsername() {
+        UserDTO user = createUser();
+        user.setPassword("1234");
+        user.setUsername("wrong_username");
         userRepository.save(mapper.mapUser(user));
         user.setPassword("123");
         ResponseEntity<String> response = restTemplate.postForEntity("/auth/login", user, String.class);
