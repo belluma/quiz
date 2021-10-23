@@ -16,8 +16,6 @@ public class JWTUtilService {
     @Value("${jwt.secret}")
     private String JWT_SECRET;
 
-    private long duration = 4 * 60 * 60 * 1000;
-
     public String extractUsername(String token) {
         return Jwts.parser()
                 .setSigningKey(JWT_SECRET)
@@ -30,7 +28,8 @@ public class JWTUtilService {
     public String createToken(HashMap<String, Object> claims, String subject){
 
 
-       return Jwts.builder()
+        long duration = 4 * 60 * 60 * (long) 1000;
+        return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuedAt(Date.from(Instant.now()))

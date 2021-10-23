@@ -1,8 +1,6 @@
 package com.example.quiz.security.filter;
 
 import com.example.quiz.security.service.JWTUtilService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +17,7 @@ import java.util.List;
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private JWTUtilService jwtUtils;
+    private final JWTUtilService jwtUtils;
 
     public JwtAuthFilter(JWTUtilService jwtUtils) {
         this.jwtUtils = jwtUtils;

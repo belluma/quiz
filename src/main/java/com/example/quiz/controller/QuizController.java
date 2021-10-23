@@ -3,8 +3,6 @@ package com.example.quiz.controller;
 
 import com.example.quiz.model.DTO.QuizcardDTO;
 import com.example.quiz.service.QuizService;
-import com.example.quiz.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,15 +11,11 @@ import java.util.List;
 @RequestMapping("api/quiz")
 public class QuizController {
 
-    @Autowired
     private final QuizService quizService;
 
-    @Autowired
-    private final UserService userService;
 
-    public QuizController(QuizService quizService, UserService userService) {
+    public QuizController(QuizService quizService) {
         this.quizService = quizService;
-        this.userService = userService;
     }
 
     @GetMapping

@@ -4,7 +4,6 @@ import com.example.quiz.model.DTO.HighscoreDTO;
 import com.example.quiz.repository.HighscoreRepository;
 import com.example.quiz.service.mapper.HighscoreMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class HighscoreService {
 
-    @Autowired
     private final HighscoreRepository repository;
 
     private final HighscoreMapper mapper = new HighscoreMapper();

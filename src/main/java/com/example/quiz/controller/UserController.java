@@ -3,7 +3,6 @@ package com.example.quiz.controller;
 
 import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -12,14 +11,13 @@ import java.security.Principal;
 @RequestMapping("api/user")
 public class UserController {
 
-    @Autowired
     private final UserService service;
 
     public UserController(UserService service) {
         this.service = service;
     }
     @GetMapping()
-    public UserDTO getUserInfo(Principal principal)throws Exception{
+    public UserDTO getUserInfo(Principal principal){
         String username = principal.getName();
         return service.getUserByUsername(username);
     }

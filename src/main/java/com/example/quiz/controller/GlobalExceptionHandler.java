@@ -2,6 +2,7 @@ package com.example.quiz.controller;
 
 
 import com.example.quiz.model.CustomError;
+import com.example.quiz.model.NoCardsCreatedYetException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,38 +20,31 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({IllegalArgumentException.class})
     public ResponseEntity<Object> handleIllegalArgumentException(Exception ex) {
-        String errorMessage = ex.getMessage();
-        if (errorMessage == null) errorMessage = ex.toString();
-        CustomError message = new CustomError( errorMessage);
-        log.error(message.getMessage(), ex);
-
+        CustomError message = new CustomError(ex);
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
     }
 
     @ExceptionHandler({NoSuchElementException.class})
     public ResponseEntity<Object> handleNoSuchElementException(Exception ex) {
-        String errorMessage = ex.getMessage();
-        if (errorMessage == null) errorMessage = ex.toString();
-        CustomError message = new CustomError( errorMessage);
-        log.error(message.getMessage(), ex);
-
-        if (errorMessage.equals("No quizcards created yet")) {
-            return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NO_CONTENT);
-        }
+        CustomError message = new CustomError(ex);
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler({NoCardsCreatedYetException.class})
+    public ResponseEntity<Object> handleNoCardsCreatedYetException(Exception ex) {
+        CustomError message = new CustomError(ex);
+        return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NO_CONTENT);
+    }
+
     @ExceptionHandler({BadCredentialsException.class,})
     public ResponseEntity<Object> handleBadCredentialsException(Exception ex) {
-        String errorMessage = ex.getMessage();
-        if (errorMessage == null) errorMessage = ex.toString();
-        CustomError message = new CustomError( errorMessage);
-        log.error(message.getMessage(), ex);
+        CustomError message = new CustomError(ex);
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
+
     @ExceptionHandler({Throwable.class})
-    public ResponseEntity<Object> handleAllTheRest(Exception ex){
-        CustomError message = new CustomError();
-        log.error(message.getMessage(), ex);
+    public ResponseEntity<Object> handleAllTheRest(Exception ex) {
+        CustomError message = new CustomError(ex);
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
     }
 }

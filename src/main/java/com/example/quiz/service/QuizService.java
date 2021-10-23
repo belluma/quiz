@@ -2,10 +2,9 @@ package com.example.quiz.service;
 
 import com.example.quiz.model.DB.Quizcard;
 import com.example.quiz.model.DTO.QuizcardDTO;
+import com.example.quiz.model.NoCardsCreatedYetException;
 import com.example.quiz.repository.QuizRepository;
 import com.example.quiz.service.mapper.QuizcardMapper;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -16,10 +15,9 @@ import java.util.Optional;
 @Service
 public class QuizService {
 
-    @Autowired
     private final QuizRepository repository;
 
-    private QuizcardMapper mapper = new QuizcardMapper();
+    private final QuizcardMapper mapper = new QuizcardMapper();
 
     public QuizService(QuizRepository repository) {
         this.repository = repository;
@@ -28,7 +26,7 @@ public class QuizService {
 
     public List<QuizcardDTO> getAllCards() throws NoSuchElementException {
         List <Quizcard> cards =repository.findAll();
-        if(cards.isEmpty()) throw new NoSuchElementException("No quizcards created yet");
+        if(cards.isEmpty()) throw new NoCardsCreatedYetException("No quizcards created yet");
         return cards
                 .stream()
                 .map(mapper::mapQuizcardToDTOWithoutCorrectAnswers)

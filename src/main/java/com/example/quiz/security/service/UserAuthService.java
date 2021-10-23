@@ -1,8 +1,5 @@
 package com.example.quiz.security.service;
-import com.example.quiz.model.DB.QuizUser;
-import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.security.repository.QuizUserRepository;
-import com.example.quiz.service.mapper.UserMapper;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
