@@ -3,7 +3,7 @@ import {useAppSelector} from "../../../app/hooks";
 import {selectLoggedIn} from "../../../Slicer/AuthSlice";
 
 //component imports
-import { Route} from "react-router";
+import {Redirect, Route} from "react-router";
 import Login from "../../security/login/Login";
 
 //interface imports
@@ -16,7 +16,7 @@ function ProtectedRoute(props: Props){
     const loggedIn = useAppSelector(selectLoggedIn);
 
     return(
-        loggedIn ? <Route {...props} /> : <Route component={Login} />
+        loggedIn ? <Route {...props} /> : <Redirect to="/login"/>
 )
 }
 
