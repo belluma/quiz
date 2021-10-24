@@ -2,7 +2,7 @@ package com.example.quiz.service;
 
 import com.example.quiz.model.DB.Quizcard;
 import com.example.quiz.model.DTO.QuizcardDTO;
-import com.example.quiz.model.NoCardsCreatedYetException;
+import com.example.quiz.model.exception.NoCardsCreatedYetException;
 import com.example.quiz.repository.QuizRepository;
 import com.example.quiz.service.mapper.QuizcardMapper;
 import org.springframework.stereotype.Service;

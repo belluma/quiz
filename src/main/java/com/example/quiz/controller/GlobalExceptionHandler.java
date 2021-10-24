@@ -2,7 +2,8 @@ package com.example.quiz.controller;
 
 
 import com.example.quiz.model.CustomError;
-import com.example.quiz.model.NoCardsCreatedYetException;
+import com.example.quiz.model.exception.NoCardsCreatedYetException;
+import com.example.quiz.model.exception.UserAlreadyExistsException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.naming.AuthenticationException;
 import java.nio.file.AccessDeniedException;
 import java.util.NoSuchElementException;
 
@@ -19,7 +21,7 @@ import java.util.NoSuchElementException;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({IllegalArgumentException.class})
+    @ExceptionHandler({IllegalArgumentException.class, AuthenticationException.class, UserAlreadyExistsException.class})
     public ResponseEntity<Object> handleIllegalArgumentException(Exception ex) {
         CustomError message = new CustomError(ex);
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);

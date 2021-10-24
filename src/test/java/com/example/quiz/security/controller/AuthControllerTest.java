@@ -21,6 +21,8 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 
+import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
@@ -92,6 +94,42 @@ class AuthControllerTest {
         ResponseEntity<String> response = restTemplate.postForEntity("/auth/login", user, String.class);
         assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
     }
+
+    @Test
+    void signupSavesUserAndReturnsLogin(){
+        UserDTO user = createUser();
+        user.setPassword("1234");
+        ResponseEntity<String> response = restTemplate.postForEntity("/auth/signup", user, String.class);
+        Claims body = Jwts.parser()
+                .setSigningKey(JWT_SECRET)
+                .parseClaimsJws(response.getBody())
+                .getBody();
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat(body.getSubject(), equalTo("username"));
+        assertThat(userRepository.findByUsername(user.getUsername()), is(Optional.of(mapper.mapUser(user))));
+    }
+    @Test
+    void signupFailsWhenUsernameAlreadyRegistered(){
+        UserDTO user = createUser();
+        userRepository.save(mapper.mapUser(user));
+        user.setPassword("1234");
+        ResponseEntity<String> response = restTemplate.postForEntity("/auth/signup", user, String.class);
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.NOT_ACCEPTABLE));
+    }
+    @Test
+    void signupFailsWhenLackingInformation(){
+        UserDTO user = new UserDTO("username", "", passwordEncoder.encode("1234"));
+        UserDTO user2 = new UserDTO("username", "a@b.c");
+        UserDTO user3 = new UserDTO("", "a@b.c", passwordEncoder.encode("1234"));
+        ResponseEntity<String> response = restTemplate.postForEntity("/auth/signup", user, String.class);
+        ResponseEntity<String> response2 = restTemplate.postForEntity("/auth/signup", user2, String.class);
+        ResponseEntity<String> response3 = restTemplate.postForEntity("/auth/signup", user3, String.class);
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.NOT_ACCEPTABLE));
+        assertThat(response2.getStatusCode(), equalTo(HttpStatus.NOT_ACCEPTABLE));
+        assertThat(response3.getStatusCode(), equalTo(HttpStatus.NOT_ACCEPTABLE));
+    }
+
+
 
     private UserDTO createUser() {
         return new UserDTO("username", "a@b.c", passwordEncoder.encode("1234"));

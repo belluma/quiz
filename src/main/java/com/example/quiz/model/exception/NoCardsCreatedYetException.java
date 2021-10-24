@@ -1,4 +1,4 @@
-package com.example.quiz.model;
+package com.example.quiz.model.exception;
 
 import java.util.NoSuchElementException;
 

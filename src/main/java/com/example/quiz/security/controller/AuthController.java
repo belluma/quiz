@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.naming.AuthenticationException;
+import javax.security.auth.message.AuthException;
 import java.util.HashMap;
 
 @RestController
@@ -36,8 +38,8 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public String signup(@RequestBody UserDTO user){
-
+    public String signup(@RequestBody UserDTO user)throws IllegalArgumentException, AuthenticationException {
+        return userAuthService.signup(user);
     }
 
 
