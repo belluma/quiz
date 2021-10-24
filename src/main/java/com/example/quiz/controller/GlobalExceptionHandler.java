@@ -40,7 +40,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({BadCredentialsException.class, AccessDeniedException.class})
     public ResponseEntity<Object> handleBadCredentialsException(Exception ex) {
         CustomError message = new CustomError(ex);
-        return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler({Throwable.class})

@@ -26,9 +26,12 @@ import static org.hamcrest.Matchers.*;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class LoginControllerTest {
+class AuthControllerTest {
 
-       private TestRestTemplate restTemplate;
+    @Autowired
+    private GlobalExceptionHandler exceptionHandler;
+    @Autowired
+    private TestRestTemplate restTemplate;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
