@@ -3,10 +3,13 @@ import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.model.exception.UserAlreadyExistsException;
 import com.example.quiz.security.repository.UserRepository;
 import com.example.quiz.service.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
@@ -18,12 +21,14 @@ public class UserAuthService implements UserDetailsService {
 
     private final UserRepository repository;
     private final JWTUtilService jwtService;
-
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final UserMapper mapper = new UserMapper();
 
+    @Autowired
     public UserAuthService(UserRepository repository, JWTUtilService jwtService) {
         this.repository = repository;
         this.jwtService = jwtService;
+//        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -40,6 +45,7 @@ public class UserAuthService implements UserDetailsService {
     public String signup(UserDTO user) throws AuthenticationException, IllegalArgumentException {
         validateUserData(user);
         if (repository.findById(user.getUsername()).isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             repository.save(mapper.mapUser(user));
             return jwtService.createToken(new HashMap<>(), user.getUsername());
         }
