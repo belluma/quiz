@@ -2,8 +2,7 @@ import React from 'react'
 import {login} from "../../../../Slicer/AuthSlice";
 
 //component imports
-import {Button, CardActions, IconButton, Typography} from "@mui/material";
-import GitHub from '@mui/icons-material/GitHub';
+import {Button, CardActions,  Typography} from "@mui/material";
 import GithubLoginButton from "../../../security/github-login-button/GithubLoginButton";
 //interface imports
 

@@ -5,7 +5,7 @@ import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import {Router as Router} from "react-router-dom";
+import {Router } from "react-router-dom";
 import { ThemeProvider} from "@mui/material";
 import theme from './theme'
 import history from './services/history'

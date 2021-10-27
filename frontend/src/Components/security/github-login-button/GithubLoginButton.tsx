@@ -13,7 +13,9 @@ type Props = {};
 function GithubLoginButton(props: Props) {
     const [clientId, setClientId] = useState<string>();
     useEffect(() => {
-            getGithubClientId().then(response => setClientId(response.data))
+            getGithubClientId().then(response => {
+                setClientId(response.data)
+            })
         }
     );
 

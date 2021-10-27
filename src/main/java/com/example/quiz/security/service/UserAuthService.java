@@ -7,10 +7,7 @@ import com.example.quiz.security.repository.UserRepository;
 import com.example.quiz.service.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.naming.AuthenticationException;
 import java.util.HashMap;
+import java.util.List;
 
 
 @Service
@@ -32,9 +30,11 @@ public class UserAuthService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final UserMapper mapper = new UserMapper();
     private final RestTemplate restTemplate;
-    @Value("${github.client_id}")
+    private static final String GITHUB_TOKEN_URL = "https://github.com/login/oauth/access_token";
+    private static final String GITHUB_USER_URL = "https://api.github.com/user";
+    @Value("${github.client.id}")
     private  String client_id;
-    @Value("${github.client_secret}")
+    @Value("${github.client.secret}")
     private String client_secret;
     @Autowired
     public UserAuthService(UserRepository repository, JWTUtilService jwtService, RestTemplate restTemplate) {
@@ -93,6 +93,8 @@ public class UserAuthService implements UserDetailsService {
 
     public String getTokenFromGithub(String code) {
         GithubRequestData requestData = new GithubRequestData(client_id, client_secret, code);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         ResponseEntity<String> token = restTemplate.exchange("https://github.com/login/oauth/access_token/", HttpMethod.POST, new HttpEntity<>(requestData), String.class);
         return parseGithubToken(token.getBody());
     }
