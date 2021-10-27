@@ -12,7 +12,7 @@ const parseJwt = (token: string) => {
 
 export const validateToken = (token: string): boolean => {
     const decodedJwt = parseJwt(token);
-    if(!decodedJwt) return false;
+    if (!decodedJwt) return false;
     return decodedJwt.exp * 1000 > Date.now()
 }
 
@@ -30,8 +30,15 @@ export const sendLoginData = (credentials: IUser) => {
         })
 }
 
+export const getGithubClientId = () => {
+    return axios({
+        method: 'get',
+        url: `/auth/github/client_id`
+    }).then(response => response)
+        .catch(err => parseError(err))
+}
+
 export const sendLoginDataToGithub = (code: string) => {
-    console.error(code)
     return axios({
         method: 'get',
         url: `/auth/github/${code}`,
@@ -41,6 +48,7 @@ export const sendLoginDataToGithub = (code: string) => {
         .catch(err => parseError(err))
 }
 
-function parseError(err:any) {
+
+function parseError(err: any) {
     return {data: "", status: err.response.status, statusText: err.response.data.message}
 }
