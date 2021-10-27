@@ -1,5 +1,5 @@
 import {IUser} from "../Interfaces/IUser";
-import axios, {AxiosError, AxiosResponse} from "axios";
+import axios from "axios";
 
 
 const parseJwt = (token: string) => {

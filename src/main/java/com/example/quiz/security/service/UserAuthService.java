@@ -40,7 +40,6 @@ public class UserAuthService implements UserDetailsService {
     public UserAuthService(UserRepository repository, JWTUtilService jwtService, RestTemplate restTemplate) {
         this.repository = repository;
         this.jwtService = jwtService;
-//        this.passwordEncoder = passwordEncoder;
         this.restTemplate = restTemplate;
     }
 
@@ -94,26 +93,16 @@ public class UserAuthService implements UserDetailsService {
 
     public String getTokenFromGithub(String code) {
         GithubRequestData requestData = new GithubRequestData(client_id, client_secret, code);
-        System.err.println(requestData);
-
         ResponseEntity<String> token = restTemplate.exchange("https://github.com/login/oauth/access_token/", HttpMethod.POST, new HttpEntity<>(requestData), String.class);
-        System.err.println(token);
         return parseGithubToken(token.getBody());
-//        return getUsernameFromGithub(parseGithubToken(token.getBody()));
-//        String username =
-//        return
     }
 
     public String getUsernameFromGithub(String code) {
         String token = getTokenFromGithub(code);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "token " + token);
-        System.err.println(token);
         ResponseEntity<GithubUserDTO> response =  restTemplate.exchange("https://api.github.com/user", HttpMethod.GET, new HttpEntity<>(headers), GithubUserDTO.class);
-        System.err.println(response.getBody().getLogin());
         return response.getBody().getLogin();
-//        System.err.println(response.getBody());
-//        return "abc";
     }
     private String parseGithubToken(String responseData){
         int start = 13;

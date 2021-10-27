@@ -3,6 +3,7 @@ import {IUser} from "../Interfaces/IUser";
 import {RootState} from "../app/store";
 import {getErrorMessage} from "./ErrorSlice";
 import {sendLoginDataToGithub, sendLoginData, validateToken} from "../services/authService";
+import history from '../services/history'
 
 const initialState = {
     loggedIn: false,
@@ -26,8 +27,9 @@ export const loginWithGithub = createAsyncThunk(
         console.log(code);
         const {data, status, statusText} = await sendLoginDataToGithub(code)
        if(status !== 200) {
+           history.push('/login')
            thunkAPI.dispatch(getErrorMessage({status,statusText}))
-       }
+       } else history.push('/quiz')
         return {data, status, statusText}
     }
 )

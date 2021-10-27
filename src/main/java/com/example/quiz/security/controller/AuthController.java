@@ -39,9 +39,7 @@ public class AuthController {
     }
     @GetMapping("github/{code}")
     public String loginWithGithub(@PathVariable String code){
-        System.err.println(code);
         String username =userAuthService.getUsernameFromGithub(code);
-//        return username + username;
         return jwtService.createToken(new HashMap<>(), username);
     }
 

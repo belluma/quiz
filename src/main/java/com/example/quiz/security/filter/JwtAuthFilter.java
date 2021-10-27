@@ -2,7 +2,6 @@ package com.example.quiz.security.filter;
 
 import com.example.quiz.security.service.JWTUtilService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
