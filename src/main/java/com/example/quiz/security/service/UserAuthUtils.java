@@ -1,6 +1,10 @@
 package com.example.quiz.security.service;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class UserAuthUtils {
@@ -25,5 +29,15 @@ public class UserAuthUtils {
         //TODO implement email validation
         if (email.length() < 1) throw new IllegalArgumentException("invalid email");
     }
+     HttpHeaders authHeaders(String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "token " + token);
+        return headers;
+    }
 
+     HttpHeaders jsonHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        return headers;
+    }
 }

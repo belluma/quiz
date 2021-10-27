@@ -36,11 +36,10 @@ class UserAuthServiceTest {
     private JWTUtilService jwtService = mock(JWTUtilService.class);
     private final PasswordEncoder passwordEncoder =  new BCryptPasswordEncoder();
     private final UserMapper mapper = new UserMapper();
-    private RestTemplate restTemplate = mock(RestTemplate.class);
-//    private RestTemplate restTemplate = new TestRestTemplate();
+    private final UserAuthUtils utils;
 
     @Autowired
-    private final UserAuthService service = new UserAuthService(repository, jwtService, restTemplate, utils);
+    private final UserAuthService service = new UserAuthService(repository, jwtService, utils);
 
 //todo verify repository methods have been called
 
