@@ -95,24 +95,33 @@ public class UserAuthService implements UserDetailsService {
         if (email.length() < 1) throw new IllegalArgumentException("invalid email");
     }
 
-    public String getTokenFromGithub(String code) throws {
+    private String getTokenFromGithub(String code) throws GithubAuthException {
         GithubRequestData requestData = new GithubRequestData(client_id, client_secret, code);
         HttpHeaders headers = jsonHeaders();
-        ResponseEntity<GithubAccessTokenDTO> response = restTemplate.exchange("https://github.com/login/oauth/access_token/", HttpMethod.POST, new HttpEntity<>(requestData, headers), GithubAccessTokenDTO.class);
+        ResponseEntity<GithubAccessTokenDTO> response = restTemplate.exchange(
+                GITHUB_TOKEN_URL,
+                HttpMethod.POST,
+                new HttpEntity<>(requestData, headers),
+                GithubAccessTokenDTO.class);
         if (response.getBody() != null) {
             return response.getBody().getAccessToken();
         }
         throw new GithubAuthException("Error while retrieving authentication token from Github! Response Body is null!");
     }
 
-    public String getUsernameFromGithub(String code) {
+    public String getUsernameFromGithub(String code) throws GithubAuthException {
         String token = getTokenFromGithub(code);
-        HttpHeaders headers = authHeaders(code);
-        ResponseEntity<GithubUserDTO> response = restTemplate.exchange("https://api.github.com/user", HttpMethod.GET, new HttpEntity<>(headers), GithubUserDTO.class);
-        if (response.getBody() != null) {
-            return response.getBody().getLogin();
+        HttpHeaders headers = authHeaders(token);
+        ResponseEntity<GithubUserDTO> response = restTemplate.exchange(
+                GITHUB_USER_URL,
+                HttpMethod.GET,
+                new HttpEntity<>(headers),
+                GithubUserDTO.class);
+        if (response.getBody() == null) {
+            throw new GithubAuthException("Error while retrieving username from Github! Response Body is null!");
         }
-        throw new GithubAuthException("Error while retrieving username from Github! Response Body is null!");
+        return response.getBody().getLogin();
+
     }
 
     private HttpHeaders authHeaders(String token) {
@@ -126,5 +135,4 @@ public class UserAuthService implements UserDetailsService {
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         return headers;
     }
-
 }
