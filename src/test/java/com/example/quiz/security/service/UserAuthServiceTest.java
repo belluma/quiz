@@ -23,8 +23,7 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +35,7 @@ class UserAuthServiceTest {
     private JWTUtilService jwtService = mock(JWTUtilService.class);
     private final PasswordEncoder passwordEncoder =  new BCryptPasswordEncoder();
     private final UserMapper mapper = new UserMapper();
-    private final UserAuthUtils utils;
+    private final UserAuthUtils utils = new UserAuthUtils();
 
     @Autowired
     private final UserAuthService service = new UserAuthService(repository, jwtService, utils);
@@ -53,13 +52,17 @@ class UserAuthServiceTest {
                 .authorities("user")
                 .build();
         assertThat(expected, is(service.loadUserByUsername("username")));
+        verify(repository).findById("username");
+
     }
   @Test
     void loadUserByUsernameThrowsWhenUserIsNotFound() throws Exception {
         when(repository.findById("username")).thenReturn(Optional.empty());
      Exception ex =  assertThrows(UsernameNotFoundException.class, () -> service.loadUserByUsername("username"));
       assertThat(ex.getMessage(), is("Username does not exist: username"));
-    }
+      verify(repository).findById("username");
+
+  }
 
     @Test
     void signup() throws AuthenticationException {
@@ -68,6 +71,7 @@ class UserAuthServiceTest {
         when(jwtService.createToken(new HashMap<>(), "username")).thenReturn("valid.jwt.token");
         String expected = "valid.jwt.token";
         assertThat(expected, is(service.signup(user)));
+        verify(repository).findById("username");
     }
 
     @Test
@@ -83,7 +87,9 @@ class UserAuthServiceTest {
     when(repository.findById("use")).thenReturn(Optional.empty());
     Exception ex = assertThrows(IllegalArgumentException.class, () -> service.signup(user));
     assertThat(ex.getMessage(), is("Username must be longer than 4 and shorter than 20 characters"));
-    }
+    verify(repository).findById("use");
+
+}
 @Test
     void signupFailsWhenUsernameTooLong(){
     UserDTO user = new UserDTO("usernameIsMuchLongerThan20Characters", "a@b.c", "1234");

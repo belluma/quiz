@@ -8,4 +8,8 @@ public class GithubAccessTokenDTO {
 
     @JsonProperty("access_token")
     private String accessToken;
+
+    public GithubAccessTokenDTO(String accessToken) {
+        this.accessToken = accessToken;
+    }
 }

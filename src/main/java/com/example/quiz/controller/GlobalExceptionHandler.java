@@ -40,16 +40,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.NO_CONTENT);
     }
 
-    @ExceptionHandler({BadCredentialsException.class, AccessDeniedException.class})
+    @ExceptionHandler({BadCredentialsException.class, AccessDeniedException.class, HttpClientErrorException.class})
     public ResponseEntity<Object> handleBadCredentialsException(Exception ex) {
         CustomError message = new CustomError(ex);
         return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
-    }
-
-    @ExceptionHandler({HttpClientErrorException.class})
-    public ResponseEntity<Object> handleHttpClientErrorException(HttpClientErrorException ex) {
-        CustomError message = new CustomError(ex);
-        return new ResponseEntity<>(message, new HttpHeaders(), HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler({Throwable.class})

@@ -61,34 +61,4 @@ public class UserAuthService implements UserDetailsService {
         utils.validateEmail(user.getEmail());
     }
 
-//
-//    private String getTokenFromGithub(String code) throws GithubAuthException {
-//        GithubRequestData requestData = new GithubRequestData(client_id, client_secret, code);
-//        HttpHeaders headers = jsonHeaders();
-//        ResponseEntity<GithubAccessTokenDTO> response = restTemplate.exchange(
-//                GITHUB_TOKEN_URL,
-//                HttpMethod.POST,
-//                new HttpEntity<>(requestData, headers),
-//                GithubAccessTokenDTO.class);
-//        if (response.getBody() != null) {
-//            return response.getBody().getAccessToken();
-//        }
-//        throw new GithubAuthException("Error while retrieving authentication token from Github! Response Body is null!");
-//    }
-//
-//    public String getUsernameFromGithub(String code) throws GithubAuthException {
-//        String token = getTokenFromGithub(code);
-//        HttpHeaders headers = authHeaders(token);
-//        ResponseEntity<GithubUserDTO> response = restTemplate.exchange(
-//                GITHUB_USER_URL,
-//                HttpMethod.GET,
-//                new HttpEntity<>(headers),
-//                GithubUserDTO.class);
-//        if (response.getBody() == null) {
-//            throw new GithubAuthException("Error while retrieving username from Github! Response Body is null!");
-//        }
-//        return response.getBody().getLogin();
-//
-//    }
-
 }

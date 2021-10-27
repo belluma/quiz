@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -35,13 +36,15 @@ class AuthControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;// = new BCryptPasswordEncoder();
     @Autowired
     private UserRepository userRepository;
     private final UserMapper mapper = new UserMapper();
 
     @Value("${jwt.secret}")
     private String JWT_SECRET;
+    @Value("${github.client.id}")
+    private String clientId;
 
     @DynamicPropertySource //https://rieckpil.de/howto-write-spring-boot-integration-tests-with-a-real-database/
     static void postgresqlProperties(DynamicPropertyRegistry registry) {
@@ -129,6 +132,17 @@ class AuthControllerTest {
         assertThat(response3.getStatusCode(), equalTo(HttpStatus.NOT_ACCEPTABLE));
     }
 
+    @Test
+    void retrieveClientId(){
+        ResponseEntity<String> response = restTemplate.getForEntity("/auth/github/client_id", String.class);
+        assertThat(response.getBody(), is(clientId));
+    }
+
+    @Test
+    void loginWithGithubReturnsErrorWithWrongCode(){
+        ResponseEntity<String> response = restTemplate.getForEntity("/auth/github/1234", String.class);
+        assertThat(response.getStatusCode(), is(HttpStatus.UNAUTHORIZED));
+    }
 
 
     private UserDTO createUser() {

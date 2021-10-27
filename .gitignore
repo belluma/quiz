@@ -33,4 +33,4 @@ build/
 .vscode/
 
 todo.txt
-src/main/java/resources/application.local.properties
+src/main/java/resources/application-local.properties
