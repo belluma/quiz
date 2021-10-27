@@ -97,26 +97,34 @@ public class UserAuthService implements UserDetailsService {
 
     public String getTokenFromGithub(String code) throws {
         GithubRequestData requestData = new GithubRequestData(client_id, client_secret, code);
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        HttpHeaders headers = jsonHeaders();
         ResponseEntity<GithubAccessTokenDTO> response = restTemplate.exchange("https://github.com/login/oauth/access_token/", HttpMethod.POST, new HttpEntity<>(requestData, headers), GithubAccessTokenDTO.class);
         if (response.getBody() != null) {
-            return parseGithubToken(response.getBody().getAccessToken());
+            return response.getBody().getAccessToken();
         }
-        throw new GithubAuthException("Error while authenticating with Github! Response Body is null!");
+        throw new GithubAuthException("Error while retrieving authentication token from Github! Response Body is null!");
     }
 
     public String getUsernameFromGithub(String code) {
         String token = getTokenFromGithub(code);
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "token " + token);
+        HttpHeaders headers = authHeaders(code);
         ResponseEntity<GithubUserDTO> response = restTemplate.exchange("https://api.github.com/user", HttpMethod.GET, new HttpEntity<>(headers), GithubUserDTO.class);
-        return response.getBody().getLogin();
+        if (response.getBody() != null) {
+            return response.getBody().getLogin();
+        }
+        throw new GithubAuthException("Error while retrieving username from Github! Response Body is null!");
     }
 
-    private String parseGithubToken(String responseData) {
-        int start = 13;
-        return responseData.substring(start, start + 40);
+    private HttpHeaders authHeaders(String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "token " + token);
+        return headers;
+    }
+
+    private HttpHeaders jsonHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
+        return headers;
     }
 
 }
