@@ -1,4 +1,6 @@
 package com.example.quiz.security.service;
+
+import com.example.quiz.model.DTO.GithubAccessTokenDTO;
 import com.example.quiz.model.DTO.GithubUserDTO;
 import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.model.GithubRequestData;
@@ -33,9 +35,10 @@ public class UserAuthService implements UserDetailsService {
     private static final String GITHUB_TOKEN_URL = "https://github.com/login/oauth/access_token";
     private static final String GITHUB_USER_URL = "https://api.github.com/user";
     @Value("${github.client.id}")
-    private  String client_id;
+    private String client_id;
     @Value("${github.client.secret}")
     private String client_secret;
+
     @Autowired
     public UserAuthService(UserRepository repository, JWTUtilService jwtService, RestTemplate restTemplate) {
         this.repository = repository;
@@ -91,22 +94,26 @@ public class UserAuthService implements UserDetailsService {
         if (email.length() < 1) throw new IllegalArgumentException("invalid email");
     }
 
-    public String getTokenFromGithub(String code) {
+    public String getTokenFromGithub(String code) throws {
         GithubRequestData requestData = new GithubRequestData(client_id, client_secret, code);
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
-        ResponseEntity<String> token = restTemplate.exchange("https://github.com/login/oauth/access_token/", HttpMethod.POST, new HttpEntity<>(requestData), String.class);
-        return parseGithubToken(token.getBody());
+        ResponseEntity<GithubAccessTokenDTO> response = restTemplate.exchange("https://github.com/login/oauth/access_token/", HttpMethod.POST, new HttpEntity<>(requestData, headers), GithubAccessTokenDTO.class);
+        if (response.getBody() != null) {
+            return parseGithubToken(response.getBody().getAccessToken());
+        }
+        throw new GithubAuthExceptione("Error while authenticating with Github! Response Body is null!");
     }
 
     public String getUsernameFromGithub(String code) {
         String token = getTokenFromGithub(code);
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "token " + token);
-        ResponseEntity<GithubUserDTO> response =  restTemplate.exchange("https://api.github.com/user", HttpMethod.GET, new HttpEntity<>(headers), GithubUserDTO.class);
+        ResponseEntity<GithubUserDTO> response = restTemplate.exchange("https://api.github.com/user", HttpMethod.GET, new HttpEntity<>(headers), GithubUserDTO.class);
         return response.getBody().getLogin();
     }
-    private String parseGithubToken(String responseData){
+
+    private String parseGithubToken(String responseData) {
         int start = 13;
         return responseData.substring(start, start + 40);
     }
