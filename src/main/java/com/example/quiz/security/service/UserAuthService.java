@@ -4,6 +4,7 @@ import com.example.quiz.model.DTO.GithubAccessTokenDTO;
 import com.example.quiz.model.DTO.GithubUserDTO;
 import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.model.GithubRequestData;
+import com.example.quiz.model.exception.GithubAuthException;
 import com.example.quiz.model.exception.UserAlreadyExistsException;
 import com.example.quiz.security.repository.UserRepository;
 import com.example.quiz.service.mapper.UserMapper;
@@ -102,7 +103,7 @@ public class UserAuthService implements UserDetailsService {
         if (response.getBody() != null) {
             return parseGithubToken(response.getBody().getAccessToken());
         }
-        throw new GithubAuthExceptione("Error while authenticating with Github! Response Body is null!");
+        throw new GithubAuthException("Error while authenticating with Github! Response Body is null!");
     }
 
     public String getUsernameFromGithub(String code) {
