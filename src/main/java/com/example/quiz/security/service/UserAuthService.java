@@ -33,6 +33,7 @@ public class UserAuthService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final UserMapper mapper = new UserMapper();
     private final RestTemplate restTemplate;
+    private final UserAuthUtils utils;
     private static final String GITHUB_TOKEN_URL = "https://github.com/login/oauth/access_token";
     private static final String GITHUB_USER_URL = "https://api.github.com/user";
     @Value("${github.client.id}")
@@ -41,10 +42,11 @@ public class UserAuthService implements UserDetailsService {
     private String client_secret;
 
     @Autowired
-    public UserAuthService(UserRepository repository, JWTUtilService jwtService, RestTemplate restTemplate) {
+    public UserAuthService(UserRepository repository, JWTUtilService jwtService, RestTemplate restTemplate, UserAuthUtils utils) {
         this.repository = repository;
         this.jwtService = jwtService;
         this.restTemplate = restTemplate;
+        this.utils = utils;
     }
 
     @Override
@@ -69,31 +71,11 @@ public class UserAuthService implements UserDetailsService {
     }
 
     private void validateUserData(UserDTO user) throws IllegalArgumentException {
-        validatePassword(user.getPassword());
-        validateUsername(user.getUsername());
-        validateEmail(user.getEmail());
+        utils.validatePassword(user.getPassword());
+        utils.validateUsername(user.getUsername());
+        utils.validateEmail(user.getEmail());
     }
 
-    private void validatePassword(String password) throws IllegalArgumentException {
-        //TODO  implement password validator
-        if (password.length() < 3) {
-            throw new IllegalArgumentException("Password too short!");
-        }
-    }
-
-    private void validateUsername(String username) throws IllegalArgumentException {
-        // TODO implement logic for username validation
-        int min = 4;
-        int max = 20;
-        if (username.length() < min || username.length() > max) {
-            throw new IllegalArgumentException(String.format("Username must be longer than %d and shorter than %d characters", min, max));
-        }
-    }
-
-    private void validateEmail(String email) throws IllegalArgumentException {
-        //TODO implement email validation
-        if (email.length() < 1) throw new IllegalArgumentException("invalid email");
-    }
 
     private String getTokenFromGithub(String code) throws GithubAuthException {
         GithubRequestData requestData = new GithubRequestData(client_id, client_secret, code);

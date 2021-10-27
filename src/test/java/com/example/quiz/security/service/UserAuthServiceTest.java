@@ -8,7 +8,6 @@ import com.example.quiz.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,7 +40,7 @@ class UserAuthServiceTest {
 //    private RestTemplate restTemplate = new TestRestTemplate();
 
     @Autowired
-    private final UserAuthService service = new UserAuthService(repository, jwtService, restTemplate);
+    private final UserAuthService service = new UserAuthService(repository, jwtService, restTemplate, utils);
 
 //todo verify repository methods have been called
 
@@ -107,4 +106,6 @@ class UserAuthServiceTest {
     Exception ex = assertThrows(IllegalArgumentException.class, () -> service.signup(user));
     assertThat(ex.getMessage(), is("invalid email"));
     }
+
+
 }
