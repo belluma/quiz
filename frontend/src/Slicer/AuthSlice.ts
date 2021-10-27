@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUser} from "../Interfaces/IUser";
 import {RootState} from "../app/store";
 import {getErrorMessage} from "./ErrorSlice";
-import {sendLoginData, validateToken} from "../services/authService";
+import {sendLoginDataToGithub, sendLoginData, validateToken} from "../services/authService";
 
 const initialState = {
     loggedIn: false,
@@ -20,6 +20,20 @@ export const login = createAsyncThunk(
         return {data, status, statusText}
     }
 )
+export const loginWithGithub = createAsyncThunk(
+    'githubLogin',
+    async (code:string, thunkAPI) =>  {
+        console.log(code);
+        const {data, status, statusText} = await sendLoginDataToGithub(code)
+       if(status !== 200) {
+           thunkAPI.dispatch(getErrorMessage({status,statusText}))
+       }
+        return {data, status, statusText}
+    }
+)
+
+
+
 interface IResponseData {
     data: string;
     status: number,
@@ -49,6 +63,14 @@ export const LoginSlice = createSlice({
             .addCase(login.pending, state => {
             })
             .addCase(login.fulfilled, (state, action: PayloadAction<IResponseData>) => {
+                if (action.payload.status !== 200){
+                    return;
+                }
+                state.loggedIn = true;
+                state.token = action.payload.data
+                localStorage.setItem('codificantesToken', action.payload.data);
+            })
+            .addCase(loginWithGithub.fulfilled, (state, action:PayloadAction<any>) => {
                 if (action.payload.status !== 200){
                     return;
                 }

@@ -14,6 +14,7 @@ import Error from '../error/Error'
 import Goodbye from "../security/goodbye/Goodbye";
 import {Route, Switch} from "react-router";
 import Deck from "../quiz/deck/Deck";
+import GithubLogin from "../security/github-login/GithubLogin";
 
 //interface imports
 
@@ -27,6 +28,7 @@ function MainView(props: Props) {
                     <Route path={"/logout"} component={Goodbye}/>
                     <Route path={"/login"} component={Login}/>
                     <Route path={"/signup"} component={Signup}/>
+                    <Route path={"/githubLogin"} component={GithubLogin}/>
                     <ProtectedRoute path={"/new"} component={CardCreationDialog}/>
                     <ProtectedRoute path={"/quiz"} component={Quiz}/>
                     <ProtectedRoute path={"/all"} component={AllCards}/>

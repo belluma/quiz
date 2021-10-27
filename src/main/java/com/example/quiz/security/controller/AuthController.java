@@ -4,15 +4,12 @@ import com.example.quiz.model.DTO.UserDTO;
 import com.example.quiz.security.service.JWTUtilService;
 import com.example.quiz.security.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
-import javax.security.auth.message.AuthException;
 import java.util.HashMap;
 
 @RestController
@@ -40,6 +37,12 @@ public class AuthController {
     public String signup(@RequestBody UserDTO user)throws IllegalArgumentException, AuthenticationException {
         return userAuthService.signup(user);
     }
-
+    @GetMapping("github/{code}")
+    public String loginWithGithub(@PathVariable String code){
+        System.err.println(code);
+        String username =userAuthService.getUsernameFromGithub(code);
+//        return username + username;
+        return jwtService.createToken(new HashMap<>(), username);
+    }
 
 }

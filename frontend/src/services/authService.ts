@@ -1,5 +1,5 @@
 import {IUser} from "../Interfaces/IUser";
-import axios from "axios";
+import axios, {AxiosError, AxiosResponse} from "axios";
 
 
 const parseJwt = (token: string) => {
@@ -10,9 +10,10 @@ const parseJwt = (token: string) => {
     }
 }
 
-export const validateToken = (token:string):boolean => {
-        const decodedJwt = parseJwt(token);
-        return decodedJwt.exp * 1000  > Date.now()
+export const validateToken = (token: string): boolean => {
+    const decodedJwt = parseJwt(token);
+    if(!decodedJwt) return false;
+    return decodedJwt.exp * 1000 > Date.now()
 }
 
 export const sendLoginData = (credentials: IUser) => {
@@ -25,7 +26,21 @@ export const sendLoginData = (credentials: IUser) => {
         return response
     })
         .catch(err => {
-            return {data: "",status: err.response.status, statusText:err.response.data.message}
+            return {data: "", status: err.response.status, statusText: err.response.data.message}
         })
 }
 
+export const sendLoginDataToGithub = (code: string) => {
+    console.error(code)
+    return axios({
+        method: 'get',
+        url: `/auth/github/${code}`,
+
+    })
+        .then(response => response)
+        .catch(err => parseError(err))
+}
+
+function parseError(err:any) {
+    return {data: "", status: err.response.status, statusText: err.response.data.message}
+}

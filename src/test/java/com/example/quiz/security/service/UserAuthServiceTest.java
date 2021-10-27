@@ -8,12 +8,14 @@ import com.example.quiz.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.naming.AuthenticationException;
 import java.util.HashMap;
@@ -35,11 +37,13 @@ class UserAuthServiceTest {
     private JWTUtilService jwtService = mock(JWTUtilService.class);
     private final PasswordEncoder passwordEncoder =  new BCryptPasswordEncoder();
     private final UserMapper mapper = new UserMapper();
+    private RestTemplate restTemplate = mock(RestTemplate.class);
+//    private RestTemplate restTemplate = new TestRestTemplate();
 
     @Autowired
-    private final UserAuthService service = new UserAuthService(repository, jwtService);
+    private final UserAuthService service = new UserAuthService(repository, jwtService, restTemplate);
 
-
+//todo verify repository methods have been called
 
     @Test
     void loadUserByUsername() {
